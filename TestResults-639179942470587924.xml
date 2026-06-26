@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="17" result="Failed(Child)" total="17" passed="12" failed="5" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-06-25 17:24:06Z" end-time="2026-06-25 17:24:07Z" duration="0,0553329">
+  <test-suite type="TestSuite" id="1000" name="ModelFoundry" fullname="ModelFoundry" runstate="Runnable" testcasecount="17" result="Failed" site="Child" start-time="2026-06-25 17:24:06Z" end-time="2026-06-25 17:24:07Z" duration="0.055333" total="17" passed="12" failed="5" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1020" name="Assembly-CSharp-Editor.dll" fullname="D:/Unity/ModelFoundry/ModelFoundry/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll" runstate="Runnable" testcasecount="17" result="Failed" site="Child" start-time="2026-06-25 17:24:06Z" end-time="2026-06-25 17:24:07Z" duration="0.048317" total="17" passed="12" failed="5" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="33924" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestFixture" id="1001" name="ContractTests" fullname="ContractTests" classname="ContractTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-06-25 17:24:06Z" end-time="2026-06-25 17:24:07Z" duration="0.037276" total="6" passed="1" failed="5" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-case id="1003" name="ContractAcceptance_DeductsFromOffers_AndAppliesUpfront" fullname="ContractTests.ContractAcceptance_DeductsFromOffers_AndAppliesUpfront" methodname="ContractAcceptance_DeductsFromOffers_AndAppliesUpfront" classname="ContractTests" runstate="Runnable" seed="1595257255" result="Failed" start-time="2026-06-25 17:24:06Z" end-time="2026-06-25 17:24:07Z" duration="0.014863" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[  Expected: 1
+  But was:  0
+]]></message>
+            <stack-trace><![CDATA[at ContractTests.ContractAcceptance_DeductsFromOffers_AndAppliesUpfront () [0x0002b] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:75
+]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1004" name="ContractAcceptance_EnforcesActiveLimitOfThree" fullname="ContractTests.ContractAcceptance_EnforcesActiveLimitOfThree" methodname="ContractAcceptance_EnforcesActiveLimitOfThree" classname="ContractTests" runstate="Runnable" seed="1305789561" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.003375" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1005" name="ContractDelivery_AppliesPayout_AndRemovesActive" fullname="ContractTests.ContractDelivery_AppliesPayout_AndRemovesActive" methodname="ContractDelivery_AppliesPayout_AndRemovesActive" classname="ContractTests" runstate="Runnable" seed="1746269397" result="Failed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.001825" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[  Expected: 30000.0f
+  But was:  25000.0f
+]]></message>
+            <stack-trace><![CDATA[at ContractTests.ContractDelivery_AppliesPayout_AndRemovesActive () [0x00139] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:152
+]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1006" name="ContractFailure_AppliesPenalties_AndRemovesActive" fullname="ContractTests.ContractFailure_AppliesPenalties_AndRemovesActive" methodname="ContractFailure_AppliesPenalties_AndRemovesActive" classname="ContractTests" runstate="Runnable" seed="1644628775" result="Failed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000884" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[  Expected: 22000.0f
+  But was:  25000.0f
+]]></message>
+            <stack-trace><![CDATA[at ContractTests.ContractFailure_AppliesPenalties_AndRemovesActive () [0x000cb] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:179
+]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1002" name="ContractGeneration_RespectsTechUnlocks" fullname="ContractTests.ContractGeneration_RespectsTechUnlocks" methodname="ContractGeneration_RespectsTechUnlocks" classname="ContractTests" runstate="Runnable" seed="1140376730" result="Failed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000957" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[  Expected: 1
+  But was:  0
+]]></message>
+            <stack-trace><![CDATA[at ContractTests.ContractGeneration_RespectsTechUnlocks () [0x00075] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:47
+]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1007" name="GlobalAIEvents_ApplyShortageModifiers" fullname="ContractTests.GlobalAIEvents_ApplyShortageModifiers" methodname="GlobalAIEvents_ApplyShortageModifiers" classname="ContractTests" runstate="Runnable" seed="96072180" result="Failed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.002104" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[  Expected: 1.5f
+  But was:  1.0f
+]]></message>
+            <stack-trace><![CDATA[at ContractTests.GlobalAIEvents_ApplyShortageModifiers () [0x0009b] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:200
+]]></stack-trace>
+          </failure>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1008" name="HiringTests" fullname="HiringTests" classname="HiringTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.009344" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1019" name="AnalyticsHistory_RecordsAndRestoresCorrectly" fullname="HiringTests.AnalyticsHistory_RecordsAndRestoresCorrectly" methodname="AnalyticsHistory_RecordsAndRestoresCorrectly" classname="HiringTests" runstate="Runnable" seed="1859930695" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.003771" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1014" name="BuyGpuUpgrade_FailsWhenInsufficientCash" fullname="HiringTests.BuyGpuUpgrade_FailsWhenInsufficientCash" methodname="BuyGpuUpgrade_FailsWhenInsufficientCash" classname="HiringTests" runstate="Runnable" seed="1070996130" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000562" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1013" name="BuyGpuUpgrade_SucceedsAndModifiesState" fullname="HiringTests.BuyGpuUpgrade_SucceedsAndModifiesState" methodname="BuyGpuUpgrade_SucceedsAndModifiesState" classname="HiringTests" runstate="Runnable" seed="1996698498" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000324" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1012" name="GameManager_LoadGameState_RestoresStateCorrectly" fullname="HiringTests.GameManager_LoadGameState_RestoresStateCorrectly" methodname="GameManager_LoadGameState_RestoresStateCorrectly" classname="HiringTests" runstate="Runnable" seed="1748581752" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000323" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1011" name="HireMLEngineer_ModifiesBurnAndTeamSize" fullname="HiringTests.HireMLEngineer_ModifiesBurnAndTeamSize" methodname="HireMLEngineer_ModifiesBurnAndTeamSize" classname="HiringTests" runstate="Runnable" seed="321439210" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000361" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1016" name="RecalculateMonthlyBurn_CorrectlyAppliesModifiers" fullname="HiringTests.RecalculateMonthlyBurn_CorrectlyAppliesModifiers" methodname="RecalculateMonthlyBurn_CorrectlyAppliesModifiers" classname="HiringTests" runstate="Runnable" seed="310075037" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000517" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1017" name="ResearchUnlocks_AdvancedRAndD" fullname="HiringTests.ResearchUnlocks_AdvancedRAndD" methodname="ResearchUnlocks_AdvancedRAndD" classname="HiringTests" runstate="Runnable" seed="1725727266" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000292" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1018" name="SaveLoadSerialization_RestoresPhase4State" fullname="HiringTests.SaveLoadSerialization_RestoresPhase4State" methodname="SaveLoadSerialization_RestoresPhase4State" classname="HiringTests" runstate="Runnable" seed="335091145" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000310" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1009" name="SpendCash_DeductsFromCashBalance" fullname="HiringTests.SpendCash_DeductsFromCashBalance" methodname="SpendCash_DeductsFromCashBalance" classname="HiringTests" runstate="Runnable" seed="234869823" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000320" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1010" name="SpendCash_FailsWhenInsufficientCash" fullname="HiringTests.SpendCash_FailsWhenInsufficientCash" methodname="SpendCash_FailsWhenInsufficientCash" classname="HiringTests" runstate="Runnable" seed="944577727" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000238" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1015" name="TimeController_LoadDateTime_RestoresTimeCorrectly" fullname="HiringTests.TimeController_LoadDateTime_RestoresTimeCorrectly" methodname="TimeController_LoadDateTime_RestoresTimeCorrectly" classname="HiringTests" runstate="Runnable" seed="870055653" result="Passed" start-time="2026-06-25 17:24:07Z" end-time="2026-06-25 17:24:07Z" duration="0.000306" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Saving results to: C:/Users/SuperFast/AppData/LocalLow/DefaultCompany/ModelFoundry\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

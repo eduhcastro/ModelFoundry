@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="18" result="Failed(Child)" total="18" passed="11" failed="7" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0,0458529">
+  <test-suite type="TestSuite" id="1000" name="ModelFoundry" fullname="ModelFoundry" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.045853" total="18" passed="11" failed="7" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1021" name="Assembly-CSharp-Editor.dll" fullname="D:/Unity/ModelFoundry/ModelFoundry/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.039779" total="18" passed="11" failed="7" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29552" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestFixture" id="1001" name="ContractTests" fullname="ContractTests" classname="ContractTests" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.021294" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-case id="1004" name="ContractAcceptance_DeductsFromOffers_AndAppliesUpfront" fullname="ContractTests.ContractAcceptance_DeductsFromOffers_AndAppliesUpfront" methodname="ContractAcceptance_DeductsFromOffers_AndAppliesUpfront" classname="ContractTests" runstate="Runnable" seed="541845580" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.008003" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1005" name="ContractAcceptance_EnforcesActiveLimitOfThree" fullname="ContractTests.ContractAcceptance_EnforcesActiveLimitOfThree" methodname="ContractAcceptance_EnforcesActiveLimitOfThree" classname="ContractTests" runstate="Runnable" seed="1329513362" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000334" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1006" name="ContractDelivery_AppliesPayout_AndRemovesActive" fullname="ContractTests.ContractDelivery_AppliesPayout_AndRemovesActive" methodname="ContractDelivery_AppliesPayout_AndRemovesActive" classname="ContractTests" runstate="Runnable" seed="832273808" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000292" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1007" name="ContractFailure_AppliesPenalties_AndRemovesActive" fullname="ContractTests.ContractFailure_AppliesPenalties_AndRemovesActive" methodname="ContractFailure_AppliesPenalties_AndRemovesActive" classname="ContractTests" runstate="Runnable" seed="763372460" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000251" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1003" name="ContractGeneration_RespectsTechUnlocks" fullname="ContractTests.ContractGeneration_RespectsTechUnlocks" methodname="ContractGeneration_RespectsTechUnlocks" classname="ContractTests" runstate="Runnable" seed="1888989421" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000242" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1002" name="Diagnostic_CheckInstances" fullname="ContractTests.Diagnostic_CheckInstances" methodname="Diagnostic_CheckInstances" classname="ContractTests" runstate="Runnable" seed="1735731156" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000241" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1008" name="GlobalAIEvents_ApplyShortageModifiers" fullname="ContractTests.GlobalAIEvents_ApplyShortageModifiers" methodname="GlobalAIEvents_ApplyShortageModifiers" classname="ContractTests" runstate="Runnable" seed="841064743" result="Failed" label="Error" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000253" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.InvalidOperationException : The following game object is invoking the DontDestroyOnLoad method: GameManager. Notice that DontDestroyOnLoad can only be used in play mode and, as such, cannot be part of an editor script.]]></message>
+            <stack-trace><![CDATA[--SetUp
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+  at ContractTests.SetUp () [0x00027] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Editor\ContractTests.cs:39 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 
+--InvalidOperationException
+  at (wrapper managed-to-native) UnityEngine.Object.DontDestroyOnLoad_Injected(intptr)
+  at UnityEngine.Object.DontDestroyOnLoad (UnityEngine.Object target) [0x00023] in <baf9d421e5ac43acaf162d71aef6a04c>:0 
+  at GameManager.Awake () [0x0002c] in D:\Unity\ModelFoundry\ModelFoundry\Assets\Scripts\Core\GameManager.cs:75 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1009" name="HiringTests" fullname="HiringTests" classname="HiringTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.017310" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1020" name="AnalyticsHistory_RecordsAndRestoresCorrectly" fullname="HiringTests.AnalyticsHistory_RecordsAndRestoresCorrectly" methodname="AnalyticsHistory_RecordsAndRestoresCorrectly" classname="HiringTests" runstate="Runnable" seed="1794371913" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.011309" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1015" name="BuyGpuUpgrade_FailsWhenInsufficientCash" fullname="HiringTests.BuyGpuUpgrade_FailsWhenInsufficientCash" methodname="BuyGpuUpgrade_FailsWhenInsufficientCash" classname="HiringTests" runstate="Runnable" seed="12227216" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000927" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1014" name="BuyGpuUpgrade_SucceedsAndModifiesState" fullname="HiringTests.BuyGpuUpgrade_SucceedsAndModifiesState" methodname="BuyGpuUpgrade_SucceedsAndModifiesState" classname="HiringTests" runstate="Runnable" seed="508583625" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000544" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1013" name="GameManager_LoadGameState_RestoresStateCorrectly" fullname="HiringTests.GameManager_LoadGameState_RestoresStateCorrectly" methodname="GameManager_LoadGameState_RestoresStateCorrectly" classname="HiringTests" runstate="Runnable" seed="1821686386" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000504" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1012" name="HireMLEngineer_ModifiesBurnAndTeamSize" fullname="HiringTests.HireMLEngineer_ModifiesBurnAndTeamSize" methodname="HireMLEngineer_ModifiesBurnAndTeamSize" classname="HiringTests" runstate="Runnable" seed="707583353" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000402" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1017" name="RecalculateMonthlyBurn_CorrectlyAppliesModifiers" fullname="HiringTests.RecalculateMonthlyBurn_CorrectlyAppliesModifiers" methodname="RecalculateMonthlyBurn_CorrectlyAppliesModifiers" classname="HiringTests" runstate="Runnable" seed="778963804" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000566" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1018" name="ResearchUnlocks_AdvancedRAndD" fullname="HiringTests.ResearchUnlocks_AdvancedRAndD" methodname="ResearchUnlocks_AdvancedRAndD" classname="HiringTests" runstate="Runnable" seed="985060212" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000273" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1019" name="SaveLoadSerialization_RestoresPhase4State" fullname="HiringTests.SaveLoadSerialization_RestoresPhase4State" methodname="SaveLoadSerialization_RestoresPhase4State" classname="HiringTests" runstate="Runnable" seed="1284767797" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000267" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1010" name="SpendCash_DeductsFromCashBalance" fullname="HiringTests.SpendCash_DeductsFromCashBalance" methodname="SpendCash_DeductsFromCashBalance" classname="HiringTests" runstate="Runnable" seed="665804420" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000227" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1011" name="SpendCash_FailsWhenInsufficientCash" fullname="HiringTests.SpendCash_FailsWhenInsufficientCash" methodname="SpendCash_FailsWhenInsufficientCash" classname="HiringTests" runstate="Runnable" seed="997026715" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000224" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1016" name="TimeController_LoadDateTime_RestoresTimeCorrectly" fullname="HiringTests.TimeController_LoadDateTime_RestoresTimeCorrectly" methodname="TimeController_LoadDateTime_RestoresTimeCorrectly" classname="HiringTests" runstate="Runnable" seed="394457312" result="Passed" start-time="2026-06-25 17:28:15Z" end-time="2026-06-25 17:28:15Z" duration="0.000386" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Saving results to: C:/Users/SuperFast/AppData/LocalLow/DefaultCompany/ModelFoundry\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
