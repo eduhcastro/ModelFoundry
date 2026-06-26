@@ -1,39 +1,39 @@
-# Model Foundry — Sistema de Concorrentes e Progressão de Mercado
-**Versão:** 0.2  
-**Status:** base de design para o protótipo Unity  
-**Escopo:** campanha, rivais, mercados, TechPulse e regras de simulação
+# Model Foundry — Rival System and Market Progression
+**Version:** 0.2  
+**Status:** design base for the Unity prototype  
+**Scope:** campaign, rivals, markets, TechPulse and simulation rules
 
 ---
 
-## 1. Decisão de produto
+## 1. Product decision
 
-*Model Foundry* é um management sim sobre fundar e escalar uma empresa de IA. O jogador deve conseguir vencer por uma estratégia própria — eficiência, produtos verticais, segurança, dados, distribuição, modelos abertos ou pesquisa de fronteira — e não apenas por acumular dinheiro.
+*Model Foundry* is a management sim about founding and scaling an AI company. The player must be able to win through their own strategy — efficiency, vertical products, safety, data, distribution, open models or frontier research — and not just by accumulating money.
 
-Os concorrentes existem para criar:
-- contexto de mercado;
-- pressão e oportunidades;
-- histórias no TechPulse;
-- decisões de posicionamento;
-- sensação de uma indústria evoluindo.
+Competitors exist to create:
+- market context;
+- pressure and opportunities;
+- stories on TechPulse;
+- positioning decisions;
+- the feeling of an evolving industry.
 
-Eles **não** devem funcionar como uma lista de chefes com força fixa nem como empresas que trapaceiam para sempre superar o jogador.
+They **must not** act like a list of bosses with fixed strength, nor like companies that cheat to forever outpace the player.
 
-### Objetivos de design
+### Design goals
 
-1. O jogador começa pequeno, mas tem rotas críveis para liderar um nicho ou o mercado.
-2. Cada rival tem vantagens, limites e uma identidade legível.
-3. A comparação é feita por **mercado e produto**, não por uma “média global” de qualidade.
-4. Todo grande movimento de rival gera ao menos uma oportunidade de resposta.
-5. O mundo avança no tempo, mas os resultados variam entre campanhas.
-6. As referências à indústria real são abstratas; o universo, as marcas e os produtos do jogo são fictícios.
+1. The player starts small but has credible routes to lead a niche or the market.
+2. Each rival has advantages, limits and a readable identity.
+3. Comparison is done by **market and product**, not by a global "quality average".
+4. Every big rival move creates at least one possible response opportunity.
+5. The world advances in time, but results vary between campaigns.
+6. References to the real industry are abstract; the universe, brands and products in the game are fictional.
 
 ---
 
-## 2. Regra obrigatória de marcas e logos
+## 2. Mandatory brand and logo rule
 
-Os arquivos atuais em `MyAssets/Rivals/` devem ser tratados como **referências privadas de desenvolvimento**, não como assets de lançamento.
+The current files in `MyAssets/Rivals/` must be treated as **private development references**, not as launch assets.
 
-Arquivos recebidos:
+Received files:
 - `openai.png`
 - `anthropic.png`
 - `grok.png`
@@ -43,50 +43,50 @@ Arquivos recebidos:
 - `minilist.jpg`
 - `company-logo-designed.jpg`
 
-### Política de uso
+### Usage policy
 
-- Não publicar esses logos, nomes ou identidades visuais de terceiros em build, Steam page, trailer, screenshots ou marketing.
-- Não usar nomes que confundam o jogador sobre uma relação, licença ou endosso de empresas reais.
-- Antes de uma demo pública, substituir todos por logos originais criados para *Model Foundry* ou licenciados de forma explícita.
-- Manter referências externas fora de `Assets/`, por exemplo em `Reference/DoNotShip/`, e ignorá-las no Git. Isso reduz o risco de um asset entrar no build por engano.
-- Fazer uma checagem de marca antes de fixar qualquer nome comercial final. Os nomes abaixo são nomes internos de trabalho.
+- Do not publish these logos, names or visual identities of third parties in a build, Steam page, trailer, screenshots or marketing.
+- Do not use names that mislead the player about a relationship, license or endorsement with real companies.
+- Before a public demo, replace all of them with original logos created for *Model Foundry* or explicitly licensed.
+- Keep external references outside `Assets/`, for example in `Reference/DoNotShip/`, and ignore them in Git. This reduces the risk of an asset entering the build by mistake.
+- Do a trademark check before locking any final commercial name. The names below are internal working names.
 
-### Mapeamento temporário de referência
+### Temporary reference mapping
 
-| ID | Empresa fictícia exibida no jogo | Arquivo atual de referência | Papel no mercado | Status para lançamento |
+| ID | Fictional company shown in game | Current reference file | Role in market | Status for launch |
 |---|---|---:|---|---|
-| `RIV_NEURAFORGE` | NeuraForge | `openai.png` | Laboratório de fronteira | Substituir logo |
-| `RIV_AEGIS` | Aegis Research | `anthropic.png` | Segurança e enterprise | Substituir logo |
-| `RIV_PULSEFRAME` | Pulseframe | `grok.png` | Consumer, dados em tempo real e hype | Substituir logo |
-| `RIV_HAPLOWORKS` | HaploWorks | `haploLogo.png` | Automação vertical B2B | Verificar origem/licença; preferir substituir |
-| `RIV_PRISMFLOW` | Prismflow | `pixflow.jpg` | Criação, vídeo e multimodalidade | Verificar origem/licença; preferir substituir |
-| `RIV_VECTORIA` | Vectoria | `freepik.jpg` | Plataforma de conteúdo visual e dados | Substituir logo |
-| `RIV_MINICORE` | MiniCore | `minilist.jpg` | IA pequena, on-device e eficiência | Verificar origem/licença; preferir substituir |
-| `RIV_CLOUDHARBOR` | Cloudharbor | `company-logo-designed.jpg` | Nuvem, GPUs e infraestrutura | Verificar origem/licença; preferir substituir |
+| `RIV_NEURAFORGE` | NeuraForge | `openai.png` | Frontier lab | Replace logo |
+| `RIV_AEGIS` | Aegis Research | `anthropic.png` | Safety and enterprise | Replace logo |
+| `RIV_PULSEFRAME` | Pulseframe | `grok.png` | Consumer, real-time data and hype | Replace logo |
+| `RIV_HAPLOWORKS` | HaploWorks | `haploLogo.png` | Vertical B2B automation | Verify origin/license; prefer to replace |
+| `RIV_PRISMFLOW` | Prismflow | `pixflow.jpg` | Creative, video and multimodality | Verify origin/license; prefer to replace |
+| `RIV_VECTORIA` | Vectoria | `freepik.jpg` | Visual content and data platform | Replace logo |
+| `RIV_MINICORE` | MiniCore | `minilist.jpg` | Small AI, on-device and efficiency | Verify origin/license; prefer to replace |
+| `RIV_CLOUDHARBOR` | Cloudharbor | `company-logo-designed.jpg` | Cloud, GPUs and infrastructure | Verify origin/license; prefer to replace |
 
-> **Nota:** o arquivo de referência não determina a identidade final da empresa. Nome, símbolo, paleta e personalidade devem ser próprios.
+> **Note:** the reference file does not determine the company's final identity. Name, symbol, palette and personality must be original.
 
 ---
 
-## 3. Estrutura de mercado
+## 3. Market structure
 
-O jogo não terá um único placar de “melhor IA”. Cada lançamento pertence a um mercado com critérios diferentes.
+The game will not have a single "best AI" scoreboard. Each launch belongs to a market with different criteria.
 
-### Mercados jogáveis
+### Playable markets
 
-| Mercado | Exemplos de produtos | Métricas mais importantes |
+| Market | Example products | Most important metrics |
 |---|---|---|
-| Assistentes e automação | chatbots, copilots, atendimento | qualidade, custo, confiabilidade, integração |
-| Enterprise e operações | OCR, classificação, previsão, workflows | segurança, precisão, suporte, compliance |
-| Criatividade e mídia | imagem, vídeo, voz, design | qualidade estética, velocidade, licença, controle |
-| Visão e indústria | inspeção, robótica, análise visual | precisão, latência, robustez, hardware |
-| Modelos de fundação | LLMs, multimodais, reasoning | capacidade, contexto, custo de inferência, segurança |
-| Edge e dispositivos | modelos locais, IA embarcada | eficiência, tamanho, privacidade, bateria |
-| Infraestrutura | cloud, GPUs, serving, dados | disponibilidade, preço, capacidade, energia |
+| Assistants and automation | chatbots, copilots, support | quality, cost, reliability, integration |
+| Enterprise and operations | OCR, classification, forecast, workflows | security, precision, support, compliance |
+| Creativity and media | image, video, voice, design | aesthetic quality, speed, license, control |
+| Vision and industry | inspection, robotics, visual analysis | precision, latency, robustness, hardware |
+| Foundation models | LLMs, multimodal, reasoning | capability, context, inference cost, safety |
+| Edge and devices | local models, embedded AI | efficiency, size, privacy, battery |
+| Infrastructure | cloud, GPUs, serving, data | availability, price, capacity, energy |
 
-### Pontuação de produto por mercado
+### Per-market product score
 
-Cada produto recebe uma nota interna de 0 a 100 por dimensão. A nota comercial deve variar conforme o mercado.
+Each product gets an internal 0-100 score per dimension. The commercial score varies by market.
 
 ```text
 ProductScore =
@@ -98,210 +98,210 @@ ProductScore =
   + UserExperience
 ```
 
-A ponderação muda conforme o segmento. Um modelo para banco valoriza segurança e confiabilidade; uma ferramenta criativa valoriza qualidade visual e velocidade; um modelo on-device valoriza eficiência.
+The weighting changes per segment. A banking model values safety and reliability; a creative tool values visual quality and speed; an on-device model values efficiency.
 
-**Regra:** um lançamento do jogador abaixo da fronteira técnica ainda pode vencer se entregar melhor custo, integração, privacidade, UX, nicho ou distribuição.
+**Rule:** a player launch below the technical frontier can still win if it delivers better cost, integration, privacy, UX, niche fit or distribution.
 
 ---
 
-## 4. Campanha e eras tecnológicas
+## 4. Campaign and technological eras
 
-### Duração padrão
+### Default duration
 
-- Início: janeiro de **2016**
-- Fim da campanha principal: dezembro de **2032**
-- Após o fim: modo sandbox com eventos gerados
-- Escala: um mês de jogo é a unidade econômica principal; semanas existem para animações, tarefas e alertas curtos.
+- Start: January **2016**
+- End of main campaign: December **2032**
+- After the end: sandbox mode with generated events
+- Scale: one in-game month is the main economic unit; weeks exist for animations, tasks and short alerts.
 
-A campanha usa anos como referência, mas é uma história alternativa. O jogador pode antecipar certos avanços, atrasá-los ou forçar o mercado a reagir a uma descoberta própria.
+The campaign uses years as reference, but it is an alternate history. The player can anticipate certain advances, delay them, or force the market to react to one of their own discoveries.
 
-### Regras da evolução global
+### Global evolution rules
 
-Cada era possui:
-- uma data mínima;
-- tecnologias habilitadas;
-- um `MarketFrontier` esperado;
-- eventos de transição;
-- novas classes de concorrente;
-- novas demandas de clientes.
+Each era has:
+- a minimum date;
+- enabled technologies;
+- an expected `MarketFrontier`;
+- transition events;
+- new competitor classes;
+- new client demands.
 
-A data abre possibilidades; ela não entrega poder automático. Para aproveitar uma nova era, a empresa precisa de equipe, pesquisa, dados, compute e caixa.
+The date opens possibilities; it does not grant automatic power. To take advantage of a new era the company needs team, research, data, compute and cash.
 
 ### Eras
 
-| Era | Período-base | Tema | O que muda para o jogador |
+| Era | Base period | Theme | What changes for the player |
 |---|---|---|---|
-| 1. IA aplicada | 2016–2017 | automação, classificação, visão básica | primeiros contratos, datasets pequenos, cloud cara |
-| 2. Deep learning operacional | 2018–2020 | modelos especializados e pipelines | MLOps, dados proprietários, GPU clusters pequenos |
-| 3. Geração e plataformas | 2021–2022 | geração de texto, imagem, voz e APIs | produtos de plataforma, riscos de conteúdo, escala |
-| 4. Modelos de fundação | 2023–2025 | LLMs, multimodalidade e open weights | custos altos, benchmarks, contratos grandes, competição global |
-| 5. Reasoning e agentes | 2026–2028 | raciocínio, ferramentas e fluxos autônomos | segurança, observabilidade, autonomia e incidentes |
-| 6. Ecossistemas autônomos | 2029–2032 | sistemas de múltiplos agentes e infraestrutura própria | datacenter, governança, energia, aquisições e liderança de mercado |
+| 1. Applied AI | 2016–2017 | automation, classification, basic vision | first contracts, small datasets, expensive cloud |
+| 2. Operational deep learning | 2018–2020 | specialized models and pipelines | MLOps, proprietary data, small GPU clusters |
+| 3. Generation and platforms | 2021–2022 | text, image, voice generation and APIs | platform products, content risks, scale |
+| 4. Foundation models | 2023–2025 | LLMs, multimodality and open weights | high costs, benchmarks, big contracts, global competition |
+| 5. Reasoning and agents | 2026–2028 | reasoning, tools and autonomous flows | safety, observability, autonomy and incidents |
+| 6. Autonomous ecosystems | 2029–2032 | multi-agent systems and own infrastructure | datacenter, governance, energy, acquisitions and market leadership |
 
-### Transição de era
+### Era transition
 
-Para manter a campanha viva, uma era avança quando:
+To keep the campaign alive, an era advances when:
 
 ```text
-Calendário atingiu a data mínima
-E
-ocorreu um evento de mercado ou descoberta relevante
-E
-ao menos uma empresa atingiu a capacidade técnica requerida
+The calendar reached the minimum date
+AND
+a relevant market event or discovery occurred
+AND
+at least one company reached the required technical capacity
 ```
 
-O jogador pode ser essa empresa. Se ele fizer uma descoberta antes dos rivais, recebe uma janela de liderança e os demais precisam reagir, em vez de receberem imediatamente a mesma tecnologia.
+The player can be that company. If they make a discovery before rivals, they get a leadership window and others must react — instead of immediately receiving the same technology.
 
 ---
 
-## 5. Empresas rivais
+## 5. Rival companies
 
-### 5.1 NeuraForge — laboratório de fronteira
+### 5.1 NeuraForge — frontier lab
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_NEURAFORGE` |
-| Arquétipo | Frontier / agressiva |
-| Entrada | 2016 |
-| Mercados | modelos de fundação, APIs, agentes |
-| Vantagens | pesquisa, captação, lançamento e marca |
-| Fraquezas | custo operacional, incidentes públicos, foco excessivo em frontier |
-| Curva de força | Tier 2 em 2016 → Tier 4 em 2022 → Tier 5 em 2025 |
-| Resposta típica | lançamento rápido, benchmark, corte de preço seletivo, recrutamento |
+| Archetype | Frontier / aggressive |
+| Entry | 2016 |
+| Markets | foundation models, APIs, agents |
+| Strengths | research, fundraising, launch and brand |
+| Weaknesses | operating cost, public incidents, excessive frontier focus |
+| Strength curve | Tier 2 in 2016 → Tier 4 in 2022 → Tier 5 in 2025 |
+| Typical response | fast launch, benchmark, selective price cut, recruiting |
 
-A NeuraForge é a referência técnica do mercado em momentos específicos, mas não deve dominar todos os segmentos. Ela pode ignorar contratos médios, produtos locais e integrações específicas — espaço natural para o jogador.
+NeuraForge is the technical reference of the market at specific moments, but it should not dominate every segment. It can ignore mid-size contracts, local products and specific integrations — natural space for the player.
 
-### 5.2 Aegis Research — segurança e enterprise
+### 5.2 Aegis Research — safety and enterprise
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_AEGIS` |
-| Arquétipo | cautelosa / research-first |
-| Entrada | 2021 |
-| Mercados | enterprise, modelos de fundação, segurança |
-| Vantagens | confiança, compliance, retenção de clientes |
-| Fraquezas | lançamentos mais lentos, custo alto, menor apelo consumer |
-| Curva de força | ausente → Tier 3 em 2022 → Tier 5 em 2027 |
-| Resposta típica | auditoria, lançamento seguro, parceria corporativa, relatório técnico |
+| Archetype | cautious / research-first |
+| Entry | 2021 |
+| Markets | enterprise, foundation models, safety |
+| Strengths | trust, compliance, client retention |
+| Weaknesses | slower launches, high cost, less consumer appeal |
+| Strength curve | absent → Tier 3 in 2022 → Tier 5 in 2027 |
+| Typical response | audit, safe launch, corporate partnership, technical report |
 
-A Aegis é forte quando o mercado sofre incidentes. Ela não deve punir o jogador por ser ousado; ela deve converter medo do mercado em contratos premium.
+Aegis is strong when the market suffers incidents. It should not punish the player for being bold; it should convert market fear into premium contracts.
 
-### 5.3 Pulseframe — dados em tempo real e produto consumer
+### 5.3 Pulseframe — real-time data and consumer product
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_PULSEFRAME` |
-| Arquétipo | bold / viral |
-| Entrada | 2023 |
-| Mercados | consumer, busca, assistentes e agentes |
-| Vantagens | distribuição, velocidade, hype e dados de comportamento |
-| Fraquezas | reputação volátil, privacidade, estabilidade de produto |
-| Curva de força | ausente → Tier 3 em 2024 → Tier 4 em 2026 |
-| Resposta típica | posts provocativos, lançamento beta, integração inesperada, polêmica |
+| Archetype | bold / viral |
+| Entry | 2023 |
+| Markets | consumer, search, assistants and agents |
+| Strengths | distribution, speed, hype and behavior data |
+| Weaknesses | volatile reputation, privacy, product stability |
+| Strength curve | absent → Tier 3 in 2024 → Tier 4 in 2026 |
+| Typical response | provocative posts, beta launch, unexpected integration, controversy |
 
-A Pulseframe deve movimentar o TechPulse, mas não ser “dinheiro infinito”. Em troca de crescimento rápido, ela acumula risco de crise e instabilidade.
+Pulseframe should move TechPulse but not be "infinite money". In exchange for fast growth, it accumulates crisis risk and instability.
 
-### 5.4 HaploWorks — automação vertical
+### 5.4 HaploWorks — vertical automation
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_HAPLOWORKS` |
-| Arquétipo | pragmática / B2B |
-| Entrada | 2016 |
-| Mercados | OCR, atendimento, workflows, previsão |
-| Vantagens | contratos recorrentes, implantação, custo disciplinado |
-| Fraquezas | pouca inovação de fronteira, produto menos chamativo |
-| Curva de força | Tier 2 → Tier 3 |
-| Resposta típica | desconto por contrato, expansão regional, parceria de integração |
+| Archetype | pragmatic / B2B |
+| Entry | 2016 |
+| Markets | OCR, support, workflows, forecasting |
+| Strengths | recurring contracts, deployment, disciplined cost |
+| Weaknesses | little frontier innovation, less flashy product |
+| Strength curve | Tier 2 → Tier 3 |
+| Typical response | contract discount, regional expansion, integration partnership |
 
-HaploWorks é o rival inicial mais importante. Ela ensina que produto útil e bem vendido pode vencer tecnologia mais sofisticada.
+HaploWorks is the most important early rival. It teaches that a useful, well-sold product can beat more sophisticated technology.
 
-### 5.5 Prismflow — criação e multimodalidade
+### 5.5 Prismflow — creation and multimodality
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_PRISMFLOW` |
-| Arquétipo | criativa / trend-driven |
-| Entrada | 2018 |
-| Mercados | imagem, vídeo, áudio e ferramentas criativas |
-| Vantagens | comunidade criativa, lançamentos visuais, viralidade |
-| Fraquezas | questões de direitos, moderação e fidelidade de clientes |
-| Curva de força | Tier 2 → Tier 4 |
-| Resposta típica | desafio criativo, lançamento de feature, campanha comunitária |
+| Archetype | creative / trend-driven |
+| Entry | 2018 |
+| Markets | image, video, audio and creative tools |
+| Strengths | creative community, visual launches, virality |
+| Weaknesses | rights issues, moderation and client fidelity |
+| Strength curve | Tier 2 → Tier 4 |
+| Typical response | creative challenge, feature launch, community campaign |
 
-### 5.6 Vectoria — conteúdo, dados e distribuição
+### 5.6 Vectoria — content, data and distribution
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_VECTORIA` |
-| Arquétipo | plataforma / marketplace |
-| Entrada | 2017 |
-| Mercados | mídia, dados licenciados, ferramentas criativas |
-| Vantagens | distribuição, catálogo, parcerias de dados |
-| Fraquezas | dependência de creators e disputas de licenciamento |
-| Curva de força | Tier 2 → Tier 3 |
-| Resposta típica | licenciamento exclusivo, bundle, campanha de parceiros |
+| Archetype | platform / marketplace |
+| Entry | 2017 |
+| Markets | media, licensed data, creative tools |
+| Strengths | distribution, catalog, data partnerships |
+| Weaknesses | dependence on creators and licensing disputes |
+| Strength curve | Tier 2 → Tier 3 |
+| Typical response | exclusive licensing, bundle, partner campaign |
 
-Vectoria não precisa criar o melhor modelo; ela pode reduzir a vantagem de um laboratório rival por possuir dados ou distribuição.
+Vectoria does not need to build the best model; it can reduce a rival lab's advantage by owning data or distribution.
 
-### 5.7 MiniCore — eficiência e on-device
+### 5.7 MiniCore — efficiency and on-device
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_MINICORE` |
-| Arquétipo | eficiente / engenharia-first |
-| Entrada | 2019 |
-| Mercados | edge, dispositivos, inferência barata |
-| Vantagens | latência, custo, privacidade e hardware |
-| Fraquezas | capacidade de fronteira, dependência de parceiros de device |
-| Curva de força | Tier 2 → Tier 4 |
-| Resposta típica | compressão, modelo compacto, contrato de hardware |
+| Archetype | efficient / engineering-first |
+| Entry | 2019 |
+| Markets | edge, devices, cheap inference |
+| Strengths | latency, cost, privacy and hardware |
+| Weaknesses | frontier capacity, dependence on device partners |
+| Strength curve | Tier 2 → Tier 4 |
+| Typical response | compression, compact model, hardware contract |
 
-MiniCore cria uma rota válida contra a corrida por parâmetros: vencer por custo e distribuição local.
+MiniCore creates a valid route against the parameter race: win by cost and local distribution.
 
-### 5.8 Cloudharbor — infraestrutura e energia
+### 5.8 Cloudharbor — infrastructure and energy
 
-| Campo | Definição |
+| Field | Definition |
 |---|---|
 | ID | `RIV_CLOUDHARBOR` |
-| Arquétipo | infraestrutura / plataforma |
-| Entrada | 2016 |
-| Mercados | cloud, compute, serving, energia |
-| Vantagens | capital, capacidade, datacenter e contratos |
-| Fraquezas | não possui o melhor produto final; exposição a energia e regulação |
-| Curva de força | Tier 4 → Tier 5 |
-| Resposta típica | mudança de preço de GPU, novo datacenter, parceria exclusiva, capacidade limitada |
+| Archetype | infrastructure / platform |
+| Entry | 2016 |
+| Markets | cloud, compute, serving, energy |
+| Strengths | capital, capacity, datacenter and contracts |
+| Weaknesses | does not have the best end product; exposure to energy and regulation |
+| Strength curve | Tier 4 → Tier 5 |
+| Typical response | GPU price change, new datacenter, exclusive partnership, limited capacity |
 
-A Cloudharbor é mais rica que os laboratórios de modelo em muitos momentos, mas não disputa diretamente a reputação do jogador em cada produto. Ela muda o custo e a disponibilidade de compute para todos.
+Cloudharbor is richer than model labs in many moments, but it does not directly dispute the player's reputation on each product. It changes the cost and availability of compute for everyone.
 
 ---
 
-## 6. Força, riqueza e incerteza
+## 6. Strength, wealth and uncertainty
 
-### Não usar uma hierarquia financeira fixa
+### Do not use a fixed financial hierarchy
 
-A frase “empresa X é sempre a mais rica” reduz a rejogabilidade e torna a economia previsível. Em vez disso, cada empresa possui faixas de capital e uma estratégia financeira.
+The phrase "company X is always the richest" reduces replayability and makes the economy predictable. Instead, each company has capital bands and a financial strategy.
 
-| Faixa | Significado |
+| Band | Meaning |
 |---|---|
-| Baixa | precisa de receita ou rodada em breve |
-| Estável | consegue financiar projetos normais |
-| Alta | suporta apostas de médio prazo |
-| Estratégica | consegue influenciar mercado, contratar e comprar capacidade |
-| Hiperescala | pode construir infraestrutura e absorver choques |
+| Low | needs revenue or a round soon |
+| Stable | can fund normal projects |
+| High | can afford medium-term bets |
+| Strategic | can influence the market, hire and buy capacity |
+| Hyperscale | can build infrastructure and absorb shocks |
 
-O jogo mostra essa informação por sinais visíveis:
-- tamanho dos escritórios;
-- anúncios de rodada;
-- expansão de datacenter;
-- contratação em massa;
-- postura em contratos;
-- posts no TechPulse;
-- relatórios de mercado.
+The game conveys this information through visible signals:
+- office size;
+- round announcements;
+- datacenter expansion;
+- mass hiring;
+- posture in contracts;
+- TechPulse posts;
+- market reports.
 
-O valor exato de caixa rival fica oculto, exceto quando vazamentos, IPOs ou reportagens o revelam.
+The exact rival cash value is hidden, except when leaks, IPOs or reporting reveal it.
 
-### Atributos internos de cada empresa
+### Internal attributes of each company
 
 ```text
 Capital
@@ -312,202 +312,202 @@ Operations
 Distribution
 BrandTrust
 SafetyMaturity
-DomainCapability[mercado]
+DomainCapability[market]
 CurrentStrategy
 FinancialRunway
 ActiveProjects
 RecentIncidents
 ```
 
-O **Tier** é só um resumo de UI. O resultado real vem da combinação desses atributos.
+The **Tier** is only a UI summary. The real result comes from the combination of these attributes.
 
 ---
 
-## 7. Motor de decisão dos concorrentes
+## 7. Competitor decision engine
 
-A cada mês, cada empresa ativa escolhe uma ação estratégica. Uma empresa não pode executar duas ações grandes em sequência sem custo, cooldown ou capacidade disponível.
+Every month, each active company picks one strategic action. A company cannot execute two big actions in a row without cost, cooldown or available capacity.
 
-### Processo mensal
+### Monthly process
 
 ```text
-1. Atualizar caixa, receita, custos e projetos em andamento.
-2. Medir oportunidades e ameaças por mercado.
-3. Identificar a maior prioridade da empresa.
-4. Selecionar uma ação permitida.
-5. Resolver resultado, impacto de mercado e TechPulse.
-6. Aplicar cooldowns e criar pistas para o jogador.
+1. Update cash, revenue, costs and ongoing projects.
+2. Measure opportunities and threats per market.
+3. Identify the company's top priority.
+4. Select an allowed action.
+5. Resolve result, market impact and TechPulse.
+6. Apply cooldowns and create leads for the player.
 ```
 
-### Prioridades possíveis
+### Possible priorities
 
-- proteger participação de mercado;
-- responder a um lançamento do jogador;
-- recuperar reputação;
-- levantar capital;
-- reduzir custo;
-- entrar em novo mercado;
-- adquirir talento ou empresa;
-- lançar modelo;
-- publicar pesquisa;
-- fechar parceria;
-- criar padrão aberto;
-- sobreviver a crise.
+- protect market share;
+- respond to a player launch;
+- recover reputation;
+- raise capital;
+- reduce cost;
+- enter a new market;
+- acquire talent or a company;
+- launch a model;
+- publish research;
+- close a partnership;
+- create an open standard;
+- survive a crisis.
 
-### Ações principais
+### Main actions
 
-| Ação | Efeito | Janela para o jogador |
+| Action | Effect | Window for the player |
 |---|---|---|
-| Lançar modelo | aumenta fronteira de um mercado | diferenciar por nicho, preço ou confiança |
-| Reduzir preço | pressiona margem | focar em premium, eficiência ou bundle |
-| Abrir pesos | derruba barreira técnica | adaptar, especializar ou vender serviço |
-| Assinar parceria | reforça distribuição ou dados | buscar outro parceiro ou verticalizar |
-| Anunciar benchmark | gera hype e expectativa | desafiar, ignorar ou lançar avaliação própria |
-| Contratar equipe-chave | aumenta capacidade futura | contraoferta, contratação alternativa ou automação |
-| Investir em datacenter | reduz custo futuro | travar capacidade cloud antes da mudança |
-| Sofrer incidente | derruba confiança | oferecer alternativa segura e ganhar contratos |
-| Fazer acquihire | fortalece uma especialidade | comprar concorrente menor ou defender talentos |
-| Lançar campanha | aumenta demanda no setor | aproveitar tráfego e competir em comunicação |
+| Launch model | raises a market's frontier | differentiate by niche, price or trust |
+| Cut price | pressures margin | focus on premium, efficiency or bundle |
+| Open weights | lowers the technical barrier | adapt, specialize or sell service |
+| Sign partnership | strengthens distribution or data | seek another partner or verticalize |
+| Announce benchmark | generates hype and expectation | challenge, ignore or release own evaluation |
+| Hire key team | increases future capacity | counter-offer, alternative hiring or automation |
+| Invest in datacenter | reduces future cost | lock cloud capacity before the change |
+| Suffer incident | drops trust | offer a safe alternative and win contracts |
+| Acquihire | strengthens a specialty | buy a smaller competitor or defend talent |
+| Run campaign | increases demand in the sector | ride the traffic and compete on communication |
 
-### Regras de justiça
+### Fairness rules
 
-- Um rival só reage diretamente ao jogador quando ambos atuam no mesmo mercado.
-- Ação de resposta possui cooldown; o rival não pode “copiar” toda inovação do jogador no mês seguinte.
-- Empresas têm pontos cegos definidos pelo arquétipo.
-- Grandes empresas são lentas em mercados pequenos; startups são rápidas, mas frágeis.
-- O jogador recebe sinais prévios de movimentos grandes por rumores, vagas, TechPulse, contratos e relatórios.
+- A rival only reacts directly to the player when both operate in the same market.
+- Response actions have a cooldown; a rival cannot "copy" every player innovation the next month.
+- Companies have defined blind spots based on archetype.
+- Big companies are slow in small markets; startups are fast but fragile.
+- The player gets advance signals of big moves via rumors, job posts, TechPulse, contracts and reports.
 
 ---
 
-## 8. Fronteira de mercado e reação ao jogador
+## 8. Market frontier and reaction to the player
 
-Cada mercado possui uma `MarketFrontierScore`, calculada pelos melhores produtos ativos daquele setor.
-
-```text
-MarketFrontierScore = melhor combinação de capacidade, confiabilidade,
-custo, segurança e distribuição no setor.
-```
-
-A reputação de um lançamento do jogador depende de:
+Each market has a `MarketFrontierScore`, computed from the best active products in that sector.
 
 ```text
-Reação do mercado =
-  adequação ao segmento
-  + diferença para a fronteira
-  + promessa de marketing
-  + estabilidade de lançamento
-  + preço
-  + reputação prévia
-  + cobertura do TechPulse
+MarketFrontierScore = best combination of capability, reliability,
+cost, safety and distribution in the sector.
 ```
 
-### Exemplo
+The reputation of a player launch depends on:
 
-O jogador lança um chatbot jurídico com capacidade menor que a NeuraForge, mas:
-- custo 40% inferior;
-- dados jurídicos licenciados;
-- compliance alto;
-- implantação on-premise;
-- suporte excelente.
+```text
+Market reaction =
+  segment fit
+  + difference to the frontier
+  + marketing promise
+  + launch stability
+  + price
+  + prior reputation
+  + TechPulse coverage
+```
 
-Resultado: o produto pode ser líder em **enterprise jurídico**, mesmo sem vencer o benchmark geral.
+### Example
+
+The player launches a legal chatbot with less capability than NeuraForge, but:
+- 40% lower cost;
+- licensed legal data;
+- high compliance;
+- on-premise deployment;
+- excellent support.
+
+Result: the product can lead the **legal enterprise** segment, even without winning the general benchmark.
 
 ---
 
 ## 9. TechPulse
 
-TechPulse é uma rede fictícia de notícias, posts e reações do ecossistema. Seu objetivo é contar histórias e sinalizar mudanças, não substituir a simulação.
+TechPulse is a fictional network of news, posts and reactions of the ecosystem. Its goal is to tell stories and signal changes, not to replace the simulation.
 
-### Tipos de publicação
+### Publication types
 
-| Fonte | Função |
+| Source | Role |
 |---|---|
-| Empresa | lançamento, contratação, parceria, resultado e crise |
-| Imprensa | contexto, investigação, ranking e análise |
-| Cliente | satisfação, reclamação, caso de uso, migração |
-| Funcionário | cultura, rumor, burnout, orgulho, vazamento |
-| Pesquisador | paper, benchmark, crítica técnica |
-| Creator | reação a produto criativo ou trend |
-| Investidor | rodada, confiança, cobrança por retorno |
-| Regulador | investigação, consulta, multa, exigência |
-| Comunidade | memes, elogios, dúvidas e discussões leves |
+| Company | launch, hiring, partnership, results and crisis |
+| Press | context, investigation, ranking and analysis |
+| Client | satisfaction, complaint, use case, migration |
+| Employee | culture, rumor, burnout, pride, leak |
+| Researcher | paper, benchmark, technical critique |
+| Creator | reaction to a creative product or trend |
+| Investor | round, confidence, pressure for returns |
+| Regulator | investigation, consultation, fine, requirement |
+| Community | memes, praise, questions and light discussion |
 
-### Regras de geração
+### Generation rules
 
-- Uma publicação precisa estar ligada a um evento real do simulador.
-- O tom depende de autor, segmento, qualidade, hype e confiança.
-- Rumores devem ser claramente marcados como rumor e possuir chance de desmentido.
-- Posts de concorrentes devem antecipar consequências: “nova região cloud”, “vaga de research lead”, “teaser de modelo”, “reajuste de API”.
-- Posts de usuários devem variar entre reação técnica, reação empresarial e comentário casual. Não devem ser repetitivos nem sempre positivos/negativos.
+- A publication must be tied to a real simulator event.
+- The tone depends on author, segment, quality, hype and trust.
+- Rumors must be clearly labeled as rumor and have a chance of being debunked.
+- Competitor posts must anticipate consequences: "new cloud region", "research lead opening", "model teaser", "API price change".
+- User posts must vary between technical reaction, business reaction and casual comment. They must not be repetitive, nor always positive/negative.
 
 ---
 
-## 10. Progressão de dificuldade
+## 10. Difficulty progression
 
-| Modo | Rivalidade | Economia | Recuperação |
+| Mode | Rivalry | Economy | Recovery |
 |---|---|---|---|
-| Startup | rivais menos agressivos, pistas claras | margem mais segura | contratos e investidores mais disponíveis |
-| Founder | padrão | padrão | recuperação limitada |
-| Frontier | rivais reagem mais cedo e executam melhor | custos altos | decisões ruins cobram mais |
-| Simulação | mercado mais volátil e informação incompleta | capital caro | sem proteção contra falência |
+| Startup | less aggressive rivals, clear leads | safer margin | contracts and investors more available |
+| Founder | standard | standard | limited recovery |
+| Frontier | rivals react earlier and execute better | high costs | bad decisions cost more |
+| Simulation | more volatile market and incomplete information | expensive capital | no protection against bankruptcy |
 
-A dificuldade não deve dar “bônus invisível de qualidade” aos rivais. Ela deve alterar planejamento, caixa, velocidade de reação, informação disponível e tolerância de mercado.
+Difficulty must not give rivals an "invisible quality bonus". It should alter planning, cash, reaction speed, available information and market tolerance.
 
 ---
 
-## 11. Escopo de implementação
+## 11. Implementation scope
 
-### Protótipo inicial — obrigatório
+### Initial prototype — required
 
-Usar apenas quatro empresas ativas:
+Use only four active companies:
 - HaploWorks;
 - Vectoria;
 - NeuraForge;
 - Cloudharbor.
 
-Mercados ativos:
-- automação/atendimento;
+Active markets:
+- automation/support;
 - enterprise;
-- infraestrutura.
+- infrastructure.
 
-Período jogável do protótipo:
-- 2016 a 2020.
+Playable period of the prototype:
+- 2016 to 2020.
 
-Sistemas mínimos:
-- calendário mensal;
-- projeto do jogador;
-- uma métrica por produto;
-- orçamento e custo cloud;
-- três ações de rival;
-- TechPulse básico;
-- uma resposta a lançamento;
+Minimum systems:
+- monthly calendar;
+- player project;
+- one metric per product;
+- budget and cloud cost;
+- three rival actions;
+- basic TechPulse;
+- one launch response;
 - save/load.
 
-### Fase 2
+### Phase 2
 
-Adicionar:
+Add:
 - Prismflow;
 - MiniCore;
-- geração de imagem/áudio;
-- contratação e retenção;
-- dados e licenciamento;
-- relatórios de mercado;
-- competidores dinâmicos menores.
+- image/audio generation;
+- hiring and retention;
+- data and licensing;
+- market reports;
+- smaller dynamic competitors.
 
-### Fase 3
+### Phase 3
 
-Adicionar:
+Add:
 - Aegis Research;
 - Pulseframe;
-- modelos de fundação;
+- foundation models;
 - open weights;
-- avaliação, safety e incidentes;
-- agentes;
-- parcerias e aquisições;
-- crises públicas maiores.
+- evaluation, safety and incidents;
+- agents;
+- partnerships and acquisitions;
+- bigger public crises.
 
 ---
 
-## 12. Modelo de dados recomendado para Unity
+## 12. Recommended Unity data model
 
 ```csharp
 public enum CompetitorArchetype
@@ -565,7 +565,7 @@ public sealed class CompetitorRuntimeState
 }
 ```
 
-### Asset pipeline de logo
+### Logo asset pipeline
 
 ```text
 Assets/
@@ -586,34 +586,34 @@ Reference/
     third_party_logo_references/
 ```
 
-O jogo deve carregar apenas os logos finais, nomeados pelo `logoKey`, a partir de `Assets/Art/Brand/Rivals/`.
+The game should only load the final logos, named by `logoKey`, from `Assets/Art/Brand/Rivals/`.
 
 ---
 
-## 13. Critérios de aprovação do sistema
+## 13. System approval criteria
 
-Antes de considerar o sistema pronto:
+Before considering the system done:
 
-- [ ] Nenhum logo ou nome de marca real aparece no build público.
-- [ ] Cada rival possui pelo menos duas fraquezas jogáveis.
-- [ ] Uma ação de rival sempre cria uma reação possível para o jogador.
-- [ ] A comparação de produto é específica ao mercado.
-- [ ] O jogador pode liderar pelo menos um segmento antes da Era 4.
-- [ ] O TechPulse só publica fatos, rumores ou reações conectados à simulação.
-- [ ] O protótipo funciona com quatro rivais antes de expandir para oito.
-- [ ] O Tier é informativo; as variáveis reais determinam o resultado.
-- [ ] A campanha continua possível mesmo se o jogador não competir em modelos de fronteira.
-- [ ] Todo asset de marca e logo possui origem e licença registradas.
+- [ ] No real brand logo or name appears in the public build.
+- [ ] Each rival has at least two playable weaknesses.
+- [ ] A rival action always creates a possible reaction for the player.
+- [ ] Product comparison is specific to the market.
+- [ ] The player can lead at least one segment before Era 4.
+- [ ] TechPulse only publishes facts, rumors or reactions connected to the simulation.
+- [ ] The prototype works with four rivals before expanding to eight.
+- [ ] Tier is informative; the real variables determine the outcome.
+- [ ] The campaign remains possible even if the player does not compete on foundation models.
+- [ ] Every brand and logo asset has a recorded origin and license.
 
 ---
 
-## 14. Decisões tomadas nesta versão
+## 14. Decisions made in this version
 
-1. A campanha passa de 2016–2026 para 2016–2032, com sandbox posterior.
-2. Concorrentes deixam de ser imitações diretas de empresas reais.
-3. Os oito arquivos atuais são referências temporárias; não entram no lançamento.
-4. A força rival deixa de ser fixa e passa a depender de atributos, caixa, mercado e decisões.
-5. Cloudharbor é infraestrutura; ela afeta todos, mas não compete como laboratório em todo produto.
-6. A qualidade deixa de ser global e passa a ser avaliada por mercado.
-7. TechPulse passa a comunicar eventos reais, rumores e reações, em vez de gerar posts aleatórios.
-8. O MVP começa com quatro empresas e três mercados para manter o escopo controlado.
+1. The campaign moved from 2016–2026 to 2016–2032, with a later sandbox.
+2. Competitors are no longer direct imitations of real companies.
+3. The eight current files are temporary references; they do not enter the launch.
+4. Rival strength is no longer fixed and now depends on attributes, cash, market and decisions.
+5. Cloudharbor is infrastructure; it affects everyone but does not compete as a lab on every product.
+6. Quality is no longer global and is now evaluated per market.
+7. TechPulse now communicates real events, rumors and reactions, instead of generating random posts.
+8. The MVP starts with four companies and three markets to keep scope controlled.

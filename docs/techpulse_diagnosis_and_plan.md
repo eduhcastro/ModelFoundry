@@ -1,45 +1,45 @@
-# Diagnóstico e Plano Técnico: Sistema TechPulse
+# Technical Diagnosis and Plan: TechPulse System
 
-Este documento detalha o diagnóstico técnico do erro que impede a exibição de publicações no TechPulse e propõe o plano de implementação para transformar a rede social do jogo em um sistema vivo, complexo e responsivo às ações do jogador e dos concorrentes.
+This document details the technical diagnosis of the bug that prevented posts from showing in TechPulse and proposes an implementation plan to turn the in-game social network into a living, complex system that is responsive to the player's and competitors' actions.
 
 ---
 
-## 1. Diagnóstico do Problema Atual (Por que não aparecem publicações?)
+## 1. Diagnosis of the Current Problem (Why do posts not appear?)
 
-### Arquivos e Classes Envolvidos
-* **[GaragePrototypeBootstrap.cs](file:///d:/Unity/ModelFoundry/ModelFoundry/Assets/Editor/GaragePrototypeBootstrap.cs)**: Instancia a hierarquia da UI no editor e gera o Prefab de post.
-* **[TechPulseUI.cs](file:///d:/Unity/ModelFoundry/ModelFoundry/Assets/Scripts/UI/TechPulseUI.cs)**: Gerencia o preenchimento dos campos do post e a exibição em tempo de execução.
+### Files and Classes Involved
+* **[GaragePrototypeBootstrap.cs](Assets/Editor/GaragePrototypeBootstrap.cs)**: Builds the UI hierarchy in the editor and generates the post Prefab.
+* **[TechPulseUI.cs](Assets/Scripts/UI/TechPulseUI.cs)**: Manages the population of post fields and runtime display.
 
-### O Fluxo Atual de Criação e Exibição
-1. `TechPulseFeed` gera posts e os insere na lista interna.
-2. `TechPulseUI.Start` se inscreve no evento `OnNewPost` e instancia o prefab do post para os posts existentes.
-3. A função `CreatePostUI(post)` clona o prefab `postPrefab` dentro do container de scroll (`scrollContent`).
-4. Em seguida, busca os componentes `TextMeshProUGUI` usando `go.transform.Find("NomeDoFilho")`.
+### Current Creation and Display Flow
+1. `TechPulseFeed` generates posts and inserts them into its internal list.
+2. `TechPulseUI.Start` subscribes to the `OnNewPost` event and instantiates the post prefab for existing posts.
+3. The function `CreatePostUI(post)` clones the `postPrefab` inside the scroll container (`scrollContent`).
+4. It then looks up the `TextMeshProUGUI` components using `go.transform.Find("ChildName")`.
 
-### O Ponto de Falha (Causa Raiz)
-Na remodelação da interface (dentro do `GaragePrototypeBootstrap.cs`), para fins de design moderno, os campos de texto do post (como `AuthorName`, `AuthorHandle`, `Content` e `Stats`) foram aninhados dentro de um objeto filho chamado **`PostContainer`**:
+### The Failure Point (Root Cause)
+During the UI remodel (inside `GaragePrototypeBootstrap.cs`), for a more modern design, the post text fields (such as `AuthorName`, `AuthorHandle`, `Content` and `Stats`) were nested inside a child object named **`PostContainer`**:
 ```csharp
-// Linha 1258 de GaragePrototypeBootstrap.cs
+// Line 1258 of GaragePrototypeBootstrap.cs
 var postContainer = CreateUiRect("PostContainer", postPrefab.transform, ...);
 ...
-// Linhas seguintes aninham os textos dentro do postContainer
+// Following lines nest the texts inside the postContainer
 var authNameRect = CreateTMPText("AuthorName", postContainer.transform, ...);
 var authHandleRect = CreateTMPText("AuthorHandle", postContainer.transform, ...);
 ```
-No entanto, no arquivo **`TechPulseUI.cs`**, o método `CreatePostUI` ainda realiza a busca direta sob a raiz do clone (`go`):
+However, in **`TechPulseUI.cs`**, the `CreatePostUI` method still searches directly under the clone root (`go`):
 ```csharp
-// Linhas 162-171 de TechPulseUI.cs
+// Lines 162-171 of TechPulseUI.cs
 var nameText = go.transform.Find("AuthorName")?.GetComponent<TextMeshProUGUI>();
 var handleText = go.transform.Find("AuthorHandle")?.GetComponent<TextMeshProUGUI>();
 var contentText = go.transform.Find("Content")?.GetComponent<TextMeshProUGUI>();
 var statsText = go.transform.Find("Stats")?.GetComponent<TextMeshProUGUI>();
 ```
-Como o método `transform.Find` do Unity **não realiza busca recursiva** (apenas busca filhos diretos), todos esses campos retornam `null`. Consequentemente:
-- O texto e as cores dos posts não são aplicados.
-- Os posts instanciados aparecem vazios/transparentes ou com textos estáticos do template ("Company Name", "Post content goes here"), quebrando a exibição correta do feed.
+Because Unity's `transform.Find` **does not recurse** (it only searches direct children), all of these return `null`. As a result:
+- Post text and colors are not applied.
+- Instantiated posts appear empty/transparent or with template static text ("Company Name", "Post content goes here"), breaking the feed.
 
-### Correção Mínima
-Atualizar as strings de caminho no `transform.Find` de `TechPulseUI.cs` para refletir o novo aninhamento:
+### Minimal Fix
+Update the path strings in `transform.Find` of `TechPulseUI.cs` to reflect the new nesting:
 ```csharp
 var nameText = go.transform.Find("PostContainer/AuthorName")?.GetComponent<TextMeshProUGUI>();
 var handleText = go.transform.Find("PostContainer/AuthorHandle")?.GetComponent<TextMeshProUGUI>();
@@ -49,46 +49,46 @@ var statsText = go.transform.Find("PostContainer/Stats")?.GetComponent<TextMeshP
 
 ---
 
-## 2. Plano de Implementação Modular: Rede Social Viva
+## 2. Modular Implementation Plan: A Living Social Network
 
-Queremos que o TechPulse pareça um mercado de IA real, onde usuários comentam de forma autônoma, concorrentes se atacam, notícias corporativas acontecem, e a atividade do jogador dita o ritmo das interações.
+We want TechPulse to feel like a real AI market, where users comment autonomously, competitors attack each other, corporate news happens, and the player's activity sets the pace of interactions.
 
-### A. Fluxo de Reações de Lançamento
-Ao lançar um produto (`RegisterProductLaunch`):
-1. **Post do Jogador**: Publica o anúncio contendo o nome customizado do modelo e a frase de impacto proporcional à qualidade.
-2. **Reações Baseadas no Mercado**:
-   - O gerador de conteúdo calcula a qualidade média dos modelos concorrentes na mesma categoria.
-   - O sistema gera de 3 a 8 posts/comentários de contas de usuários comuns.
-   - **Qualidade Alta (Acima de 80% e melhor que concorrentes)**: Comentários positivos/entusiastas, comparações desfavoráveis para os rivais ("@{EmpresaJogador} destruiu o modelo da @NeuraCorp!").
-   - **Qualidade Média (45% a 79%)**: Opiniões neutras, perguntas de desenvolvedores sobre limites de contexto ou suporte local.
-   - **Qualidade Baixa (Abaixo de 45% ou pior que lançamentos anteriores)**: Críticas duras, memes, piadas sarcásticas, e usuários recomendando a concorrência.
+### A. Launch Reaction Flow
+When a product is launched (`RegisterProductLaunch`):
+1. **Player Post**: Publishes the announcement with the model's custom name and an impact phrase proportional to quality.
+2. **Market-Based Reactions**:
+   - The content generator calculates the average quality of competitor models in the same category.
+   - The system generates 3 to 8 posts/comments from common user accounts.
+   - **High Quality (above 80% and better than competitors)**: enthusiastic positive comments, unfavorable comparisons against rivals ("@{PlayerCompany} destroyed @NeuraCorp's model!").
+   - **Medium Quality (45% to 79%)**: neutral opinions, developer questions about context limits or local support.
+   - **Low Quality (below 45% or worse than previous launches)**: harsh criticism, memes, sarcastic jokes, users recommending the competition.
 
-### B. Sistema de Menções Orgânicas e Inatividade
-1. **Opiniões Bobas e Menções Aleatórias**:
-   - A cada 3-5 dias, gerar posts de usuários aleatórios marcando a empresa do jogador ("Estudando a documentação da @{EmpresaJogador}...", "A IA vai dominar o mundo e eu ainda apanhando no Git...", etc.).
-2. **Cobrança de Inatividade**:
-   - Se o jogador passar mais de 15 dias sem atividade (sem lançamentos, refinamentos ou campanhas), o feed começará a receber posts de cobrança ("Alguém na @{Empresa} ainda está acordado?", "Os rivais lançando novidades e a @{Empresa} sumida..."). Isso resultará em perda progressiva de seguidores e reputação.
+### B. Organic Mentions and Inactivity
+1. **Silly Opinions and Random Mentions**:
+   - Every 3-5 days, generate posts from random users tagging the player's company ("Studying @{PlayerCompany}'s docs...", "AI is going to take over the world and I'm still struggling with Git...", etc.).
+2. **Inactivity Pressure**:
+   - If the player goes more than 15 days without activity (no launches, refinements or campaigns), the feed starts receiving pressure posts ("Anyone at @{Company} still awake?", "Rivals are shipping news and @{Company} is gone..."). This results in progressive loss of followers and reputation.
 
-### C. Posts e Notícias dos Adversários
-1. **Lançamentos Rivais**: Adversários publicam sobre seus novos modelos com base em sua força (ex: NeuraCorp com posts corporativos agressivos, DeepForge com artigos científicos longos).
-2. **Notícias de Bastidores (Não relacionadas a produtos)**:
-   - Demissões ("Layoffs na @AtlasAI pegam mercado de surpresa...").
-   - Financiamentos ("@DeepForge fecha rodada milionária com TitanCloud...").
-   - Contratos ("@NexusSystems fecha parceria exclusiva para dados governamentais...").
-   - Incidentes técnicos ("Oops, o RLHF da @NeuraCorp quebrou e o chatbot começou a falar em pirata... 🏴‍☠️").
+### C. Competitor Posts and News
+1. **Rival Launches**: Competitors post about their new models based on their personality (e.g., NeuraCorp with aggressive corporate posts, DeepForge with long scientific articles).
+2. **Backstage News (not product-related)**:
+   - Layoffs ("Layoffs at @AtlasAI take the market by surprise...").
+   - Funding ("@DeepForge closes a multi-million round with TitanCloud...").
+   - Contracts ("@NexusSystems signs exclusive government data partnership...").
+   - Technical incidents ("Oops, @NeuraCorp's RLHF broke and the chatbot started talking like a pirate... 🏴‍☠️").
 
-### D. Mudanças de Seguidores (Mecânica Inicial)
-- **Seguidores Iniciais**: O jogador inicia com exatamente **1 seguidor** (sua própria conta) e **1 seguindo** (um concorrente de nível baixo para servir de tutorial).
-- **Crescimento**: Lançamentos excelentes geram crescimento acelerado de seguidores; lançamentos ruins causam perdas. A métrica `Following` também aumentará organicamente à medida que o laboratório do jogador descobre novas empresas ou faz alianças.
+### D. Follower Changes (Initial Mechanic)
+- **Initial Followers**: The player starts with exactly **1 follower** (their own account) and **1 following** (a low-tier competitor as a tutorial).
+- **Growth**: Excellent launches cause accelerated follower growth; bad launches cause losses. The `Following` metric also grows organically as the player's lab discovers new companies or forms alliances.
 
-### E. Ações de Marketing e Refinamento
-Integrar botões de ação social no HUD/Menu de contexto:
-1. **Campanha de Marketing (Refinar Marca)**: Custa $2.500 faturados, concede +5% de reputação e +150 seguidores, e posta um anúncio oficial com engajamento automático.
-2. **Campanha de Hype (Teaser do Modelo)**: Revela o desenvolvimento do próximo modelo, gerando posts de especulação dos usuários ("Dizem que o próximo modelo da @{Empresa} terá multimodalidade nativa! 👀").
+### E. Marketing and Refinement Actions
+Integrate social action buttons in the HUD / context menu:
+1. **Marketing Campaign (Refine Brand)**: Costs $2,500 cash, grants +5% reputation and +150 followers, and posts an official announcement with automatic engagement.
+2. **Hype Campaign (Model Teaser)**: Reveals the development of the next model, generating speculation posts from users ("They say @{Company}'s next model will have native multimodality! 👀").
 
 ---
 
-## 3. Scripts a Serem Modificados ou Criados
+## 3. Scripts to Modify or Create
 
 ```mermaid
 graph TD
@@ -106,17 +106,17 @@ graph TD
     Bootstrap[GaragePrototypeBootstrap.cs]:::modified
 ```
 
-### Scripts Existentes a Modificar:
+### Existing Scripts to Modify:
 1. **`TechPulseUI.cs`**:
-   - Corrigir caminhos dos `transform.Find` para incluir o prefixo `"PostContainer/"`.
-   - Garantir que seguidores/seguindo iniciais mostrem `1` e `1` (usar propriedades do `GameManager`).
+   - Fix the `transform.Find` paths to include the `"PostContainer/"` prefix.
+   - Ensure initial followers/following show `1` and `1` (using `GameManager` properties).
 2. **`TechPulseFeed.cs`**:
-   - Integrar timers para geração de notícias corporativas dos concorrentes, menções aleatórias de usuários comuns e posts de inatividade do jogador.
+   - Integrate timers for generating competitor corporate news, random user mentions and player inactivity posts.
 3. **`TechPulseContentGenerator.cs`**:
-   - Expandir substancialmente os bancos de frases (em português/inglês) com templates de reações complexas, incidentes corporativos dos concorrentes, menções bobas de tecnologia, e diálogos de hype.
+   - Substantially expand the phrase banks (Portuguese/English) with complex reaction templates, competitor corporate incidents, silly tech mentions and hype dialogues.
 4. **`TechPulseFollowerSystem.cs`**:
-   - Adaptar o cálculo de ganho de seguidores para escalonar com base no histórico do jogador e na força das empresas rivais no momento do lançamento.
+   - Adapt the follower gain calculation to scale based on the player's history and the strength of rival companies at the time of launch.
 5. **`PrototypeProjectController.cs`**:
-   - Garantir a publicação do post de lançamento com o nome customizado do modelo e acionar a geração de comentários dinâmicos subsequentes.
+   - Ensure the launch post is published with the model's custom name and trigger the subsequent dynamic comment generation.
 6. **`GaragePrototypeBootstrap.cs`**:
-   - Atualizar a hierarquia se necessário ou apenas garantir que os novos dados de inicialização estejam corretos nas referências.
+   - Update the hierarchy if needed or simply ensure the new initialization data is correct in the references.

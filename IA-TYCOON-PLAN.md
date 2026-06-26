@@ -1,383 +1,383 @@
-## Direção visual: o que devemos absorver de *Game Dev Tycoon*
+## Visual direction: what we should absorb from *Game Dev Tycoon*
 
-A imagem que você mandou representa muito bem a referência certa de “jogo de gestão divertido”, mas há uma distinção importante:
+The reference conveys the right "fun management game" feel, with one important caveat:
 
-* O visual de *Game Dev Tycoon* é mais **2.5D isométrico / diorama**, não um 3D realista.
-* As salas parecem um escritório em miniatura, aberto para o jogador observar.
-* Os personagens são simples, mas têm animações suficientes para dar vida: caminhar, digitar, discutir no quadro, gravar vídeo, testar algo, comemorar ou ficar sobrecarregados.
-* A maior parte da legibilidade vem de **cores fortes, silhuetas claras, objetos grandes e UI muito direta**.
-* O jogo não depende de gráficos complexos. Ele vende a fantasia por meio de progresso visível: sair da garagem, ganhar salas, contratar pessoas, abrir R&D, laboratório secreto, estúdio de vídeo etc.
+- *Game Dev Tycoon* is **2.5D isometric / diorama**, not realistic 3D.
+- Rooms read like a miniature open office so the player can observe everything.
+- Characters are simple but have enough animation to feel alive: walking, typing, arguing at a whiteboard, recording video, testing something, celebrating or being overwhelmed.
+- Most readability comes from **strong colors, clear silhouettes, large objects and very direct UI**.
+- The game does not depend on complex graphics. It sells the fantasy through visible progress: leave the garage, get bigger rooms, hire people, open R&D, a secret lab, a video studio, etc.
 
-A página oficial confirma que a proposta central é justamente começar em uma garagem, crescer para escritórios maiores, contratar equipe, pesquisar tecnologias, criar projetos especiais e desbloquear laboratórios. Ela também é classificada como management, simulation, strategy, economy e isometric/2D. ([Loja Steam][1])
+The official Steam page confirms the core pitch is exactly starting in a garage, growing into bigger offices, hiring a team, researching technologies, creating special projects and unlocking labs; it is classified as management, simulation, strategy, economy, isometric/2D. ([Steam store][1])
 
-Para o nosso projeto, eu não copiaria arte, interface, layout, nomes, personagens ou assets deles. Mas devemos usar a mesma **linguagem de produto**:
+For our project we will not copy their art, interface, layout, names, characters or assets. But we will use the same **product language**:
 
-> escritório em corte isométrico + personagens animados + salas especializadas + menus de gestão claros + progresso muito visível.
+> isometric cutaway office + animated characters + specialized rooms + clear management menus + highly visible progress.
 
-A diferença seria que o jogador não cria jogos. Ele funda e escala um laboratório de IA.
+The difference is that the player does not make games — they found and scale an AI lab.
 
 ---
 
-# Conceito do nosso jogo
+# Our game concept
 
-## Nome provisório
+## Working title
 
 **Model Foundry**
-Alternativas:
+Alternatives:
 
-* **Frontier Labs**
-* **Neural Empire**
-* **Compute & Co.**
-* **Inference Inc.**
-* **Singularity Labs**
-* **Model Tycoon**
-* **The AI Lab**
+- **Frontier Labs**
+- **Neural Empire**
+- **Compute & Co.**
+- **Inference Inc.**
+- **Singularity Labs**
+- **Model Tycoon**
+- **The AI Lab**
 
-Eu evitaria “AI Tycoon” porque já existem jogos usando esse nome ou variações muito próximas.
+I would avoid "AI Tycoon" because there are already games using that name or very close variants.
 
-## Fantasia principal
+## Main fantasy
 
-O jogador começa em 2016 ou 2017 com uma pequena startup de tecnologia e uma equipe minúscula.
+The player starts in 2016 or 2017 with a small tech startup and a tiny team.
 
-No início, ele faz coisas simples:
+Early on they do simple things:
 
-* chatbot para atendimento;
-* classificação de imagens;
-* ferramenta de OCR;
-* recomendador;
-* geração de texto simples;
-* modelos de voz;
-* automação para empresas.
+- a customer-support chatbot;
+- image classification;
+- an OCR tool;
+- a recommender;
+- simple text generation;
+- voice models;
+- business automation.
 
-Com o crescimento, ele passa por fases equivalentes à evolução real da indústria:
+As they grow, they move through phases equivalent to the real evolution of the industry:
 
-1. **Startup de automação**
-2. **Empresa de machine learning**
-3. **Laboratório de deep learning**
-4. **Empresa de APIs de IA**
-5. **Criadora de foundation models**
-6. **Operadora de datacenters**
-7. **Laboratório de AGI / superinteligência**
+1. **Automation startup**
+2. **Machine learning company**
+3. **Deep learning lab**
+4. **AI API company**
+5. **Foundation model builder**
+6. **Datacenter operator**
+7. **AGI / superintelligence lab**
 
-O objetivo não seria “clicar até ter mais dinheiro”, mas tomar decisões que criam uma identidade para a empresa:
+The goal is not "click until you have more money"; it is to make decisions that shape the identity of the company:
 
-* ser uma empresa fechada e enterprise;
-* competir em modelos abertos;
-* focar em custo e eficiência;
-* ser a líder em multimodalidade;
-* construir uma IA muito segura;
-* correr riscos para lançar primeiro;
-* vender infraestrutura;
-* virar uma empresa de pesquisa;
-* vender produtos próprios para consumidores.
-
----
-
-# Estrutura de gameplay
-
-## Loop principal
-
-O ciclo deve ser curto, visível e viciante:
-
-1. Você recebe um problema ou oportunidade.
-2. Escolhe um projeto de IA.
-3. Monta a equipe.
-4. Decide o orçamento.
-5. Escolhe dados, infraestrutura e estratégia.
-6. A equipe trabalha visualmente nas salas.
-7. O treinamento termina.
-8. O modelo recebe métricas.
-9. Você lança, vende, melhora ou abandona.
-10. A empresa cresce e desbloqueia novas decisões.
-
-Exemplo:
-
-> Uma empresa pede um modelo de atendimento para bancos.
-
-O jogador pode:
-
-* usar um modelo menor e barato;
-* comprar dados licenciados;
-* usar dados públicos e correr risco legal;
-* contratar especialista em segurança;
-* priorizar latência;
-* priorizar qualidade;
-* vender como API;
-* instalar on-premise;
-* abrir os pesos;
-* lançar rapidamente antes de um concorrente.
-
-Cada escolha altera métricas reais do jogo.
+- be a closed enterprise company;
+- compete on open models;
+- focus on cost and efficiency;
+- be the leader in multimodality;
+- build very safe AI;
+- take risks to ship first;
+- sell infrastructure;
+- become a research company;
+- sell consumer products directly.
 
 ---
 
-# Métricas centrais
+# Gameplay structure
 
-O coração do game precisa ser simples de entender, mas profundo quando o jogador quiser otimizar.
+## Core loop
 
-| Métrica             | O que representa                              |
-| ------------------- | --------------------------------------------- |
-| **Cash**            | Dinheiro disponível                           |
-| **Runway**          | Quantos meses a empresa sobrevive sem receita |
-| **Compute**         | Capacidade de treinamento/inferência          |
-| **Data**            | Volume e qualidade dos dados                  |
-| **Talent**          | Qualidade da equipe                           |
-| **Research**        | Capacidade de inovar                          |
-| **Model Quality**   | Resultado técnico do modelo                   |
-| **Inference Cost**  | Quanto custa servir usuários                  |
-| **Latency**         | Velocidade da resposta                        |
-| **Safety**          | Risco de comportamento problemático           |
-| **Trust**           | Confiança de empresas e usuários              |
-| **Hype**            | Atenção pública e imprensa                    |
-| **Energy**          | Custo energético/datacenter                   |
-| **Technical Debt**  | Sistemas frágeis e custo de manutenção        |
-| **Regulatory Risk** | Risco jurídico e governamental                |
+The cycle should be short, visible and addictive:
 
-O jogador não deve ver vinte números logo de início. No começo aparecem apenas:
+1. You receive a problem or opportunity.
+2. Pick an AI project.
+3. Assemble the team.
+4. Set the budget.
+5. Choose data, infrastructure and strategy.
+6. The team works visually in the rooms.
+7. Training finishes.
+8. The model gets metrics.
+9. You ship, sell, improve or abandon.
+10. The company grows and unlocks new decisions.
 
-* dinheiro;
-* reputação;
-* qualidade;
-* custo;
-* equipe.
+Example:
 
-As métricas mais técnicas entram conforme a empresa evolui.
+> A company asks for an AI model for bank customer support.
 
----
+The player can:
 
-# Salas do escritório
+- use a smaller, cheaper model;
+- buy licensed data;
+- use public data and accept legal risk;
+- hire a security specialist;
+- prioritize latency;
+- prioritize quality;
+- sell as an API;
+- deploy on-premise;
+- open the weights;
+- ship fast, before a competitor.
 
-A graça visual virá de ver a empresa mudar fisicamente.
-
-## Fase inicial: garagem
-
-* uma mesa;
-* notebook;
-* quadro branco;
-* servidor barulhento;
-* café;
-* fundador trabalhando sozinho;
-* primeiros freelancers.
-
-## Fase startup
-
-* sala de engenharia;
-* pequena sala de reuniões;
-* sala de dados;
-* rack de GPU;
-* espaço de suporte;
-* estúdio de demo.
-
-## Fase laboratório
-
-* R&D Lab;
-* sala de avaliação;
-* sala de segurança/alignment;
-* sala de dados/licenciamento;
-* sala de vendas enterprise;
-* sala de relações públicas;
-* NOC / operations center;
-* datacenter próprio.
-
-## Fase hyperscale
-
-* prédio corporativo;
-* datacenter modular;
-* GPU cluster;
-* centro de crise;
-* war room;
-* laboratório secreto;
-* sala do conselho;
-* escritório internacional;
-* campus de pesquisa.
-
-Cada sala desbloqueia sistemas novos, não apenas bônus numérico.
-
-Exemplo:
-
-| Sala           | Sistema desbloqueado                          |
-| -------------- | --------------------------------------------- |
-| Data Lab       | Limpeza, curadoria e compra de datasets       |
-| R&D Lab        | Novas arquiteturas e avanços científicos      |
-| GPU Cluster    | Treino de modelos maiores                     |
-| Evaluation Lab | Benchmarks, red teaming e qualidade           |
-| Safety Lab     | Alignment, filtros e redução de incidentes    |
-| Sales Floor    | Contratos enterprise                          |
-| PR Room        | Gestão de hype, imprensa e crises             |
-| Data Center    | Infraestrutura própria e inferência escalável |
-| Board Room     | Investidores, IPO, fusões e aquisição         |
+Each choice changes real in-game metrics.
 
 ---
 
-# Personagens e animações
+# Core metrics
 
-Os bonecos precisam ser simples, estilizados e baratos de produzir.
+The heart of the game has to be easy to understand but deep when the player wants to optimize.
 
-Não devemos mirar em personagens realistas ou rigs complexos. A melhor direção é:
+| Metric               | What it represents                          |
+| -------------------- | -------------------------------------------- |
+| **Cash**            | Available money                              |
+| **Runway**          | How many months the company survives without revenue |
+| **Compute**         | Training/inference capacity                  |
+| **Data**            | Volume and quality of data                   |
+| **Talent**          | Team quality                                 |
+| **Research**        | Ability to innovate                          |
+| **Model Quality**   | Technical result of the model                |
+| **Inference Cost**  | How much it costs to serve users             |
+| **Latency**         | Response speed                               |
+| **Safety**          | Risk of problematic behavior                 |
+| **Trust**           | Confidence from companies and users         |
+| **Hype**            | Public / press attention                     |
+| **Energy**          | Energy / datacenter cost                     |
+| **Technical Debt**  | Fragile systems and maintenance cost         |
+| **Regulatory Risk** | Legal and regulatory risk                    |
 
-* corpo baixo-poly;
-* cabeça levemente grande;
-* roupas e acessórios por profissão;
-* poucos detalhes faciais;
-* animações curtas em loop;
-* leitura clara mesmo com câmera distante.
+The player must not see twenty numbers at the start. Early on only these appear:
 
-## Classes de funcionários
+- money;
+- reputation;
+- quality;
+- cost;
+- team.
 
-* Founder / CEO
-* Machine Learning Engineer
-* Research Scientist
-* Data Engineer
-* MLOps Engineer
-* Backend Engineer
-* Product Manager
-* Security Researcher
-* AI Safety Researcher
-* Sales Executive
-* Lawyer / Compliance
-* Community Manager
-* Infrastructure Engineer
-* GPU Technician
-* Recruiter
-* Finance Lead
-
-## Animações úteis
-
-* caminhar;
-* sentar e digitar;
-* trabalhar em quadro branco;
-* apontar para gráfico;
-* conversar em reunião;
-* carregar servidor/equipamento;
-* operar rack;
-* comemorar lançamento;
-* entrar em pânico durante incidente;
-* dormir na mesa;
-* tomar café;
-* testar demo;
-* apresentar para investidores.
-
-Essas animações fazem o jogo parecer vivo mesmo quando o sistema por trás é relativamente simples.
+More technical metrics appear as the company evolves.
 
 ---
 
-# Estilo artístico recomendado
+# Office rooms
 
-## Não usar “realismo 3D”
+The visual joy comes from watching the company change physically.
 
-Para esse projeto, realismo seria caro, lento de produzir e pouco necessário.
+## Initial phase: garage
 
-A direção ideal é:
+- one desk;
+- laptop;
+- whiteboard;
+- a noisy server;
+- coffee;
+- the founder working alone;
+- first freelancers.
 
-* câmera isométrica ortográfica;
-* salas em miniatura;
-* paredes cortadas;
-* objetos grandes e reconhecíveis;
-* materiais simples;
-* iluminação suave;
-* sombras discretas;
-* cores fortes por departamento;
-* personagens low-poly cartunizados;
-* UI clara e quase “board game”.
+## Startup phase
 
-Referência de sensação:
+- engineering room;
+- small meeting room;
+- data room;
+- GPU rack;
+- support space;
+- demo studio.
 
-> Uma mistura de *Game Dev Tycoon*, *Two Point Hospital*, *Startup Company* e um escritório futurista de IA.
+## Lab phase
 
-## Identidade por departamento
+- R&D Lab;
+- evaluation room;
+- safety / alignment room;
+- data / licensing room;
+- enterprise sales room;
+- PR room;
+- NOC / operations center;
+- own datacenter.
 
-| Área           | Direção visual                                 |
+## Hyperscale phase
+
+- corporate building;
+- modular datacenter;
+- GPU cluster;
+- crisis center;
+- war room;
+- secret lab;
+- board room;
+- international office;
+- research campus.
+
+Each room unlocks new systems, not just numeric bonuses.
+
+Example:
+
+| Room           | System unlocked                                |
 | -------------- | ---------------------------------------------- |
-| Engenharia     | azul, monitores, cabos, dashboards             |
-| Pesquisa       | roxo, quadros, fórmulas, papers                |
-| Dados          | amarelo, storage, pipelines, telas de ingestão |
-| Segurança      | vermelho escuro, alertas, red team             |
-| Vendas         | verde, apresentações, contratos                |
-| Infraestrutura | cinza e azul, racks, ventilação, cabos         |
-| PR             | laranja, câmeras, imprensa, redes sociais      |
-| Conselho       | preto, madeira, telas de métricas              |
+| Data Lab       | Cleaning, curation and buying datasets        |
+| R&D Lab        | New architectures and scientific breakthroughs |
+| GPU Cluster    | Train bigger models                            |
+| Evaluation Lab | Benchmarks, red teaming and quality            |
+| Safety Lab     | Alignment, filters and incident reduction     |
+| Sales Floor    | Enterprise contracts                           |
+| PR Room        | Hype, press and crisis management              |
+| Data Center    | Own infrastructure and scalable inference     |
+| Board Room     | Investors, IPO, mergers and acquisitions       |
 
 ---
 
-# Engine recomendada
+# Characters and animations
 
-## Recomendação principal: Unity 6.3 LTS + C#
+Characters should be simple, stylized and cheap to produce.
 
-Eu usaria:
+We should not aim for realistic characters or complex rigs. The best direction is:
 
-* **Engine:** Unity 6.3 LTS
-* **Linguagem:** C#
-* **Renderização:** URP
-* **UI:** UI Toolkit
-* **Modelagem:** Blender
-* **Animação:** Unity Animator
-* **Controle de versão:** Git + Git LFS
-* **Distribuição inicial:** Steam para Windows
-* **Áudio:** FMOD ou Unity Audio, inicialmente Unity Audio
-* **Save:** JSON local; Steam Cloud depois
+- low-poly body;
+- slightly enlarged head;
+- clothes and accessories per profession;
+- few facial details;
+- short looped animations;
+- clear reading even with a distant camera.
 
-Unity 6.3 LTS tem suporte de longo prazo até dezembro de 2027, e a própria Unity recomenda LTS para projetos que vão entrar em produção e precisam de estabilidade. ([Unity][2])
+## Employee classes
 
-Para esse jogo, Unity faz sentido porque:
+- Founder / CEO
+- Machine Learning Engineer
+- Research Scientist
+- Data Engineer
+- MLOps Engineer
+- Backend Engineer
+- Product Manager
+- Security Researcher
+- AI Safety Researcher
+- Sales Executive
+- Lawyer / Compliance
+- Community Manager
+- Infrastructure Engineer
+- GPU Technician
+- Recruiter
+- Finance Lead
 
-* o projeto é essencialmente um jogo de PC para Steam;
-* temos um ambiente 3D leve, mas com muitos objetos e UI;
-* C# é bom para sistemas de simulação, economia e dados;
-* existe muito material, plugins e assets para escritório, low-poly, animação e UI;
-* é mais fácil contratar ou encontrar gente que conheça Unity/C#;
-* Steam e Unity têm integração madura;
-* a engine aguenta esse estilo de jogo com muita folga.
+## Useful animations
 
-O UI Toolkit também serve para construir UI de runtime, com arquivos de estrutura e estilo próprios; isso é bom para os muitos menus, cards, tooltips, painéis e dashboards que esse jogo exigirá. ([Unity Docs][3])
+- walk;
+- sit and type;
+- work at a whiteboard;
+- point at a chart;
+- talk in a meeting;
+- carry a server / equipment;
+- operate a rack;
+- celebrate a launch;
+- panic during an incident;
+- sleep at the desk;
+- drink coffee;
+- test a demo;
+- present to investors.
 
-## Por que não Unreal Engine?
-
-Unreal seria excesso para esse projeto.
-
-Ele é excelente para:
-
-* gráficos realistas;
-* FPS;
-* mundos grandes;
-* cinematics;
-* personagens de alta fidelidade.
-
-Mas nosso jogo precisa de:
-
-* produtividade;
-* UI densa;
-* economia;
-* simulação;
-* câmera isométrica;
-* arte estilizada;
-* build leve;
-* tempo de produção curto.
-
-Unity é mais adequada.
-
-## E Godot?
-
-Godot seria uma segunda boa opção, especialmente se o objetivo for evitar dependência de licença e manter tudo open source.
-
-Mas eu só escolheria Godot se uma destas condições fosse prioridade:
-
-* orçamento extremamente baixo;
-* projeto menor;
-* equipe já confortável com Godot;
-* desejo de código e pipeline totalmente open source;
-* intenção de usar uma estética muito simples.
-
-Para uma produção comercial de Steam com UI grande, assets comprados, animações, vários sistemas e possibilidade de contratar freelancers, eu iria de Unity.
+These animations make the game feel alive even when the underlying system is fairly simple.
 
 ---
 
-# Arquitetura técnica
+# Recommended art style
 
-A regra principal é: **o jogo deve ser data-driven**.
+## Do not use "3D realism"
 
-Não podemos hardcodar modelos, funcionários, eventos, tecnologias e empresas em scripts espalhados.
+For this project realism would be expensive, slow to produce and largely unnecessary.
 
-## Estrutura sugerida
+The ideal direction is:
+
+- orthographic isometric camera;
+- miniature rooms;
+- cutaway walls;
+- large recognizable objects;
+- simple materials;
+- soft lighting;
+- subtle shadows;
+- strong colors per department;
+- cartoonish low-poly characters;
+- clear, almost "board game" UI.
+
+Reference feeling:
+
+> A mix of *Game Dev Tycoon*, *Two Point Hospital*, *Startup Company* and a futuristic AI office.
+
+## Identity per department
+
+| Area             | Visual direction                                |
+| ---------------- | ----------------------------------------------- |
+| Engineering      | blue, monitors, cables, dashboards             |
+| Research         | purple, boards, formulas, papers               |
+| Data             | yellow, storage, pipelines, ingestion screens   |
+| Safety           | dark red, alerts, red team                     |
+| Sales            | green, presentations, contracts                |
+| Infrastructure   | gray and blue, racks, ventilation, cables      |
+| PR               | orange, cameras, press, social media           |
+| Board            | black, wood, metric screens                    |
+
+---
+
+# Recommended engine
+
+## Main recommendation: Unity 6.3 LTS + C#
+
+I would use:
+
+- **Engine:** Unity 6.3 LTS
+- **Language:** C#
+- **Rendering:** URP
+- **UI:** UI Toolkit
+- **Modeling:** Blender
+- **Animation:** Unity Animator
+- **Version control:** Git + Git LFS
+- **Initial distribution:** Steam for Windows
+- **Audio:** FMOD or Unity Audio, starting with Unity Audio
+- **Save:** local JSON; Steam Cloud later
+
+Unity 6.3 LTS has long-term support until December 2027 and Unity itself recommends LTS for projects entering production that need stability. ([Unity][2])
+
+Unity makes sense for this game because:
+
+- it is essentially a PC Steam game;
+- we have a light 3D environment with many objects and UI;
+- C# is good for simulation, economy and data systems;
+- there is a lot of material, plugins and assets for offices, low-poly, animation and UI;
+- it is easier to hire or find people who know Unity / C#;
+- Steam and Unity have mature integration;
+- the engine handles this kind of game with margin to spare.
+
+Unity's UI Toolkit also supports building runtime UI with its own structure and style files; that is useful for the many menus, cards, tooltips, panels and dashboards this game will require. ([Unity Docs][3])
+
+## Why not Unreal Engine?
+
+Unreal would be overkill for this project.
+
+It is excellent for:
+
+- realistic graphics;
+- FPS;
+- large worlds;
+- cinematics;
+- high-fidelity characters.
+
+But our game needs:
+
+- productivity;
+- dense UI;
+- economy;
+- simulation;
+- isometric camera;
+- stylized art;
+- lightweight build;
+- short production time.
+
+Unity is more appropriate.
+
+## And Godot?
+
+Godot would be a good second option, especially if the goal is to avoid licence dependency and keep everything open source.
+
+I would only choose Godot if one of these were a priority:
+
+- very low budget;
+- smaller project;
+- a team already comfortable with Godot;
+- a desire for fully open-source code and pipeline;
+- a plan to use a very simple aesthetic.
+
+For a commercial Steam production with large UI, bought assets, animations, several systems and the possibility of hiring freelancers, I would go with Unity.
+
+---
+
+# Technical architecture
+
+The main rule is: **the game must be data-driven**.
+
+We cannot hardcode models, employees, events, technologies and companies in scattered scripts.
+
+## Suggested structure
 
 ```text
 Assets/
@@ -420,7 +420,7 @@ Assets/
     Campus/
 ```
 
-## Sistemas principais
+## Main systems
 
 ```text
 GameManager
@@ -439,11 +439,11 @@ GameManager
  └── UIStateSystem
 ```
 
-## Dados configuráveis
+## Configurable data
 
-Cada funcionário, projeto, tecnologia e modelo deve existir como um asset configurável.
+Each employee, project, technology and model should exist as a configurable asset.
 
-Exemplo conceitual:
+Conceptual example:
 
 ```csharp
 public class ModelDefinition
@@ -467,285 +467,285 @@ public class ModelDefinition
 }
 ```
 
-Assim conseguimos criar conteúdo novo sem reescrever sistemas.
+This way we can create new content without rewriting systems.
 
 ---
 
-# Como adaptar a lógica de Game Dev Tycoon para IA
+# How to adapt Game Dev Tycoon's logic to AI
 
-| Game Dev Tycoon         | Nosso jogo                              |
+| Game Dev Tycoon         | Our game                                |
 | ----------------------- | --------------------------------------- |
-| Tema do jogo            | Área de aplicação da IA                 |
-| Gênero                  | Tipo de modelo                          |
-| Plataforma              | Canal de distribuição                   |
-| Engine                  | Stack de treinamento                    |
-| Gameplay/Story/Graphics | Qualidade, custo, velocidade, segurança |
-| Bugs                    | Alucinações, falhas, incidentes         |
-| Fans                    | Usuários, devs, clientes, comunidade    |
-| Research                | Papers, arquiteturas, hardware, tooling |
-| Especial projects       | Foundation models, datacenter, AGI lab  |
-| Game report             | Benchmark report e postmortem técnico   |
-| Publisher               | VC, cliente enterprise, parceiro cloud  |
-| Competitor              | Laboratório rival                       |
+| Game theme              | AI application area                     |
+| Genre                   | Type of model                           |
+| Platform                | Distribution channel                    |
+| Engine                  | Training stack                          |
+| Gameplay/Story/Graphics | Quality, cost, speed, safety            |
+| Bugs                    | Hallucinations, failures, incidents     |
+| Fans                    | Users, devs, clients, community         |
+| Research                | Papers, architectures, hardware, tooling |
+| Special projects        | Foundation models, datacenter, AGI lab  |
+| Game report             | Benchmark report and technical postmortem |
+| Publisher               | VC, enterprise client, cloud partner    |
+| Competitor              | Rival lab                               |
 
-Exemplo de projeto:
+Example project:
 
 ```text
-Produto:
-Assistente jurídico para empresas
+Product:
+Legal assistant for companies
 
-Modelo:
-LLM especializado
+Model:
+Specialized LLM
 
-Mercado:
+Market:
 B2B Enterprise
 
-Estratégia:
-Alta precisão + privacidade
+Strategy:
+High precision + privacy
 
-Dados:
-Base jurídica licenciada
+Data:
+Licensed legal corpus
 
-Deploy:
+Deployment:
 On-premise
 
-Risco:
-Custo alto, mercado lento, alta exigência legal
+Risk:
+High cost, slow market, strong legal requirements
 ```
 
 ---
 
-# Primeira versão jogável: MVP
+# First playable version: MVP
 
-Não devemos começar tentando fazer “OpenAI Tycoon completo”.
+We should not start by trying to build "full OpenAI Tycoon".
 
-A primeira versão precisa provar que o jogo é divertido em 20 a 30 minutos.
+The first version has to prove the game is fun in 20 to 30 minutes.
 
-## Escopo do MVP
+## MVP scope
 
-### Cenário
+### Scenario
 
-Uma garagem e uma empresa com:
+A garage and a company with:
 
-* 1 fundador;
-* 1 desenvolvedor;
-* 1 pequena GPU;
-* 2 tipos de clientes;
-* 3 projetos;
-* 4 métricas;
-* 1 concorrente;
-* 1 sistema de upgrade de escritório.
+- 1 founder;
+- 1 developer;
+- 1 small GPU;
+- 2 client types;
+- 3 projects;
+- 4 metrics;
+- 1 competitor;
+- 1 office upgrade system.
 
-### Projetos iniciais
+### Initial projects
 
-1. Classificador de e-mails
-2. Chatbot de atendimento
-3. Detector de imagem
+1. Email classifier
+2. Support chatbot
+3. Image detector
 
-### Decisões por projeto
+### Decisions per project
 
-* orçamento;
-* qualidade versus velocidade;
-* comprar ou não dados melhores;
-* contratar freelancer;
-* usar cloud ou máquina própria;
-* lançar rápido ou testar mais.
+- budget;
+- quality vs speed;
+- buy better data or not;
+- hire a freelancer;
+- use cloud or own hardware;
+- ship fast or test more.
 
-### Métricas visíveis
+### Visible metrics
 
-* dinheiro;
-* reputação;
-* qualidade;
-* custo mensal;
-* usuários/clientes.
+- money;
+- reputation;
+- quality;
+- monthly cost;
+- users / clients.
 
-### Salas do MVP
+### MVP rooms
 
-* garagem;
-* mini escritório;
-* pequeno R&D Lab.
+- garage;
+- mini office;
+- small R&D lab.
 
-### Eventos do MVP
+### MVP events
 
-* cliente reclama de respostas ruins;
-* servidor cai;
-* concorrente lança produto parecido;
-* investidor pede reunião;
-* empresa oferece contrato grande;
-* funcionário pede aumento;
-* vazamento de dados;
-* benchmark ruim;
-* viralização inesperada.
-
----
-
-# Ordem de desenvolvimento
-
-## Fase 0 — Pré-produção, 2 semanas
-
-Objetivo: validar o conceito antes de produzir arte.
-
-Entregáveis:
-
-* game design document curto;
-* lista de métricas;
-* mapa de progressão;
-* wireframe dos menus;
-* protótipo de loop de projeto;
-* documento visual;
-* escolha de nome provisório;
-* repositório Git;
-* Unity configurada.
-
-## Fase 1 — Vertical slice, 4 a 6 semanas
-
-Objetivo: uma pequena parte do jogo já com aparência final.
-
-Entregáveis:
-
-* uma sala de garagem;
-* câmera isométrica;
-* um personagem animado;
-* uma estação de trabalho;
-* um projeto de IA;
-* barra de progresso;
-* resultado com métricas;
-* dinheiro;
-* contratação de um funcionário;
-* uma UI bonita;
-* save/load simples.
-
-No fim dessa fase, já dá para gravar um vídeo de Steam e mostrar a ideia.
-
-## Fase 2 — Core loop, 6 a 10 semanas
-
-Entregáveis:
-
-* projetos com diferentes categorias;
-* times e atributos;
-* pesquisa;
-* modelos;
-* dados;
-* compute;
-* eventos;
-* concorrentes;
-* reputação;
-* expansão de escritório;
-* economia mais equilibrada.
-
-## Fase 3 — Conteúdo e profundidade, 8 a 12 semanas
-
-Entregáveis:
-
-* mais salas;
-* mais funcionários;
-* mais modelos;
-* mais eventos;
-* árvore tecnológica;
-* contratos enterprise;
-* crises de reputação;
-* safety/alignment;
-* investimento;
-* aquisição de concorrentes;
-* datacenter.
-
-## Fase 4 — Steam demo e polimento
-
-Entregáveis:
-
-* tutorial;
-* achievements;
-* balanceamento;
-* acessibilidade;
-* traduções;
-* Steam Cloud;
-* trailer;
-* screenshots;
-* página da Steam;
-* demo jogável.
-
-A Steam oferece funcionalidades como achievements, stats e cloud saves; o SDK é necessário para enviar builds para a plataforma, enquanto os demais recursos são opcionais. ([Steamworks][4])
+- a client complains about bad answers;
+- a server goes down;
+- a competitor launches a similar product;
+- an investor asks for a meeting;
+- a company offers a big contract;
+- an employee asks for a raise;
+- a data leak;
+- a bad benchmark;
+- unexpected virality.
 
 ---
 
-# Primeiro sprint prático
+# Development order
 
-Eu começaria exatamente assim.
+## Phase 0 — Pre-production, 2 weeks
 
-## Dia 1
+Goal: validate the concept before producing art.
 
-* criar projeto Unity 6.3 LTS;
-* configurar URP;
-* criar repositório Git;
-* configurar Git LFS para `.fbx`, `.blend`, `.psd`, `.wav`, `.mp4`;
-* criar cena `GaragePrototype`;
-* adicionar câmera ortográfica isométrica;
-* adicionar chão, paredes cortadas e uma mesa.
+Deliverables:
 
-## Dia 2
+- short game design document;
+- list of metrics;
+- progression map;
+- menu wireframes;
+- project-loop prototype;
+- visual document;
+- choose a working title;
+- Git repository;
+- Unity configured.
 
-* criar personagem low-poly temporário;
-* implementar caminhada entre pontos;
-* implementar animação idle e typing;
-* criar estação de trabalho interativa.
+## Phase 1 — Vertical slice, 4 to 6 weeks
 
-## Dia 3
+Goal: a small part of the game already looking like the final art.
 
-* criar painel de projeto;
-* criar um projeto simples: “SupportBot v0.1”;
-* iniciar projeto;
-* mostrar uma barra de progresso;
-* consumir dinheiro ao longo do tempo.
+Deliverables:
 
-## Dia 4
+- one garage room;
+- isometric camera;
+- one animated character;
+- one workstation;
+- one AI project;
+- progress bar;
+- result with metrics;
+- money;
+- hiring one employee;
+- a polished UI;
+- simple save/load.
 
-* ao terminar, gerar resultado:
+At the end of this phase we can already record a Steam video and show the idea.
 
-  * qualidade;
-  * custo;
-  * clientes;
-  * reputação;
-  * receita mensal.
+## Phase 2 — Core loop, 6 to 10 weeks
 
-## Dia 5
+Deliverables:
 
-* criar contratação de um ML Engineer;
-* aumentar velocidade de trabalho;
-* mostrar o funcionário caminhando até uma mesa livre.
+- projects with different categories;
+- teams and attributes;
+- research;
+- models;
+- data;
+- compute;
+- events;
+- competitors;
+- reputation;
+- office expansion;
+- a more balanced economy.
 
-## Dia 6 e 7
+## Phase 3 — Content and depth, 8 to 12 weeks
 
-* adicionar primeiro evento aleatório;
-* criar save/load;
-* gravar um vídeo curto;
-* testar se o loop já é divertido sem arte final.
+Deliverables:
+
+- more rooms;
+- more employees;
+- more models;
+- more events;
+- tech tree;
+- enterprise contracts;
+- reputation crises;
+- safety / alignment;
+- investment;
+- competitor acquisition;
+- datacenter.
+
+## Phase 4 — Steam demo and polish
+
+Deliverables:
+
+- tutorial;
+- achievements;
+- balancing;
+- accessibility;
+- translations;
+- Steam Cloud;
+- trailer;
+- screenshots;
+- Steam page;
+- a playable demo.
+
+Steam offers features like achievements, stats and cloud saves; the SDK is required to upload builds to the platform, while the rest are optional. ([Steamworks][4])
 
 ---
 
-# Decisão objetiva
+# First practical sprint
 
-Eu seguiria com este stack:
+I would start exactly like this.
+
+## Day 1
+
+- create Unity 6.3 LTS project;
+- configure URP;
+- create Git repository;
+- configure Git LFS for `.fbx`, `.blend`, `.psd`, `.wav`, `.mp4`;
+- create the `GaragePrototype` scene;
+- add an orthographic isometric camera;
+- add floor, cutaway walls and one desk.
+
+## Day 2
+
+- create a temporary low-poly character;
+- implement walking between points;
+- implement idle and typing animations;
+- create an interactive workstation.
+
+## Day 3
+
+- create the project panel;
+- create a simple project: "SupportBot v0.1";
+- start the project;
+- show a progress bar;
+- consume money over time.
+
+## Day 4
+
+- when finished, generate the result:
+
+  - quality;
+  - cost;
+  - clients;
+  - reputation;
+  - monthly revenue.
+
+## Day 5
+
+- create the hiring of an ML Engineer;
+- increase work speed;
+- show the employee walking to a free desk.
+
+## Days 6 and 7
+
+- add the first random event;
+- create save/load;
+- record a short video;
+- test whether the loop is already fun without final art.
+
+---
+
+# Objective decision
+
+I would stick with this stack:
 
 ```text
 Engine: Unity 6.3 LTS
-Linguagem: C#
+Language: C#
 Render: URP
 UI: UI Toolkit
 3D: Blender
-Animação: Mixamo temporariamente + animações próprias depois
-Versionamento: Git + Git LFS
-Plataforma inicial: Windows / Steam
-Save: JSON local
-Steam posteriormente: Steamworks + Steam Cloud + Achievements
+Animation: Mixamo temporarily + custom animations later
+Versioning: Git + Git LFS
+Initial platform: Windows / Steam
+Save: local JSON
+Steam later: Steamworks + Steam Cloud + Achievements
 ```
 
-E o primeiro objetivo não seria “fazer o jogo inteiro”.
+And the first goal should not be "make the entire game".
 
-Seria criar em até seis semanas uma demo com:
+It should be to create, in up to six weeks, a demo with:
 
-> garagem + personagem trabalhando + um modelo sendo treinado + resultado de negócio + contratação + expansão para uma sala de R&D.
+> garage + character working + one model being trained + business result + hiring + expansion into an R&D room.
 
-Quando essa versão estiver divertida, aí faz sentido investir pesado em assets próprios, modelagem de salas, eventos, árvore tecnológica e conteúdo de longo prazo.
+When that version is fun, it makes sense to invest heavily in original assets, room modeling, events, the tech tree and long-term content.
 
 [1]: https://store.steampowered.com/app/239820/Game_Dev_Tycoon/ "Game Dev Tycoon on Steam"
 [2]: https://unity.com/releases/unity-6/support?utm_source=chatgpt.com "Unity 6 Releases & Support: LTS & Updates Releases"
