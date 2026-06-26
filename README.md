@@ -1,5 +1,8 @@
 # Model Foundry
 
+<img width="1903" height="922" alt="Captura de tela 2026-06-25 125406" src="https://github.com/user-attachments/assets/409292a7-9304-41a4-b424-7fe47e6b66f3" />
+
+
 > **Status: this project was NOT finished.** It is an unfinished prototype and is kept here for study and reference only.
 
 **Model Foundry** is a management/tycoon simulation game about founding and scaling
