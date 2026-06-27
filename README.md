@@ -10,9 +10,9 @@ an AI company. You start in a garage in 2016 with a tiny team and grow all the w
 a frontier AGI lab, deciding strategy, hiring, research, data sources, compute
 infrastructure, marketing and distribution along the way.
 
-The full design document, game loop, metrics, room progression and development plan
-live in **[IA-TYCOON-PLAN.md](./IA-TYCOON-PLAN.md)**. Read that file first to
-understand the intended story and scope.
+The active gameplay progression, economy, infrastructure and benchmark direction
+lives in **[docs/realistic_ai_company_progression_plan.md](./docs/realistic_ai_company_progression_plan.md)**.
+Use **[IA-TYCOON-PLAN.md](./IA-TYCOON-PLAN.md)** as historical concept and art-direction context.
 
 ---
 
@@ -81,7 +81,9 @@ MyAssets/Rivals/   Private reference logos — do not ship
 
 | Document | Description |
 |---|---|
-| [IA-TYCOON-PLAN.md](./IA-TYCOON-PLAN.md) | Main design document: concept, metrics, rooms, art direction, tech stack, MVP and development phases. |
+| [IA-TYCOON-PLAN.md](./IA-TYCOON-PLAN.md) | Historical concept document: original fantasy, rooms, art direction, tech stack, MVP and early development phases. |
+| [docs/realistic_ai_company_progression_plan.md](./docs/realistic_ai_company_progression_plan.md) | Active gameplay direction for realistic AI-company progression, AI Arena benchmarks, infrastructure, economy, difficulty and future multiplayer readiness. |
+| [docs/realistic_refactor_implementation_roadmap.md](./docs/realistic_refactor_implementation_roadmap.md) | Active implementation roadmap for the refactor from the old prototype systems into the new realistic startup experience. |
 | [docs/implementation-log.md](./docs/implementation-log.md) | Phase-by-phase implementation log of what was actually built. |
 | [docs/art-direction-notes.md](./docs/art-direction-notes.md) | Short art-direction rules (isometric, PolygonOffice usage, image slots). |
 | [docs/techpulse_diagnosis_and_plan.md](./docs/techpulse_diagnosis_and_plan.md) | Diagnosis of the TechPulse feed bug and modular plan for a living social network. |

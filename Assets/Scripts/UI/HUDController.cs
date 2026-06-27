@@ -6,6 +6,7 @@ public sealed class HUDController : MonoBehaviour
 {
     [Header("Top Bar")]
     [SerializeField] private TextMeshProUGUI companyNameText;
+    [SerializeField] private Image companyIconImage;
     [SerializeField] private TextMeshProUGUI dateText;
     [SerializeField] private TextMeshProUGUI speedText;
     [SerializeField] private Image topBarBackground;
@@ -33,6 +34,7 @@ public sealed class HUDController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI monthlyRevenueText;
     [SerializeField] private TextMeshProUGUI runwayText;
     [SerializeField] private TextMeshProUGUI clientsText;
+    [SerializeField] private TextMeshProUGUI nocText;
 
     [Header("Panels")]
     [SerializeField] private CanvasGroup hudCanvasGroup;
@@ -86,13 +88,22 @@ public sealed class HUDController : MonoBehaviour
     [SerializeField] private GameObject summaryPanelObj;
     [SerializeField] private Button projectCloseButton;
     [SerializeField] private Button summaryCloseButton;
+    
+    [Header("Bottom Action Bar")]
+    [SerializeField] private Button bottomHireButton;
+    [SerializeField] private Button bottomStartProjectButton;
+    [SerializeField] private Button bottomUpgradeButton;
+    [SerializeField] private Button bottomSpeedUpButton;
 
     private void Awake()
     {
+        StartupSimulationManager.EnsureExists();
         SetupSpeedButtons();
         StyleBackgrounds();
         SetupRightDockButtons();
         SetupContextMenuListeners();
+        DisableLegacyAdvancedExperience();
+        AttachStartupDashboard();
     }
 
     private void SetupContextMenuListeners()
@@ -158,6 +169,13 @@ public sealed class HUDController : MonoBehaviour
         {
             contextMenuPanel.SetActive(false);
         }
+
+        HideLegacySceneObject("BottomActionBar");
+        HideLegacySceneObject("SummaryPanel");
+        HideLegacySceneObject("ProjectPanel");
+        HideLegacySceneObject("ContextMenuPanel");
+        HideLegacySceneObject("RightClickContextMenu");
+        HideLegacySceneObject("LeftDockStrip");
     }
 
     private void SetupRightDockButtons()
@@ -191,6 +209,99 @@ public sealed class HUDController : MonoBehaviour
 
         if (systemQuitButton != null)
             systemQuitButton.onClick.AddListener(QuitToMainMenu);
+
+        if (bottomHireButton != null)
+            bottomHireButton.onClick.AddListener(TriggerHiring);
+
+        if (bottomStartProjectButton != null)
+            bottomStartProjectButton.onClick.AddListener(() => {
+                if (projectPanelObj != null) projectPanelObj.SetActive(true);
+            });
+
+        if (bottomUpgradeButton != null)
+            bottomUpgradeButton.onClick.AddListener(TriggerGpuUpgrade);
+
+        if (bottomSpeedUpButton != null)
+            bottomSpeedUpButton.onClick.AddListener(() => {
+                if (summaryPanelObj != null) summaryPanelObj.SetActive(!summaryPanelObj.activeSelf);
+            });
+    }
+
+    private void DisableLegacyAdvancedExperience()
+    {
+        HideLegacyButton(researchButton);
+        HideLegacyButton(analyticsButton);
+        HideLegacyButton(hiringButton);
+        HideLegacyButton(gpuUpgradeButton);
+        HideLegacyButton(boardRoomButton);
+        HideLegacyButton(contractsButton);
+        HideLegacyButton(nocButton);
+        HideLegacyButton(bottomHireButton);
+        HideLegacyButton(bottomStartProjectButton);
+        HideLegacyButton(bottomUpgradeButton);
+        HideLegacyButton(bottomSpeedUpButton);
+
+        HideLegacyPanel(researchPanelGroup);
+        HideLegacyPanel(analyticsPanelGroup);
+        HideLegacyPanel(hiringPanelGroup);
+        HideLegacyPanel(gpuPanelGroup);
+        HideLegacyPanel(boardRoomPanelGroup);
+        HideLegacyPanel(contractsPanelGroup);
+        HideLegacyPanel(nocPanelGroup);
+
+        if (projectPanelObj != null)
+        {
+            projectPanelObj.SetActive(false);
+        }
+
+        if (summaryPanelObj != null)
+        {
+            summaryPanelObj.SetActive(false);
+        }
+
+        if (contextMenuPanel != null)
+        {
+            contextMenuPanel.SetActive(false);
+        }
+    }
+
+    private void AttachStartupDashboard()
+    {
+        var canvas = GetComponent<Canvas>();
+        if (canvas != null)
+        {
+            StartupDashboardController.AttachTo(canvas);
+        }
+    }
+
+    private static void HideLegacyButton(Button button)
+    {
+        if (button != null)
+        {
+            button.gameObject.SetActive(false);
+        }
+    }
+
+    private static void HideLegacyPanel(CanvasGroup panel)
+    {
+        if (panel == null)
+        {
+            return;
+        }
+
+        panel.alpha = 0f;
+        panel.interactable = false;
+        panel.blocksRaycasts = false;
+        panel.gameObject.SetActive(false);
+    }
+
+    private void HideLegacySceneObject(string objectName)
+    {
+        var target = transform.Find(objectName);
+        if (target != null)
+        {
+            target.gameObject.SetActive(false);
+        }
     }
 
     private void TriggerHiring()
@@ -223,72 +334,6 @@ public sealed class HUDController : MonoBehaviour
     private void Update()
     {
         UpdateTimeDisplay();
-        HandleContextMenuInput();
-    }
-
-    private void HandleContextMenuInput()
-    {
-        if (Input.GetMouseButtonDown(1)) // Right click
-        {
-            if (contextMenuPanel != null)
-            {
-                contextMenuPanel.SetActive(true);
-                contextMenuPanel.transform.position = Input.mousePosition;
-                
-                // Align within screen bounds
-                var rect = contextMenuPanel.GetComponent<RectTransform>();
-                if (rect != null)
-                {
-                    // Adjust position so it doesn't go off screen
-                    Vector2 localPos;
-                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                        contextMenuPanel.transform.parent as RectTransform,
-                        Input.mousePosition,
-                        null,
-                        out localPos
-                    );
-                    
-                    // Clamp localPos to parent container
-                    RectTransform parentRect = contextMenuPanel.transform.parent as RectTransform;
-                    if (parentRect != null)
-                    {
-                        float minX = -parentRect.rect.width / 2f;
-                        float maxX = parentRect.rect.width / 2f - rect.rect.width;
-                        float minY = -parentRect.rect.height / 2f + rect.rect.height;
-                        float maxY = parentRect.rect.height / 2f;
-                        
-                        localPos.x = Mathf.Clamp(localPos.x, minX, maxX);
-                        localPos.y = Mathf.Clamp(localPos.y, minY, maxY);
-                        rect.anchoredPosition = localPos;
-                    }
-                }
-            }
-        }
-        else if (Input.GetMouseButtonDown(0)) // Left click
-        {
-            if (contextMenuPanel != null && contextMenuPanel.activeSelf)
-            {
-                // Check if the click is outside the context menu
-                var rect = contextMenuPanel.GetComponent<RectTransform>();
-                if (rect != null)
-                {
-                    if (!RectTransformUtility.RectangleContainsScreenPoint(rect, Input.mousePosition, null))
-                    {
-                        contextMenuPanel.SetActive(false);
-                    }
-                }
-            }
-        }
-    }
-
-    private System.Collections.IEnumerator HideContextMenuNextFrame()
-    {
-        yield return null;
-        if (contextMenuPanel != null)
-        {
-            // Check if mouse is actually over the context panel or if we just clicked a button
-            contextMenuPanel.SetActive(false);
-        }
     }
 
     private void SetupSpeedButtons()
@@ -306,10 +351,11 @@ public sealed class HUDController : MonoBehaviour
     private void StyleBackgrounds()
     {
         if (topBarBackground != null)
-            topBarBackground.color = GameDesignConstants.SurfaceGlass;
+            topBarBackground.color = GameDesignConstants.SurfaceDark;
 
+        // Container is transparent in new layout
         if (resourcePanelBackground != null)
-            resourcePanelBackground.color = GameDesignConstants.SurfaceGlass;
+            resourcePanelBackground.color = Color.clear;
     }
 
     private void SubscribeToEvents()
@@ -384,9 +430,11 @@ public sealed class HUDController : MonoBehaviour
 
         if (companyNameText != null)
         {
-            companyNameText.text = $"▲  {gm.CompanyName.ToUpper()}";
-            companyNameText.color = GameDesignConstants.BrandSecondary; // cyber cyan
+            companyNameText.text = gm.CompanyName.ToUpper();
+            CompanyIdentityCatalog.ApplyToCompanyText(companyNameText, gm.CompanyFontKey, gm.CompanyColor);
         }
+
+        RefreshCompanyIcon(gm);
 
         if (cashBar != null) cashBar.SetValueImmediate(gm.Cash);
         if (reputationBar != null) reputationBar.SetValueImmediate(gm.Reputation);
@@ -398,6 +446,52 @@ public sealed class HUDController : MonoBehaviour
 
         if (TimeController.Instance != null)
             UpdateSpeedHighlights(TimeController.Instance.CurrentSpeed);
+    }
+
+    private void RefreshCompanyIcon(GameManager gm)
+    {
+        EnsureCompanyIconImage();
+
+        if (companyIconImage == null || gm == null)
+        {
+            return;
+        }
+
+        var sprite = CompanyIdentityCatalog.LoadCompanyIcon(gm.CompanyIconKey);
+        companyIconImage.sprite = sprite;
+        companyIconImage.color = sprite != null ? Color.white : gm.CompanyColor;
+        companyIconImage.preserveAspect = true;
+    }
+
+    private void EnsureCompanyIconImage()
+    {
+        if (companyIconImage != null || companyNameText == null)
+        {
+            return;
+        }
+
+        var topBar = companyNameText.transform.parent;
+        if (topBar == null)
+        {
+            return;
+        }
+
+        var iconObject = new GameObject("CompanyIcon");
+        iconObject.transform.SetParent(topBar, false);
+        var rect = iconObject.AddComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 0.5f);
+        rect.anchorMax = new Vector2(0f, 0.5f);
+        rect.pivot = new Vector2(0f, 0.5f);
+        rect.sizeDelta = new Vector2(34f, 34f);
+        rect.anchoredPosition = new Vector2(18f, 0f);
+        companyIconImage = iconObject.AddComponent<Image>();
+
+        var textRect = companyNameText.GetComponent<RectTransform>();
+        if (textRect != null && textRect.anchoredPosition.x < 58f)
+        {
+            textRect.anchoredPosition = new Vector2(62f, textRect.anchoredPosition.y);
+            textRect.sizeDelta = new Vector2(Mathf.Max(360f, textRect.sizeDelta.x - 42f), textRect.sizeDelta.y);
+        }
     }
 
     private void RefreshCompetenceBar()
@@ -413,8 +507,8 @@ public sealed class HUDController : MonoBehaviour
 
         if (monthlyBurnText != null)
         {
-            monthlyBurnText.text = $"Burn: ${gm.MonthlyBurn:N0}/mo";
-            monthlyBurnText.color = GameDesignConstants.StatusDanger;
+            monthlyBurnText.text = $"Op. Cost: ${gm.MonthlyBurn:N0}";
+            monthlyBurnText.color = GameDesignConstants.TextPrimary;
         }
 
         if (monthlyRevenueText != null)
@@ -436,7 +530,7 @@ public sealed class HUDController : MonoBehaviour
                 runwayText.text = $"Runway: {runway:F1}mo";
                 runwayText.color = runway < 3f ? GameDesignConstants.StatusDanger :
                                    runway < 6f ? GameDesignConstants.StatusWarning :
-                                                  GameDesignConstants.StatusSuccess;
+                                                  GameDesignConstants.TextPrimary;
             }
         }
 
@@ -444,6 +538,13 @@ public sealed class HUDController : MonoBehaviour
         {
             clientsText.text = $"Clients: {gm.TotalClients}";
             clientsText.color = GameDesignConstants.TextSecondary;
+        }
+
+        if (nocText != null)
+        {
+            float gridPct = gm.EnergyUsage / Mathf.Max(1f, gm.EnergyCapacity) * 100f;
+            nocText.text = $"Grid: {gridPct:F0}%";
+            nocText.color = gm.IsOverheating ? GameDesignConstants.StatusDanger : GameDesignConstants.TextPrimary;
         }
     }
 

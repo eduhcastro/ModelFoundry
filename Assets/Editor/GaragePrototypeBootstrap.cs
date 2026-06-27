@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -63,6 +64,41 @@ public static class GaragePrototypeBootstrap
         Debug.Log("Model Foundry: All scenes built successfully!");
     }
 
+    [MenuItem("Model Foundry/Force Rebuild Scenes (Reset Layout)")]
+    public static void ForceRebuildAllScenes()
+    {
+        EnsureFolders();
+        EnsureTmpResources();
+
+        // Temporarily delete files to force a full clean regenerate
+        if (File.Exists(MainMenuScenePath)) File.Delete(MainMenuScenePath);
+        if (File.Exists(GameplayScenePath)) File.Delete(GameplayScenePath);
+
+        BuildMainMenuScene();
+        BuildGameplayScene();
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Model Foundry: All scenes force rebuilt from scratch successfully!");
+    }
+
+    [MenuItem("Model Foundry/Apply Realistic Refactor UI")]
+    public static void ApplyRealisticRefactorUiToGameplayScene()
+    {
+        if (!File.Exists(GameplayScenePath))
+        {
+            Debug.LogWarning($"Model Foundry: Gameplay scene not found at {GameplayScenePath}. Run Build Game Scenes first.");
+            return;
+        }
+
+        var scene = EditorSceneManager.OpenScene(GameplayScenePath, OpenSceneMode.Single);
+        ApplyRealisticRefactorUi(scene);
+        EditorSceneManager.SaveScene(scene, GameplayScenePath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Model Foundry: Realistic refactor UI applied to the gameplay scene.");
+    }
+
     private static void EnsureFolders()
     {
         foreach (var path in new[]
@@ -121,6 +157,13 @@ public static class GaragePrototypeBootstrap
     // ── Build Main Menu Scene ──────────────────────────────────────────
     private static void BuildMainMenuScene()
     {
+        if (File.Exists(MainMenuScenePath))
+        {
+            Debug.Log($"Model Foundry: Preserved existing MainMenu scene at {MainMenuScenePath}. Delete this file to regenerate.");
+            EditorSceneManager.OpenScene(MainMenuScenePath, OpenSceneMode.Single);
+            return;
+        }
+
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         scene.name = "MainMenu";
 
@@ -191,21 +234,21 @@ public static class GaragePrototypeBootstrap
         lightComponent.shadowBias = 0.05f;
         light.transform.rotation = Quaternion.Euler(40f, -40f, 0f);
 
-        // Fill Light (cool, neon cyber blue)
+        // Fill Light (soft sky fill)
         var fillLight = new GameObject("Fill Light");
         var fillLightComponent = fillLight.AddComponent<Light>();
         fillLightComponent.type = LightType.Directional;
-        fillLightComponent.intensity = 0.55f;
-        fillLightComponent.color = GameDesignConstants.BrandSecondary; // cyber cyan/teal
+        fillLightComponent.intensity = 0.6f;
+        fillLightComponent.color = new Color(0.85f, 0.88f, 0.92f); // soft sky reflection
         fillLight.transform.rotation = Quaternion.Euler(20f, 140f, 0f);
 
         // Accent Point Light on desk area (warm desk lamp)
         var accentLight = new GameObject("Accent Light");
         var accentLightComponent = accentLight.AddComponent<Light>();
         accentLightComponent.type = LightType.Point;
-        accentLightComponent.intensity = 2.5f;
+        accentLightComponent.intensity = 1.5f;
         accentLightComponent.range = 5f;
-        accentLightComponent.color = GameDesignConstants.BrandSecondary;
+        accentLightComponent.color = new Color(1f, 0.9f, 0.8f); // warm incandescent desk lamp
         accentLight.transform.position = new Vector3(2f, 3f, 1.5f);
 
         // ── Camera (isometric-like, showcasing the office) ──────────
@@ -309,7 +352,7 @@ public static class GaragePrototypeBootstrap
         var newGamePanelRect = newGamePanelObj.AddComponent<RectTransform>();
         newGamePanelRect.anchorMin = new Vector2(0.5f, 0.5f);
         newGamePanelRect.anchorMax = new Vector2(0.5f, 0.5f);
-        newGamePanelRect.sizeDelta = new Vector2(500f, 350f);
+        newGamePanelRect.sizeDelta = new Vector2(500f, 520f);
         newGamePanelRect.anchoredPosition = Vector2.zero;
 
         // Card bg
@@ -325,8 +368,17 @@ public static class GaragePrototypeBootstrap
         var previewTxt = CreateTMPText("CompanyPreviewText", newGamePanelObj.transform, "Future Lab, Inc.", 14f, TextAlignmentOptions.Center, GameDesignConstants.BrandSecondary, new Vector2(400f, 30f), new Vector2(0f, -30f));
         previewTxt.GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Italic;
 
-        var startBtn = CreateStylizedButton("Btn_ConfirmNewGame", newGamePanelObj.transform, "Launch Lab", StylizedButton.ButtonVariant.Primary, new Vector2(180f, 45f), new Vector2(-105f, -90f));
-        var cancelBtn = CreateStylizedButton("Btn_CancelNewGame", newGamePanelObj.transform, "Cancel", StylizedButton.ButtonVariant.Secondary, new Vector2(180f, 45f), new Vector2(105f, -90f));
+        var identityControlsRootObj = new GameObject("CompanyIdentityControls");
+        identityControlsRootObj.transform.SetParent(newGamePanelObj.transform, false);
+        var identityControlsRoot = identityControlsRootObj.AddComponent<RectTransform>();
+        identityControlsRoot.anchorMin = new Vector2(0.5f, 0.5f);
+        identityControlsRoot.anchorMax = new Vector2(0.5f, 0.5f);
+        identityControlsRoot.pivot = new Vector2(0.5f, 0.5f);
+        identityControlsRoot.sizeDelta = new Vector2(420f, 190f);
+        identityControlsRoot.anchoredPosition = new Vector2(0f, -85f);
+
+        var startBtn = CreateStylizedButton("Btn_ConfirmNewGame", newGamePanelObj.transform, "Launch Lab", StylizedButton.ButtonVariant.Primary, new Vector2(180f, 45f), new Vector2(-105f, -190f));
+        var cancelBtn = CreateStylizedButton("Btn_CancelNewGame", newGamePanelObj.transform, "Cancel", StylizedButton.ButtonVariant.Secondary, new Vector2(180f, 45f), new Vector2(105f, -190f));
 
         // Settings Panel
         var settingsPanelObj = new GameObject("SettingsPanel");
@@ -376,6 +428,7 @@ public static class GaragePrototypeBootstrap
         serialized.FindProperty("confirmNewGameButton").objectReferenceValue = startBtn.GetComponent<Button>();
         serialized.FindProperty("cancelNewGameButton").objectReferenceValue = cancelBtn.GetComponent<Button>();
         serialized.FindProperty("companyPreviewText").objectReferenceValue = previewTxt.GetComponent<TextMeshProUGUI>();
+        serialized.FindProperty("identityControlsRoot").objectReferenceValue = identityControlsRoot;
         serialized.FindProperty("settingsBackButton").objectReferenceValue = backSettingsBtn.GetComponent<Button>();
         serialized.ApplyModifiedPropertiesWithoutUndo();
 
@@ -383,6 +436,7 @@ public static class GaragePrototypeBootstrap
         var gmObj = new GameObject("GameManager");
         gmObj.AddComponent<GameManager>();
         gmObj.AddComponent<CompetitorManager>();
+        gmObj.AddComponent<TeamSimulationManager>();
         gmObj.AddComponent<TechPulseFeed>();
         gmObj.AddComponent<TechPulseFollowerSystem>();
 
@@ -407,6 +461,15 @@ public static class GaragePrototypeBootstrap
     // ── Build Gameplay Scene ──────────────────────────────────────────
     private static void BuildGameplayScene()
     {
+        if (File.Exists(GameplayScenePath))
+        {
+            var existingScene = EditorSceneManager.OpenScene(GameplayScenePath, OpenSceneMode.Single);
+            ApplyRealisticRefactorUi(existingScene);
+            EditorSceneManager.SaveScene(existingScene, GameplayScenePath);
+            Debug.Log($"Model Foundry: Migrated existing Gameplay scene at {GameplayScenePath} to the realistic refactor UI.");
+            return;
+        }
+
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         scene.name = "GaragePrototype";
 
@@ -420,25 +483,25 @@ public static class GaragePrototypeBootstrap
 
         // ── Lighting & Scene Atmosphere ─────────────────────────────
         RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight = new Color(0.06f, 0.08f, 0.18f); // deep high-tech blue ambient slate
+        RenderSettings.ambientLight = new Color(0.55f, 0.55f, 0.58f); // clean neutral ambient daylight
 
-        // Key Light (warm desk & overhead light)
+        // Key Light (warm solar daylight)
         var light = new GameObject("Key Light");
         var lightComponent = light.AddComponent<Light>();
         lightComponent.type = LightType.Directional;
-        lightComponent.intensity = 1.35f;
-        lightComponent.color = new Color(1f, 0.92f, 0.83f); // rich warm white
+        lightComponent.intensity = 1.5f;
+        lightComponent.color = new Color(1f, 0.96f, 0.9f); // warm solar white
         lightComponent.shadows = LightShadows.Soft;
-        lightComponent.shadowStrength = 0.85f;
+        lightComponent.shadowStrength = 0.65f;
         lightComponent.shadowBias = 0.04f;
         light.transform.rotation = Quaternion.Euler(45f, -40f, 0f);
 
-        // Fill Light (cool cybernetic neon cyan glow)
+        // Fill Light (soft sky reflection fill)
         var fillLight = new GameObject("Fill Light");
         var fillLightComponent = fillLight.AddComponent<Light>();
         fillLightComponent.type = LightType.Directional;
-        fillLightComponent.intensity = 0.5f;
-        fillLightComponent.color = GameDesignConstants.BrandSecondary; // cyber cyan
+        fillLightComponent.intensity = 0.6f;
+        fillLightComponent.color = new Color(0.85f, 0.88f, 0.92f); // soft blue-grey sky reflection
         fillLight.transform.rotation = Quaternion.Euler(20f, 140f, 0f);
 
         // Camera (Isometric with Controller)
@@ -490,7 +553,14 @@ public static class GaragePrototypeBootstrap
         topBar.offsetMin = new Vector2(24f, -72f);
         topBar.offsetMax = new Vector2(-24f, -12f);
 
-        var companyTextRect = CreateTMPText("CompanyText", topBar, "▲  MODEL FOUNDRY", 18f, TextAlignmentOptions.Left, GameDesignConstants.BrandSecondary, new Vector2(400f, 40f), new Vector2(20f, 0f));
+        var companyIconRect = CreateUiRect("CompanyIcon", topBar, new Vector2(34f, 34f), new Vector2(18f, 0f), Color.white);
+        companyIconRect.anchorMin = new Vector2(0f, 0.5f);
+        companyIconRect.anchorMax = new Vector2(0f, 0.5f);
+        companyIconRect.pivot = new Vector2(0f, 0.5f);
+        var companyIconImage = companyIconRect.GetComponent<Image>();
+        companyIconImage.preserveAspect = true;
+
+        var companyTextRect = CreateTMPText("CompanyText", topBar, "MODEL FOUNDRY", 18f, TextAlignmentOptions.Left, GameDesignConstants.BrandSecondary, new Vector2(360f, 40f), new Vector2(62f, 0f));
         companyTextRect.anchorMin = new Vector2(0f, 0.5f);
         companyTextRect.anchorMax = new Vector2(0f, 0.5f);
         companyTextRect.pivot = new Vector2(0f, 0.5f);
@@ -526,11 +596,17 @@ public static class GaragePrototypeBootstrap
         var fastHighlight = fastBtn.transform.Find("Highlight").GetComponent<Image>();
         var ultraHighlight = ultraBtn.transform.Find("Highlight").GetComponent<Image>();
 
-        // ── FLOATING RESOURCE PANEL ──────────────────────────────────
-        var resourcePanel = CreatePremiumUiPanel("ResourcePanel", canvasObject.transform, new Vector2(320f, 260f), new Vector2(-24f, -84f), GameDesignConstants.SurfaceCard, new Color(1f, 1f, 1f, 0.08f));
-        resourcePanel.anchorMin = new Vector2(1f, 1f);
-        resourcePanel.anchorMax = new Vector2(1f, 1f);
-        resourcePanel.pivot = new Vector2(1f, 1f);
+        // ── FLOATING RESOURCE PILLS (TOP-CENTER) ─────────────────────
+        var resourcePanelObj = new GameObject("ResourcePillsContainer");
+        resourcePanelObj.transform.SetParent(canvasObject.transform, false);
+        var resourcePanel = resourcePanelObj.AddComponent<RectTransform>();
+        resourcePanel.anchorMin = new Vector2(0.5f, 1f);
+        resourcePanel.anchorMax = new Vector2(0.5f, 1f);
+        resourcePanel.pivot = new Vector2(0.5f, 1f);
+        resourcePanel.sizeDelta = new Vector2(960f, 40f);
+        resourcePanel.anchoredPosition = new Vector2(0f, -90f);
+        var resourcePanelImg = resourcePanelObj.AddComponent<Image>();
+        resourcePanelImg.color = Color.clear;
 
         // Bake and load the actual 3D icons from PolygonIcons as 2D sprites
         Sprite iconCash = BakePrefabToSprite("Assets/Synty/PolygonIcons/Prefabs/SM_Icon_Coin_01.prefab", "icon_cash");
@@ -538,13 +614,41 @@ public static class GaragePrototypeBootstrap
         Sprite iconQual = BakePrefabToSprite("Assets/Synty/PolygonIcons/Prefabs/SM_Icon_Computer_CPU_01.prefab", "icon_quality");
         Sprite iconTeam = BakePrefabToSprite("Assets/Synty/PolygonIcons/Prefabs/SM_Icon_Face_Male_01.prefab", "icon_team");
 
-        var cashBar = CreateResourceBar("CashBar", resourcePanel, "Cash", GameDesignConstants.ResourceCash, "$", "", 100000f, new Vector2(285f, 32f), new Vector2(0f, 50f), iconCash);
-        var repBar = CreateResourceBar("ReputationBar", resourcePanel, "Reputation", GameDesignConstants.ResourceReputation, "", "%", 100f, new Vector2(285f, 32f), new Vector2(0f, 12f), iconRep);
-        var qualBar = CreateResourceBar("QualityBar", resourcePanel, "Model Quality", GameDesignConstants.ResourceQuality, "", "%", 100f, new Vector2(285f, 32f), new Vector2(0f, -26f), iconQual);
-        var teamBar = CreateResourceBar("TeamBar", resourcePanel, "Team Size", GameDesignConstants.ResourceTeam, "", " ML", 20f, new Vector2(285f, 32f), new Vector2(0f, -64f), iconTeam);
+        var pillWidth = 145f;
+        var pillHeight = 32f;
+        var spacing = 10f;
+        var startX = -((pillWidth * 6f + spacing * 5f) / 2f) + (pillWidth / 2f);
+
+        // Pill 1: Cash
+        var cashBar = CreateResourceBar("CashBar", resourcePanel, "Cash", GameDesignConstants.ResourceCash, "$", "", 100000f, new Vector2(pillWidth, pillHeight), new Vector2(startX + 0 * (pillWidth + spacing), 0f), iconCash);
+
+        // Pill 2: Runway (Custom Pill Text)
+        var runwayPill = CreateUiPill("RunwayPill", resourcePanel, "Runway: -- mo", iconTeam, GameDesignConstants.ResourceTeam, new Vector2(pillWidth, pillHeight), new Vector2(startX + 1 * (pillWidth + spacing), 0f));
+        var runwayTxt = runwayPill.transform.Find("Border/InnerBackground/LabelText").GetComponent<TextMeshProUGUI>();
+
+        // Pill 3: Reputation
+        var repBar = CreateResourceBar("ReputationBar", resourcePanel, "Reputation", GameDesignConstants.ResourceReputation, "", "%", 100f, new Vector2(pillWidth, pillHeight), new Vector2(startX + 2 * (pillWidth + spacing), 0f), iconRep);
+
+        // Pill 4: Quality
+        var qualBar = CreateResourceBar("QualityBar", resourcePanel, "Model Quality", GameDesignConstants.ResourceQuality, "", "%", 100f, new Vector2(pillWidth, pillHeight), new Vector2(startX + 3 * (pillWidth + spacing), 0f), iconQual);
+
+        // Pill 5: NOC Load / Grid Status (Battery/CPU icon)
+        var nocPill = CreateUiPill("NocPill", resourcePanel, "Grid: --%", iconQual, GameDesignConstants.BrandSecondary, new Vector2(pillWidth, pillHeight), new Vector2(startX + 4 * (pillWidth + spacing), 0f));
+        var nocTxt = nocPill.transform.Find("Border/InnerBackground/LabelText").GetComponent<TextMeshProUGUI>();
+
+        // Pill 6: Op. Cost (Burn Rate)
+        var burnPill = CreateUiPill("BurnPill", resourcePanel, "Op. Cost: --", iconRep, GameDesignConstants.StatusDanger, new Vector2(pillWidth, pillHeight), new Vector2(startX + 5 * (pillWidth + spacing), 0f));
+        var burnTxt = burnPill.transform.Find("Border/InnerBackground/LabelText").GetComponent<TextMeshProUGUI>();
+
+        // Hidden Team and Competence bars to preserve HUDController refs
+        var hiddenPanel = new GameObject("HiddenResourceBars");
+        hiddenPanel.transform.SetParent(resourcePanel, false);
+        hiddenPanel.SetActive(false);
+        var teamBar = CreateResourceBar("TeamBar", hiddenPanel.transform, "Team Size", GameDesignConstants.ResourceTeam, "", " ML", 20f, new Vector2(10f, 10f), Vector2.zero, iconTeam);
+        var competenceBar = CreateResourceBar("CompetenceBar", hiddenPanel.transform, "Competence", GameDesignConstants.BrandAccent, "", "%", 100f, new Vector2(10f, 10f), Vector2.zero, null);
 
         // ── OPERATIONAL TERMINAL (BOTTOM SUMMARY) ────────────────────
-        var summaryPanel = CreatePremiumUiPanel("SummaryPanel", canvasObject.transform, new Vector2(320f, 240f), new Vector2(24f, 24f), GameDesignConstants.SurfaceCard, new Color(1f, 1f, 1f, 0.08f));
+        var summaryPanel = CreatePremiumUiPanel("SummaryPanel", canvasObject.transform, new Vector2(320f, 240f), new Vector2(24f, 80f), GameDesignConstants.SurfaceMid, new Color(0.82f, 0.84f, 0.87f));
         summaryPanel.anchorMin = new Vector2(0f, 0f);
         summaryPanel.anchorMax = new Vector2(0f, 0f);
         summaryPanel.pivot = new Vector2(0f, 0f);
@@ -557,8 +661,8 @@ public static class GaragePrototypeBootstrap
         sumCloseBtn.pivot = new Vector2(1f, 0.5f);
         sumCloseBtn.anchoredPosition = new Vector2(-20f, 100f);
 
-        var runwayTxt = CreateTMPText("RunwayText", summaryPanel, "Runway: -- months", 14f, TextAlignmentOptions.Left, GameDesignConstants.TextPrimary, new Vector2(280f, 20f), new Vector2(16f, 70f));
-        var burnTxt = CreateTMPText("BurnText", summaryPanel, "Burn Rate: $800/mo", 14f, TextAlignmentOptions.Left, GameDesignConstants.TextSecondary, new Vector2(280f, 20f), new Vector2(16f, 44f));
+        var sumRunwayTxt = CreateTMPText("RunwayText", summaryPanel, "Runway: -- months", 14f, TextAlignmentOptions.Left, GameDesignConstants.TextPrimary, new Vector2(280f, 20f), new Vector2(16f, 70f));
+        var sumBurnTxt = CreateTMPText("BurnText", summaryPanel, "Burn Rate: $800/mo", 14f, TextAlignmentOptions.Left, GameDesignConstants.TextSecondary, new Vector2(280f, 20f), new Vector2(16f, 44f));
         var revTxt = CreateTMPText("RevenueText", summaryPanel, "Revenue: $0/mo", 14f, TextAlignmentOptions.Left, GameDesignConstants.TextSecondary, new Vector2(280f, 20f), new Vector2(16f, 18f));
         var clientsTxt = CreateTMPText("ClientsText", summaryPanel, "Active Clients: 0", 14f, TextAlignmentOptions.Left, GameDesignConstants.TextSecondary, new Vector2(280f, 20f), new Vector2(16f, -8f));
 
@@ -570,9 +674,28 @@ public static class GaragePrototypeBootstrap
  
         summaryPanel.gameObject.SetActive(false);
 
+        // ── BOTTOM ACTION BAR (CARD BUTTONS) ─────────────────────────
+        var bottomBar = CreatePremiumUiPanel("BottomActionBar", canvasObject.transform, new Vector2(800f, 60f), new Vector2(0f, 20f), GameDesignConstants.SurfaceLight, new Color(0.82f, 0.84f, 0.87f));
+        bottomBar.anchorMin = new Vector2(0.5f, 0f);
+        bottomBar.anchorMax = new Vector2(0.5f, 0f);
+        bottomBar.pivot = new Vector2(0.5f, 0f);
+
+        var bHireBtn = CreateStylizedButton("Btn_BottomHire", bottomBar, "+ Hire Staff", StylizedButton.ButtonVariant.Secondary, new Vector2(180f, 44f), new Vector2(-288f, 0f));
+        bHireBtn.anchorMin = new Vector2(0.5f, 0.5f); bHireBtn.anchorMax = new Vector2(0.5f, 0.5f); bHireBtn.pivot = new Vector2(0.5f, 0.5f); bHireBtn.anchoredPosition = new Vector2(-288f, 0f);
+
+        var bStartBtn = CreateStylizedButton("Btn_BottomStartProject", bottomBar, "▶ Start Project", StylizedButton.ButtonVariant.Secondary, new Vector2(180f, 44f), new Vector2(-96f, 0f));
+        bStartBtn.anchorMin = new Vector2(0.5f, 0.5f); bStartBtn.anchorMax = new Vector2(0.5f, 0.5f); bStartBtn.pivot = new Vector2(0.5f, 0.5f); bStartBtn.anchoredPosition = new Vector2(-96f, 0f);
+
+        var bUpgradeBtn = CreateStylizedButton("Btn_BottomUpgrade", bottomBar, "⚡ Upgrade Infra", StylizedButton.ButtonVariant.Secondary, new Vector2(180f, 44f), new Vector2(96f, 0f));
+        bUpgradeBtn.anchorMin = new Vector2(0.5f, 0.5f); bUpgradeBtn.anchorMax = new Vector2(0.5f, 0.5f); bUpgradeBtn.pivot = new Vector2(0.5f, 0.5f); bUpgradeBtn.anchoredPosition = new Vector2(96f, 0f);
+
+        var bSpeedBtn = CreateStylizedButton("Btn_BottomSpeedUp", bottomBar, "⏱ Speed Up / Ops", StylizedButton.ButtonVariant.Secondary, new Vector2(180f, 44f), new Vector2(288f, 0f));
+        bSpeedBtn.anchorMin = new Vector2(0.5f, 0.5f); bSpeedBtn.anchorMax = new Vector2(0.5f, 0.5f); bSpeedBtn.pivot = new Vector2(0.5f, 0.5f); bSpeedBtn.anchoredPosition = new Vector2(288f, 0f);
+
         // Hook up HUDController
         var serializedHUD = new SerializedObject(hudController);
         serializedHUD.FindProperty("companyNameText").objectReferenceValue = companyTextRect.GetComponent<TextMeshProUGUI>();
+        serializedHUD.FindProperty("companyIconImage").objectReferenceValue = companyIconImage;
         serializedHUD.FindProperty("dateText").objectReferenceValue = dateTextRect.GetComponent<TextMeshProUGUI>();
         serializedHUD.FindProperty("speedText").objectReferenceValue = speedTextRect.GetComponent<TextMeshProUGUI>();
         serializedHUD.FindProperty("topBarBackground").objectReferenceValue = (topBar.Find("InnerBackground") != null ? topBar.Find("InnerBackground").GetComponent<Image>() : topBar.GetComponent<Image>());
@@ -588,22 +711,24 @@ public static class GaragePrototypeBootstrap
         serializedHUD.FindProperty("reputationBar").objectReferenceValue = repBar;
         serializedHUD.FindProperty("qualityBar").objectReferenceValue = qualBar;
         serializedHUD.FindProperty("teamBar").objectReferenceValue = teamBar;
-        serializedHUD.FindProperty("resourcePanelBackground").objectReferenceValue = (resourcePanel.Find("InnerBackground") != null ? resourcePanel.Find("InnerBackground").GetComponent<Image>() : resourcePanel.GetComponent<Image>());
-        serializedHUD.FindProperty("monthlyBurnText").objectReferenceValue = burnTxt.GetComponent<TextMeshProUGUI>();
-        serializedHUD.FindProperty("monthlyRevenueText").objectReferenceValue = revTxt.GetComponent<TextMeshProUGUI>();
-        serializedHUD.FindProperty("runwayText").objectReferenceValue = runwayTxt.GetComponent<TextMeshProUGUI>();
+        serializedHUD.FindProperty("competenceBar").objectReferenceValue = competenceBar;
+        serializedHUD.FindProperty("resourcePanelBackground").objectReferenceValue = resourcePanelImg;
+        serializedHUD.FindProperty("monthlyBurnText").objectReferenceValue = burnTxt;
+        serializedHUD.FindProperty("monthlyRevenueText").objectReferenceValue = revTxt;
+        serializedHUD.FindProperty("runwayText").objectReferenceValue = runwayTxt;
         serializedHUD.FindProperty("clientsText").objectReferenceValue = clientsTxt.GetComponent<TextMeshProUGUI>();
+        serializedHUD.FindProperty("nocText").objectReferenceValue = nocTxt;
+        serializedHUD.FindProperty("bottomHireButton").objectReferenceValue = bHireBtn.GetComponent<Button>();
+        serializedHUD.FindProperty("bottomStartProjectButton").objectReferenceValue = bStartBtn.GetComponent<Button>();
+        serializedHUD.FindProperty("bottomUpgradeButton").objectReferenceValue = bUpgradeBtn.GetComponent<Button>();
+        serializedHUD.FindProperty("bottomSpeedUpButton").objectReferenceValue = bSpeedBtn.GetComponent<Button>();
         serializedHUD.FindProperty("hudCanvasGroup").objectReferenceValue = hudCG;
 
-        // ── COMPETENCE BAR (inside ResourcePanel) ─────────────────────
-        var compBar = CreateResourceBar("CompetenceBar", resourcePanel, "Competence", GameDesignConstants.BrandAccent, "", "%", 100f, new Vector2(285f, 32f), new Vector2(0f, 88f), null);
-        serializedHUD.FindProperty("competenceBar").objectReferenceValue = compBar;
-
-        // ── FLOATING RIGHT DOCK ICON STRIP ────────────────────────────
-        var dockStrip = CreatePremiumUiPanel("RightDockStrip", canvasObject.transform, new Vector2(60f, 560f), new Vector2(-24f, 0f), GameDesignConstants.SurfaceGlass, new Color(1f, 1f, 1f, 0.08f));
-        dockStrip.anchorMin = new Vector2(1f, 0.5f);
-        dockStrip.anchorMax = new Vector2(1f, 0.5f);
-        dockStrip.pivot = new Vector2(1f, 0.5f);
+        // ── FLOATING LEFT DOCK ICON STRIP ─────────────────────────────
+        var dockStrip = CreatePremiumUiPanel("LeftDockStrip", canvasObject.transform, new Vector2(60f, 560f), new Vector2(24f, 0f), GameDesignConstants.SurfaceMid, new Color(0.82f, 0.84f, 0.87f));
+        dockStrip.anchorMin = new Vector2(0f, 0.5f);
+        dockStrip.anchorMax = new Vector2(0f, 0.5f);
+        dockStrip.pivot = new Vector2(0f, 0.5f);
 
         var dockTechBtn = CreateStylizedButton("Dock_TechPulse", dockStrip, "T", StylizedButton.ButtonVariant.Secondary, new Vector2(44f, 44f), new Vector2(0f, 220f));
         var dockResearchBtn = CreateStylizedButton("Dock_Research", dockStrip, "R", StylizedButton.ButtonVariant.Secondary, new Vector2(44f, 44f), new Vector2(0f, 165f));
@@ -652,10 +777,13 @@ public static class GaragePrototypeBootstrap
         var techPulseBtn = dockTechBtn;
 
         // ── PROJECT PANEL ────────────────────────────────────────────
-        var projectPanel = CreatePremiumUiPanel("ProjectPanel", canvasObject.transform, new Vector2(380f, 440f), new Vector2(24f, 0f), GameDesignConstants.SurfaceCard, new Color(1f, 1f, 1f, 0.08f));
-        projectPanel.anchorMin = new Vector2(0f, 0.5f);
-        projectPanel.anchorMax = new Vector2(0f, 0.5f);
-        projectPanel.pivot = new Vector2(0f, 0.5f);
+        var projectPanel = CreatePremiumUiPanel("ProjectPanel", canvasObject.transform, new Vector2(380f, 440f), new Vector2(-24f, 0f), GameDesignConstants.SurfaceMid, new Color(0.82f, 0.84f, 0.87f));
+        projectPanel.anchorMin = new Vector2(1f, 0.5f);
+        projectPanel.anchorMax = new Vector2(1f, 0.5f);
+        projectPanel.pivot = new Vector2(1f, 0.5f);
+
+        // Teal accent bar at the top of the card
+        var projAccentBar = CreateUiRect("AccentBar", projectPanel, new Vector2(380f, 6f), new Vector2(0f, 217f), GameDesignConstants.BrandPrimary);
 
         var headerBg = CreateUiRect("HeaderBg", projectPanel, new Vector2(380f, 50f), new Vector2(0f, 195f), GameDesignConstants.SurfaceLight);
         var projTitle = CreateTMPText("ProjectTitle", projectPanel, "SupportBot v1.0", 18f, TextAlignmentOptions.Left, GameDesignConstants.TextPrimary, new Vector2(340f, 30f), new Vector2(20f, 195f));
@@ -1322,11 +1450,111 @@ public static class GaragePrototypeBootstrap
         serializedHUD3.FindProperty("boardRoomPanelGroup").objectReferenceValue = boardRoomPanelGroup;
         serializedHUD3.ApplyModifiedPropertiesWithoutUndo();
 
+        ApplyRealisticRefactorUi(scene);
+
         // Save Gameplay scene
         EditorSceneManager.SaveScene(scene, GameplayScenePath);
 
         // Add both scenes to build settings
         AddScenesToBuildSettings(new[] { MainMenuScenePath, GameplayScenePath });
+    }
+
+    private static void ApplyRealisticRefactorUi(Scene scene)
+    {
+        var canvas = FindGameplayCanvas(scene);
+        if (canvas == null)
+        {
+            Debug.LogWarning("Model Foundry: Could not find a gameplay Canvas to apply the realistic refactor UI.");
+            return;
+        }
+
+        if (Object.FindFirstObjectByType<TeamSimulationManager>() == null)
+        {
+            var gameManager = Object.FindFirstObjectByType<GameManager>();
+            var host = gameManager != null ? gameManager.gameObject : new GameObject("GameManager");
+            host.AddComponent<TeamSimulationManager>();
+            EditorUtility.SetDirty(host);
+        }
+
+        foreach (var transform in FindSceneTransforms(scene))
+        {
+            if (transform == null)
+            {
+                continue;
+            }
+
+            var objectName = transform.name;
+            if (objectName == "StartupDashboard")
+            {
+                Object.DestroyImmediate(transform.gameObject);
+                continue;
+            }
+
+            if (objectName == "ContextMenuPanel" ||
+                objectName == "RightClickContextMenu")
+            {
+                Object.DestroyImmediate(transform.gameObject);
+                continue;
+            }
+
+            if (objectName == "BottomActionBar" ||
+                objectName == "SummaryPanel" ||
+                objectName == "ProjectPanel" ||
+                objectName == "LeftDockStrip")
+            {
+                transform.gameObject.SetActive(false);
+            }
+        }
+
+        var existing = canvas.GetComponentInChildren<StartupDashboardController>(true);
+        if (existing == null)
+        {
+            var layer = new GameObject("StartupCommandLayer");
+            layer.transform.SetParent(canvas.transform, false);
+            existing = layer.AddComponent<StartupDashboardController>();
+        }
+
+        existing.gameObject.SetActive(true);
+        existing.RebuildUi();
+        EditorUtility.SetDirty(existing);
+        EditorSceneManager.MarkSceneDirty(scene);
+    }
+
+    private static Canvas FindGameplayCanvas(Scene scene)
+    {
+        foreach (var canvas in Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (canvas.gameObject.scene != scene)
+            {
+                continue;
+            }
+
+            if (canvas.GetComponent<HUDController>() != null)
+            {
+                return canvas;
+            }
+        }
+
+        foreach (var canvas in Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (canvas.gameObject.scene == scene)
+            {
+                return canvas;
+            }
+        }
+
+        return null;
+    }
+
+    private static IEnumerable<Transform> FindSceneTransforms(Scene scene)
+    {
+        foreach (var transform in Resources.FindObjectsOfTypeAll<Transform>())
+        {
+            if (transform != null && transform.gameObject.scene == scene)
+            {
+                yield return transform;
+            }
+        }
     }
 
     private static GameObject BuildTechPulsePanel(Transform parent)
@@ -2047,7 +2275,78 @@ public static class GaragePrototypeBootstrap
         instance.transform.position = position;
         instance.transform.rotation = Quaternion.Euler(rotation);
         instance.transform.localScale = scale;
+
+        ApplyRoomVisuals(instance, position, path);
+
         return instance;
+    }
+
+    private static void ApplyRoomVisuals(GameObject instance, Vector3 position, string path)
+    {
+        if (instance == null) return;
+
+        bool isWall = path.Contains("Wall");
+        bool isFloor = path.Contains("Floor");
+
+        if (!isWall && !isFloor) return;
+
+        // Determine quadrant colors
+        Color targetColor = Color.white;
+        if (position.x > 5.0f) // T4 - Datacenter
+        {
+            targetColor = isWall ? HexColor("#991B1B") : HexColor("#374151");
+        }
+        else if (position.z > 3.5f) // T3 - Secret Lab
+        {
+            targetColor = isWall ? HexColor("#C084FC") : HexColor("#E9D5FF");
+        }
+        else if (position.x < -5.0f) // T2 - Expansion
+        {
+            targetColor = isWall ? HexColor("#F5F5F4") : HexColor("#E7E5E4");
+        }
+        else // T1 - Garage
+        {
+            targetColor = isWall ? HexColor("#38BDF8") : HexColor("#0284C7");
+        }
+
+        var shader = Shader.Find("Universal Render Pipeline/Lit");
+        if (shader == null) return;
+
+        var mat = new Material(shader);
+        mat.color = targetColor;
+        mat.SetFloat("_Roughness", 0.8f);
+        mat.SetFloat("_Metallic", 0.1f);
+
+        var renderers = instance.GetComponentsInChildren<Renderer>(true);
+        foreach (var r in renderers)
+        {
+            if (r.gameObject.name.Contains("Glass") || r.gameObject.name.Contains("Window_Glass") || r.gameObject.name.Contains("glass"))
+            {
+                continue; // Skip glass
+            }
+
+            var mats = r.sharedMaterials;
+            bool modified = false;
+            for (int i = 0; i < mats.Length; i++)
+            {
+                if (mats[i] != null && (mats[i].name.Contains("Glass") || mats[i].name.Contains("Trans") || mats[i].name.Contains("glass")))
+                {
+                    continue; // Skip glass materials
+                }
+                mats[i] = mat;
+                modified = true;
+            }
+            if (modified)
+            {
+                r.sharedMaterials = mats;
+            }
+        }
+    }
+
+    private static Color HexColor(string hex)
+    {
+        ColorUtility.TryParseHtmlString(hex, out var c);
+        return c;
     }
 
     private static PrototypeEmployeeAgent CreateFounderAgent(PrototypeWorkstation workstation)
@@ -2506,7 +2805,9 @@ public static class GaragePrototypeBootstrap
         labelTMP.text = label;
         labelTMP.fontSize = GameDesignConstants.FontButton;
         labelTMP.alignment = TextAlignmentOptions.Center;
-        labelTMP.color = Color.white;
+        labelTMP.color = variant == StylizedButton.ButtonVariant.Secondary
+            ? GameDesignConstants.TextPrimary
+            : Color.white;
         labelTMP.font = GetDefaultFont();
 
         var labelRect = labelObj.GetComponent<RectTransform>();
@@ -2534,21 +2835,26 @@ public static class GaragePrototypeBootstrap
         rect.sizeDelta = size;
         rect.anchoredPosition = position;
 
+        var uiSprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+
         var img = obj.AddComponent<Image>();
-        img.color = new Color(1f, 1f, 1f, 0.05f);
+        img.sprite = uiSprite;
+        img.type = Image.Type.Sliced;
+        img.color = new Color(1f, 1f, 1f, 0.15f);
 
         var btn = obj.AddComponent<Button>();
 
         var hl = new GameObject("Highlight");
         hl.transform.SetParent(obj.transform, false);
         var hlImg = hl.AddComponent<Image>();
+        hlImg.sprite = uiSprite;
+        hlImg.type = Image.Type.Sliced;
         hlImg.color = GameDesignConstants.BrandSecondary;
         var hlRect = hl.GetComponent<RectTransform>();
-        hlRect.anchorMin = new Vector2(0f, 0f);
-        hlRect.anchorMax = new Vector2(1f, 0f);
-        hlRect.pivot = new Vector2(0.5f, 0f);
-        hlRect.sizeDelta = new Vector2(0f, 4f);
-        hlRect.anchoredPosition = Vector2.zero;
+        hlRect.anchorMin = Vector2.zero;
+        hlRect.anchorMax = Vector2.one;
+        hlRect.offsetMin = Vector2.zero;
+        hlRect.offsetMax = Vector2.zero;
         hlImg.gameObject.SetActive(false);
 
         var labelObj = new GameObject("Label");
@@ -2634,36 +2940,42 @@ public static class GaragePrototypeBootstrap
         rect.sizeDelta = size;
         rect.anchoredPosition = position;
 
-        var bgObj = new GameObject("Background");
-        bgObj.transform.SetParent(root.transform, false);
+        var uiSprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+
+        // 1. Outline Border
+        var borderObj = new GameObject("Border");
+        borderObj.transform.SetParent(root.transform, false);
+        var borderImg = borderObj.AddComponent<Image>();
+        borderImg.sprite = uiSprite;
+        borderImg.type = Image.Type.Sliced;
+        borderImg.color = new Color(0.82f, 0.84f, 0.87f); // thin light grey border
+        var borderRect = borderObj.GetComponent<RectTransform>();
+        borderRect.anchorMin = Vector2.zero;
+        borderRect.anchorMax = Vector2.one;
+        borderRect.offsetMin = Vector2.zero;
+        borderRect.offsetMax = Vector2.zero;
+
+        // 2. Inner Background
+        var bgObj = new GameObject("InnerBackground");
+        bgObj.transform.SetParent(borderObj.transform, false);
         var bgImg = bgObj.AddComponent<Image>();
-        bgImg.color = GameDesignConstants.ResourceBarBg;
+        bgImg.sprite = uiSprite;
+        bgImg.type = Image.Type.Sliced;
+        bgImg.color = Color.white; // clean white body
         var bgRect = bgObj.GetComponent<RectTransform>();
         bgRect.anchorMin = Vector2.zero;
         bgRect.anchorMax = Vector2.one;
-        bgRect.offsetMin = Vector2.zero;
-        bgRect.offsetMax = Vector2.zero;
+        bgRect.offsetMin = new Vector2(1f, 1f);
+        bgRect.offsetMax = new Vector2(-1f, -1f);
 
-        var fillObj = new GameObject("Fill");
-        fillObj.transform.SetParent(root.transform, false);
-        var fillImg = fillObj.AddComponent<Image>();
-        fillImg.color = color;
-        fillImg.type = Image.Type.Filled;
-        fillImg.fillMethod = Image.FillMethod.Horizontal;
-        fillImg.fillAmount = 0.5f;
-        var fillRect = fillObj.GetComponent<RectTransform>();
-        fillRect.anchorMin = Vector2.zero;
-        fillRect.anchorMax = Vector2.one;
-        fillRect.offsetMin = Vector2.zero;
-        fillRect.offsetMax = Vector2.zero;
-
+        // 3. Icon
         var iconObj = new GameObject("Icon");
-        iconObj.transform.SetParent(root.transform, false);
+        iconObj.transform.SetParent(bgObj.transform, false);
         var iconImg = iconObj.AddComponent<Image>();
         if (iconSprite != null)
         {
             iconImg.sprite = iconSprite;
-            iconImg.color = Color.white;
+            iconImg.color = color;
         }
         else
         {
@@ -2673,15 +2985,16 @@ public static class GaragePrototypeBootstrap
         iconRect.anchorMin = new Vector2(0f, 0.5f);
         iconRect.anchorMax = new Vector2(0f, 0.5f);
         iconRect.pivot = new Vector2(0f, 0.5f);
-        iconRect.sizeDelta = new Vector2(24f, 24f);
-        iconRect.anchoredPosition = new Vector2(10f, 0f);
+        iconRect.sizeDelta = new Vector2(18f, 18f);
+        iconRect.anchoredPosition = new Vector2(8f, 0f);
 
-        var labelTMP = CreateTMPText("LabelText", root.transform, label, 14f, TextAlignmentOptions.Left, GameDesignConstants.TextSecondary, new Vector2(100f, 24f), new Vector2(42f, 0f));
+        // 4. Text Content (Combining Label and Value in a single text or layout)
+        var labelTMP = CreateTMPText("LabelText", bgObj.transform, label, 11f, TextAlignmentOptions.Left, GameDesignConstants.TextSecondary, new Vector2(size.x - 30f, 24f), new Vector2(30f, 0f));
         labelTMP.anchorMin = new Vector2(0f, 0.5f);
         labelTMP.anchorMax = new Vector2(0f, 0.5f);
         labelTMP.pivot = new Vector2(0f, 0.5f);
 
-        var valueTMP = CreateTMPText("ValueText", root.transform, prefix + "0" + suffix, 14f, TextAlignmentOptions.Right, Color.white, new Vector2(120f, 24f), new Vector2(-12f, 0f));
+        var valueTMP = CreateTMPText("ValueText", bgObj.transform, prefix + "0" + suffix, 11f, TextAlignmentOptions.Right, GameDesignConstants.TextPrimary, new Vector2(80f, 24f), new Vector2(-8f, 0f));
         valueTMP.anchorMin = new Vector2(1f, 0.5f);
         valueTMP.anchorMax = new Vector2(1f, 0.5f);
         valueTMP.pivot = new Vector2(1f, 0.5f);
@@ -2691,7 +3004,6 @@ public static class GaragePrototypeBootstrap
         serialized.FindProperty("iconImage").objectReferenceValue = iconImg;
         serialized.FindProperty("labelText").objectReferenceValue = labelTMP.GetComponent<TextMeshProUGUI>();
         serialized.FindProperty("valueText").objectReferenceValue = valueTMP.GetComponent<TextMeshProUGUI>();
-        serialized.FindProperty("fillImage").objectReferenceValue = fillImg;
         serialized.FindProperty("backgroundImage").objectReferenceValue = bgImg;
         serialized.FindProperty("label").stringValue = label;
         serialized.FindProperty("barColor").colorValue = color;
@@ -2701,6 +3013,71 @@ public static class GaragePrototypeBootstrap
         serialized.ApplyModifiedPropertiesWithoutUndo();
 
         return bar;
+    }
+
+    private static GameObject CreateUiPill(string name, Transform parent, string label, Sprite iconSprite, Color color, Vector2 size, Vector2 position)
+    {
+        var root = new GameObject(name);
+        root.transform.SetParent(parent, false);
+        var rect = root.AddComponent<RectTransform>();
+        rect.sizeDelta = size;
+        rect.anchoredPosition = position;
+
+        var uiSprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+
+        // 1. Outline Border
+        var borderObj = new GameObject("Border");
+        borderObj.transform.SetParent(root.transform, false);
+        var borderImg = borderObj.AddComponent<Image>();
+        borderImg.sprite = uiSprite;
+        borderImg.type = Image.Type.Sliced;
+        borderImg.color = new Color(0.82f, 0.84f, 0.87f); // thin light grey border
+        var borderRect = borderObj.GetComponent<RectTransform>();
+        borderRect.anchorMin = Vector2.zero;
+        borderRect.anchorMax = Vector2.one;
+        borderRect.offsetMin = Vector2.zero;
+        borderRect.offsetMax = Vector2.zero;
+
+        // 2. Inner Background
+        var bgObj = new GameObject("InnerBackground");
+        bgObj.transform.SetParent(borderObj.transform, false);
+        var bgImg = bgObj.AddComponent<Image>();
+        bgImg.sprite = uiSprite;
+        bgImg.type = Image.Type.Sliced;
+        bgImg.color = Color.white; // clean white body
+        var bgRect = bgObj.GetComponent<RectTransform>();
+        bgRect.anchorMin = Vector2.zero;
+        bgRect.anchorMax = Vector2.one;
+        bgRect.offsetMin = new Vector2(1f, 1f);
+        bgRect.offsetMax = new Vector2(-1f, -1f);
+
+        // 3. Icon
+        var iconObj = new GameObject("Icon");
+        iconObj.transform.SetParent(bgObj.transform, false);
+        var iconImg = iconObj.AddComponent<Image>();
+        if (iconSprite != null)
+        {
+            iconImg.sprite = iconSprite;
+            iconImg.color = color;
+        }
+        else
+        {
+            iconImg.color = color;
+        }
+        var iconRect = iconObj.GetComponent<RectTransform>();
+        iconRect.anchorMin = new Vector2(0f, 0.5f);
+        iconRect.anchorMax = new Vector2(0f, 0.5f);
+        iconRect.pivot = new Vector2(0f, 0.5f);
+        iconRect.sizeDelta = new Vector2(18f, 18f);
+        iconRect.anchoredPosition = new Vector2(8f, 0f);
+
+        // 4. Combined Label & Value Text
+        var labelTMP = CreateTMPText("LabelText", bgObj.transform, label, 11f, TextAlignmentOptions.Left, GameDesignConstants.TextPrimary, new Vector2(size.x - 30f, 24f), new Vector2(30f, 0f));
+        labelTMP.anchorMin = new Vector2(0f, 0.5f);
+        labelTMP.anchorMax = new Vector2(0f, 0.5f);
+        labelTMP.pivot = new Vector2(0f, 0.5f);
+
+        return root;
     }
 
     private static Image CreateDockHighlight(RectTransform parentBtn)

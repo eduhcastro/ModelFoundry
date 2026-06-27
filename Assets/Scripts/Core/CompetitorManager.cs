@@ -50,42 +50,42 @@ public sealed class CompetitorManager : MonoBehaviour
     {
         companies.Clear();
 
-        // 1. HaploWorks — Vertical B2B Automação (Tier 2 in 2016)
+        // 1. HaploWorks - Vertical B2B automation (Tier 2 in 2016)
         var haplo = new CompetitorCompany("RIV_HAPLOWORKS", "HaploWorks", "@HaploWorks", GameDesignConstants.StatusSuccess, "VerticalB2B", 2);
-        haplo.Strengths.Add("Contratos recorrentes robustos");
-        haplo.Strengths.Add("Foco pragmático em B2B");
-        haplo.Weaknesses.Add("Baixa inovação em frontier models");
-        haplo.Weaknesses.Add("Pouco apelo com o público consumer");
+        haplo.Strengths.Add("Durable recurring B2B contracts");
+        haplo.Strengths.Add("Pragmatic enterprise focus");
+        haplo.Weaknesses.Add("Weak frontier-model innovation");
+        haplo.Weaknesses.Add("Limited consumer appeal");
         haplo.AutomationCapability = 45f;
         haplo.EnterpriseCapability = 40f;
         companies.Add(haplo);
 
-        // 2. Vectoria — Plataforma de conteúdo e dados (Tier 2 in 2017/2016 prototype)
+        // 2. Vectoria - Content and data platform (Tier 2 in 2017/2016 prototype)
         var vectoria = new CompetitorCompany("RIV_VECTORIA", "Vectoria", "@Vectoria", GameDesignConstants.DeptPR, "Marketplace", 2);
-        vectoria.Strengths.Add("Excelente infraestrutura de distribuição");
-        vectoria.Strengths.Add("Catálogo amplo de dados licenciados");
-        vectoria.Weaknesses.Add("Dependência excessiva de creators");
-        vectoria.Weaknesses.Add("Suscetível a disputas de licenciamento");
+        vectoria.Strengths.Add("Excellent distribution infrastructure");
+        vectoria.Strengths.Add("Large licensed-data catalog");
+        vectoria.Weaknesses.Add("Overdependent on creators");
+        vectoria.Weaknesses.Add("Exposed to licensing disputes");
         vectoria.EnterpriseCapability = 45f;
         companies.Add(vectoria);
 
-        // 3. NeuraForge — Laboratório de fronteira agressivo (Tier 3 in 2016)
+        // 3. NeuraForge - Aggressive frontier lab (Tier 3 in 2016)
         var neura = new CompetitorCompany("RIV_NEURAFORGE", "NeuraForge", "@NeuraForge", GameDesignConstants.BrandPrimary, "Frontier", 3);
-        neura.Strengths.Add("Pesquisa inovadora de ponta");
-        neura.Strengths.Add("Habilidade excepcional de captação de recursos");
-        neura.Weaknesses.Add("Custo operacional extremamente elevado");
-        neura.Weaknesses.Add("Foco excessivo e exclusivo em frontier");
+        neura.Strengths.Add("Strong frontier research");
+        neura.Strengths.Add("Exceptional fundraising ability");
+        neura.Weaknesses.Add("Extremely high operating cost");
+        neura.Weaknesses.Add("Overfocused on frontier research");
         neura.AutomationCapability = 50f;
         neura.EnterpriseCapability = 50f;
         neura.InfrastructureCapability = 35f;
         companies.Add(neura);
 
-        // 4. Cloudharbor — Infraestrutura robusta e Datacenters (Tier 4 in 2016)
+        // 4. Cloudharbor - Infrastructure and data centers (Tier 4 in 2016)
         var cloud = new CompetitorCompany("RIV_CLOUDHARBOR", "Cloudharbor", "@Cloudharbor", GameDesignConstants.DeptInfra, "Infrastructure", 4);
-        cloud.Strengths.Add("Massiva capacidade e datacenters próprios");
-        cloud.Strengths.Add("Grande capital de infraestrutura");
-        cloud.Weaknesses.Add("Não desenvolve produtos finais competitivos");
-        cloud.Weaknesses.Add("Alta vulnerabilidade a custos de energia");
+        cloud.Strengths.Add("Massive owned data-center capacity");
+        cloud.Strengths.Add("Deep infrastructure capital");
+        cloud.Weaknesses.Add("Weak end-user products");
+        cloud.Weaknesses.Add("Highly exposed to energy costs");
         cloud.InfrastructureCapability = 65f;
         companies.Add(cloud);
     }
@@ -173,35 +173,35 @@ public sealed class CompetitorManager : MonoBehaviour
                 {
                     comp.AutomationCapability = Mathf.Clamp(comp.AutomationCapability + growth * 1.2f, 0f, 100f);
                     comp.EnterpriseCapability = Mathf.Clamp(comp.EnterpriseCapability + growth * 0.8f, 0f, 100f);
-                    content = $"Lançamos oficialmente o {comp.Name}-Chat V3! Atingindo novos recordes em raciocínio lógico e benchmarks de codificação. 🚀";
+                    content = $"We officially launched {comp.Name}-Chat V3 with stronger reasoning and coding benchmark results.";
                 }
                 else if (comp.Personality == "VerticalB2B")
                 {
                     comp.AutomationCapability = Mathf.Clamp(comp.AutomationCapability + growth * 1.5f, 0f, 100f);
-                    content = $"Apresentamos o {comp.Name}-Service. Automação inteligente sob medida para fluxos de atendimento corporativo.";
+                    content = $"Introducing {comp.Name}-Service: tailored automation for enterprise support workflows.";
                 }
                 else if (comp.Personality == "Marketplace")
                 {
                     comp.EnterpriseCapability = Mathf.Clamp(comp.EnterpriseCapability + growth * 1.4f, 0f, 100f);
-                    content = $"Novos recursos de análise preditiva empresarial liberados em nossa plataforma {comp.Name}! #B2B";
+                    content = $"New predictive enterprise analytics features are live on the {comp.Name} platform.";
                 }
                 else // Infrastructure
                 {
                     comp.InfrastructureCapability = Mathf.Clamp(comp.InfrastructureCapability + growth * 1.3f, 0f, 100f);
-                    content = $"Anunciamos o {comp.Name}-Serverless. Escalabilidade instantânea de inferência com custo extremamente reduzido.";
+                    content = $"Announcing {comp.Name}-Serverless: scalable inference with lower operational overhead.";
                 }
                 postCategory = TechPulsePost.PostCategory.ModelLaunch;
                 break;
 
             case 1: // Reduce Price
                 comp.Revenue += comp.StrengthTier * 500f; // Attracts some immediate cash flow
-                content = $"Reduzimos os preços de inferência da nossa API em 20%! A {comp.Name} democratizando o acesso a IA de alto desempenho.";
+                content = $"We reduced API inference prices by 20%. {comp.Name} is pushing high-performance AI toward broader access.";
                 postCategory = TechPulsePost.PostCategory.Partnership;
                 break;
 
             case 2: // Suffer Incident (Crisis opportunity)
                 comp.BrandTrust = Mathf.Max(20f, comp.BrandTrust - Random.Range(10f, 25f));
-                content = $"Identificamos uma instabilidade temporária em nossos datacenters devido a flutuações de energia. Engenheiros da {comp.Name} já mitigando.";
+                content = $"We identified temporary data-center instability caused by energy fluctuations. {comp.Name} engineers are mitigating.";
                 postCategory = TechPulsePost.PostCategory.Incident;
                 
                 // Give player notification of crisis
@@ -220,7 +220,7 @@ public sealed class CompetitorManager : MonoBehaviour
 
             case 4: // Partner
                 comp.Distribution += 10f;
-                content = $"Anunciamos uma parceria estratégica para pré-instalar modelos e integrações da {comp.Name} em sistemas corporativos líderes de mercado!";
+                content = $"We announced a strategic partnership to embed {comp.Name} models and integrations into major enterprise systems.";
                 postCategory = TechPulsePost.PostCategory.Partnership;
                 break;
         }

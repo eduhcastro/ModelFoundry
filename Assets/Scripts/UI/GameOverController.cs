@@ -54,7 +54,7 @@ public sealed class GameOverController : MonoBehaviour
     {
         if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
         {
-            ShowPanel("O conselho de administração da sua empresa perdeu toda a confiança na sua gestão (Confiança = 0%) e destituiu você do cargo de CEO.");
+            ShowPanel("The board lost all confidence in your leadership and removed you as CEO.");
         }
         else
         {

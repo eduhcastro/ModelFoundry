@@ -27,6 +27,9 @@ public sealed class TechPulseFeed : MonoBehaviour
     }
 
     private int daysCounter;
+    private const int AutoPostIntervalDays = 8;
+    private const int InitialPostCount = 3;
+    private const int MaxStoredPosts = 60;
 
     private void Start()
     {
@@ -48,7 +51,7 @@ public sealed class TechPulseFeed : MonoBehaviour
     private void HandleDayPassed()
     {
         daysCounter++;
-        if (daysCounter >= 3)
+        if (daysCounter >= AutoPostIntervalDays)
         {
             daysCounter = 0;
             GenerateRandomPost();
@@ -155,7 +158,7 @@ public sealed class TechPulseFeed : MonoBehaviour
     private void AddNewPost(TechPulsePost post)
     {
         posts.Insert(0, post); // Add to top
-        if (posts.Count > 100)
+        if (posts.Count > MaxStoredPosts)
         {
             posts.RemoveAt(posts.Count - 1);
         }
@@ -168,7 +171,7 @@ public sealed class TechPulseFeed : MonoBehaviour
 
         // Generate a mix of interesting startup and rival announcements
         var companies = CompetitorManager.Instance.Companies;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < InitialPostCount; i++)
         {
             var comp = companies[UnityEngine.Random.Range(0, companies.Count)];
             var post = TechPulseContentGenerator.GenerateCompetitorPost(comp, ++postCounter);
@@ -181,7 +184,7 @@ public sealed class TechPulseFeed : MonoBehaviour
         if (CompetitorManager.Instance == null) return;
 
         float r = UnityEngine.Random.value;
-        if (r < 0.50f)
+        if (r < 0.70f)
         {
             var comp = CompetitorManager.Instance.GetRandomCompany();
             if (comp != null)
@@ -220,4 +223,3 @@ public sealed class TechPulseFeed : MonoBehaviour
         }
     }
 }
-

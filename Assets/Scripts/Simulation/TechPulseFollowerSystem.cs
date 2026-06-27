@@ -8,7 +8,7 @@ public sealed class TechPulseFollowerSystem : MonoBehaviour
     public static TechPulseFollowerSystem Instance { get; private set; }
 
     [Header("Inactivity Settings")]
-    [SerializeField] private float inactivityDecayIntervalDays = 15f;
+    [SerializeField] private float inactivityDecayIntervalDays = 24f;
     [SerializeField] private int inactivityDecayFollowerCost = 5;
 
     private int daysSinceLastActivity;
@@ -46,8 +46,9 @@ public sealed class TechPulseFollowerSystem : MonoBehaviour
         // Inactivity decay logic
         if (daysSinceLastActivity >= inactivityDecayIntervalDays)
         {
+            var inactiveDays = daysSinceLastActivity;
             daysSinceLastActivity = 0;
-            ApplyInactivityDecay();
+            ApplyInactivityDecay(inactiveDays);
         }
     }
 
@@ -56,7 +57,7 @@ public sealed class TechPulseFollowerSystem : MonoBehaviour
         daysSinceLastActivity = 0;
     }
 
-    private void ApplyInactivityDecay()
+    private void ApplyInactivityDecay(int inactiveDays)
     {
         if (GameManager.Instance == null) return;
 
@@ -74,7 +75,7 @@ public sealed class TechPulseFollowerSystem : MonoBehaviour
         // Generate an organic delay post demanding news
         if (TechPulseFeed.Instance != null)
         {
-            TechPulseFeed.Instance.AddOrganicPlayerPost(true, daysSinceLastActivity);
+            TechPulseFeed.Instance.AddOrganicPlayerPost(true, inactiveDays);
         }
 
         ToastNotification.ShowGlobal("The market demands news! Lost some followers due to inactivity.", ToastNotification.Category.Warning);

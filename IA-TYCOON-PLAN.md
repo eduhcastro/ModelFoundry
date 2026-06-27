@@ -1,3 +1,5 @@
+> **Status update (June 27, 2026):** this document is now historical/reference material for concept, tone, art direction and prototype scope. New gameplay progression, difficulty, AI Arena benchmarks, infrastructure, economy and future multiplayer work should follow **[docs/realistic_ai_company_progression_plan.md](./docs/realistic_ai_company_progression_plan.md)**.
+
 ## Visual direction: what we should absorb from *Game Dev Tycoon*
 
 The reference conveys the right "fun management game" feel, with one important caveat:

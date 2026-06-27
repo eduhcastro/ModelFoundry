@@ -34,14 +34,24 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField] private Button confirmNewGameButton;
     [SerializeField] private Button cancelNewGameButton;
     [SerializeField] private TextMeshProUGUI companyPreviewText;
+    [SerializeField] private Transform identityControlsRoot;
 
     [Header("Settings")]
     [SerializeField] private string gameplaySceneName = "GaragePrototype";
 
     private bool isTransitioning;
+    private string selectedFontKey = "default";
+    private Color selectedCompanyColor;
+    private string selectedIconKey = "pixflow";
+    private bool identityControlsCreated;
+    private readonly System.Collections.Generic.List<Button> fontButtons = new System.Collections.Generic.List<Button>();
+    private readonly System.Collections.Generic.List<Button> colorButtons = new System.Collections.Generic.List<Button>();
+    private readonly System.Collections.Generic.List<Button> iconButtons = new System.Collections.Generic.List<Button>();
 
     private void Awake()
     {
+        selectedCompanyColor = CompanyIdentityCatalog.DefaultColor;
+        selectedIconKey = CompanyIdentityCatalog.DefaultIconKey;
         SetupButtons();
         HideAllPanels();
     }
@@ -154,6 +164,8 @@ public sealed class MainMenuController : MonoBehaviour
 
         ShowPanel(newGamePanel);
         HidePanel(buttonsGroup);
+        EnsureIdentityControls();
+        RefreshIdentityControls();
 
         if (companyNameInput != null)
         {
@@ -217,6 +229,7 @@ public sealed class MainMenuController : MonoBehaviour
             companyPreviewText.text = string.IsNullOrWhiteSpace(value)
                 ? "Model Foundry"
                 : value;
+            CompanyIdentityCatalog.ApplyToCompanyText(companyPreviewText, selectedFontKey, selectedCompanyColor);
         }
     }
 
@@ -232,7 +245,7 @@ public sealed class MainMenuController : MonoBehaviour
         // Initialize GameManager
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.StartNewGame(companyName);
+            GameManager.Instance.StartNewGame(companyName, selectedFontKey, selectedCompanyColor, selectedIconKey);
         }
 
         // Load scene
@@ -294,5 +307,223 @@ public sealed class MainMenuController : MonoBehaviour
         fadeOverlay.color = final;
 
         if (to <= 0f) fadeOverlay.gameObject.SetActive(false);
+    }
+
+    private void EnsureIdentityControls()
+    {
+        if (identityControlsCreated || newGamePanel == null)
+        {
+            return;
+        }
+
+        identityControlsCreated = true;
+
+        var panelRect = newGamePanel.GetComponent<RectTransform>();
+        if (panelRect != null && panelRect.sizeDelta.y < 500f)
+        {
+            panelRect.sizeDelta = new Vector2(panelRect.sizeDelta.x, 520f);
+        }
+
+        MovePanelButton(confirmNewGameButton, new Vector2(-105f, -190f));
+        MovePanelButton(cancelNewGameButton, new Vector2(105f, -190f));
+
+        var root = identityControlsRoot;
+        if (root == null)
+        {
+            var rootObject = new GameObject("CompanyIdentityControls");
+            rootObject.transform.SetParent(newGamePanel.transform, false);
+            var rootRect = rootObject.AddComponent<RectTransform>();
+            rootRect.anchorMin = new Vector2(0.5f, 0.5f);
+            rootRect.anchorMax = new Vector2(0.5f, 0.5f);
+            rootRect.pivot = new Vector2(0.5f, 0.5f);
+            rootRect.sizeDelta = new Vector2(420f, 190f);
+            rootRect.anchoredPosition = new Vector2(0f, -85f);
+            root = rootObject.transform;
+        }
+
+        CreateLabel(root, "FONT", new Vector2(-185f, 70f));
+        var fontStartX = -120f;
+        for (var i = 0; i < CompanyIdentityCatalog.FontOptions.Length; i++)
+        {
+            var option = CompanyIdentityCatalog.FontOptions[i];
+            var button = CreateChoiceButton(root, "Font_" + option.Key, option.Label, new Vector2(fontStartX + i * 82f, 70f), new Vector2(76f, 30f));
+            button.onClick.AddListener(() =>
+            {
+                selectedFontKey = option.Key;
+                RefreshIdentityControls();
+            });
+            fontButtons.Add(button);
+        }
+
+        CreateLabel(root, "COLOR", new Vector2(-185f, 20f));
+        var colorStartX = -120f;
+        for (var i = 0; i < CompanyIdentityCatalog.ColorOptions.Length; i++)
+        {
+            var color = CompanyIdentityCatalog.ColorOptions[i];
+            var button = CreateColorButton(root, "Color_" + i, color, new Vector2(colorStartX + i * 44f, 20f));
+            button.onClick.AddListener(() =>
+            {
+                selectedCompanyColor = color;
+                RefreshIdentityControls();
+            });
+            colorButtons.Add(button);
+        }
+
+        CreateLabel(root, "ICON", new Vector2(-185f, -40f));
+        var iconStartX = -120f;
+        for (var i = 0; i < CompanyIdentityCatalog.IconOptions.Length; i++)
+        {
+            var option = CompanyIdentityCatalog.IconOptions[i];
+            var button = CreateIconButton(root, "Icon_" + option.Key, option.Label, option.Key, new Vector2(iconStartX + i * 120f, -42f));
+            button.onClick.AddListener(() =>
+            {
+                selectedIconKey = option.Key;
+                RefreshIdentityControls();
+            });
+            iconButtons.Add(button);
+        }
+    }
+
+    private void RefreshIdentityControls()
+    {
+        if (companyPreviewText != null)
+        {
+            companyPreviewText.text = companyNameInput != null && !string.IsNullOrWhiteSpace(companyNameInput.text)
+                ? companyNameInput.text
+                : "Model Foundry";
+            CompanyIdentityCatalog.ApplyToCompanyText(companyPreviewText, selectedFontKey, selectedCompanyColor);
+        }
+
+        for (var i = 0; i < fontButtons.Count; i++)
+        {
+            var selected = CompanyIdentityCatalog.FontOptions[i].Key == selectedFontKey;
+            SetButtonVisual(fontButtons[i], selected ? selectedCompanyColor : GameDesignConstants.SurfaceLight, selected ? Color.white : GameDesignConstants.TextPrimary);
+        }
+
+        for (var i = 0; i < colorButtons.Count; i++)
+        {
+            var selected = CompanyIdentityCatalog.ColorToHex(CompanyIdentityCatalog.ColorOptions[i]) == CompanyIdentityCatalog.ColorToHex(selectedCompanyColor);
+            var label = colorButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null)
+            {
+                label.text = selected ? "✓" : "";
+            }
+        }
+
+        for (var i = 0; i < iconButtons.Count; i++)
+        {
+            var selected = CompanyIdentityCatalog.IconOptions[i].Key == selectedIconKey;
+            SetButtonVisual(iconButtons[i], selected ? selectedCompanyColor : GameDesignConstants.SurfaceLight, selected ? Color.white : GameDesignConstants.TextPrimary);
+        }
+    }
+
+    private void MovePanelButton(Button button, Vector2 position)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        var rect = button.GetComponent<RectTransform>();
+        if (rect != null)
+        {
+            rect.anchoredPosition = position;
+        }
+    }
+
+    private void CreateLabel(Transform parent, string text, Vector2 position)
+    {
+        var labelObject = new GameObject(text + "Label");
+        labelObject.transform.SetParent(parent, false);
+        var rect = labelObject.AddComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(70f, 24f);
+        rect.anchoredPosition = position;
+        var label = labelObject.AddComponent<TextMeshProUGUI>();
+        label.text = text;
+        label.fontSize = 11f;
+        label.fontStyle = FontStyles.Bold;
+        label.alignment = TextAlignmentOptions.Left;
+        label.color = GameDesignConstants.TextSecondary;
+    }
+
+    private Button CreateChoiceButton(Transform parent, string name, string label, Vector2 position, Vector2 size)
+    {
+        var buttonObject = new GameObject(name);
+        buttonObject.transform.SetParent(parent, false);
+        var rect = buttonObject.AddComponent<RectTransform>();
+        rect.sizeDelta = size;
+        rect.anchoredPosition = position;
+        var image = buttonObject.AddComponent<Image>();
+        image.color = GameDesignConstants.SurfaceLight;
+        var button = buttonObject.AddComponent<Button>();
+
+        var labelObject = new GameObject("Label");
+        labelObject.transform.SetParent(buttonObject.transform, false);
+        var labelRect = labelObject.AddComponent<RectTransform>();
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = Vector2.zero;
+        labelRect.offsetMax = Vector2.zero;
+        var text = labelObject.AddComponent<TextMeshProUGUI>();
+        text.text = label;
+        text.fontSize = 10f;
+        text.fontStyle = FontStyles.Bold;
+        text.alignment = TextAlignmentOptions.Center;
+        text.color = GameDesignConstants.TextPrimary;
+        return button;
+    }
+
+    private Button CreateColorButton(Transform parent, string name, Color color, Vector2 position)
+    {
+        var button = CreateChoiceButton(parent, name, "", position, new Vector2(32f, 32f));
+        var image = button.GetComponent<Image>();
+        if (image != null)
+        {
+            image.color = color;
+        }
+        return button;
+    }
+
+    private Button CreateIconButton(Transform parent, string name, string label, string iconKey, Vector2 position)
+    {
+        var button = CreateChoiceButton(parent, name, label, position, new Vector2(110f, 42f));
+        var iconSprite = CompanyIdentityCatalog.LoadCompanyIcon(iconKey);
+        if (iconSprite == null)
+        {
+            return button;
+        }
+
+        var iconObject = new GameObject("Icon");
+        iconObject.transform.SetParent(button.transform, false);
+        var iconRect = iconObject.AddComponent<RectTransform>();
+        iconRect.anchorMin = new Vector2(0f, 0.5f);
+        iconRect.anchorMax = new Vector2(0f, 0.5f);
+        iconRect.pivot = new Vector2(0f, 0.5f);
+        iconRect.sizeDelta = new Vector2(28f, 28f);
+        iconRect.anchoredPosition = new Vector2(6f, 0f);
+        var image = iconObject.AddComponent<Image>();
+        image.sprite = iconSprite;
+        image.preserveAspect = true;
+        return button;
+    }
+
+    private void SetButtonVisual(Button button, Color background, Color foreground)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        var image = button.GetComponent<Image>();
+        if (image != null)
+        {
+            image.color = background;
+        }
+
+        var label = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (label != null)
+        {
+            label.color = foreground;
+        }
     }
 }

@@ -8,25 +8,25 @@ using UnityEngine;
 public static class GameDesignConstants
 {
     // ── Brand ────────────────────────────────────────────────────────
-    public static readonly Color BrandPrimary   = Hex("#8B5CF6"); // vibrant electric violet
-    public static readonly Color BrandSecondary = Hex("#06B6D4"); // neon cyan
+    public static readonly Color BrandPrimary   = Hex("#0D9488"); // teal
+    public static readonly Color BrandSecondary = Hex("#0EA5E9"); // cyan
     public static readonly Color BrandAccent    = Hex("#F59E0B"); // warm golden amber
-    public static readonly Color BrandGlow      = Hex("#C084FC"); // soft violet glow
+    public static readonly Color BrandGlow      = Hex("#93C5FD"); // soft blue glow
 
     // ── Surfaces ─────────────────────────────────────────────────────
-    public static readonly Color SurfaceDarkest = Hex("#05050A"); // deepest bg (space slate)
-    public static readonly Color SurfaceDark    = Hex("#090D1A"); // main bg (sleek navy slate)
-    public static readonly Color SurfaceMid     = Hex("#111827"); // panels (zinc dark)
-    public static readonly Color SurfaceLight   = Hex("#1E293B"); // elevated cards
-    public static readonly Color SurfaceCard    = new Color(0.06f, 0.08f, 0.15f, 0.96f);
-    public static readonly Color SurfaceGlass   = new Color(0.06f, 0.08f, 0.15f, 0.78f);
-    public static readonly Color SurfaceOverlay = new Color(0.02f, 0.03f, 0.06f, 0.72f);
+    public static readonly Color SurfaceDarkest = Hex("#EAE7E2"); // light beige background
+    public static readonly Color SurfaceDark    = Hex("#1C2333"); // top bar (slate dark)
+    public static readonly Color SurfaceMid     = Hex("#FFFFFF"); // panels (white)
+    public static readonly Color SurfaceLight   = Hex("#F3F4F6"); // elevated cards (light grey)
+    public static readonly Color SurfaceCard    = new Color(1f, 1f, 1f, 0.96f);
+    public static readonly Color SurfaceGlass   = new Color(1f, 1f, 1f, 0.78f);
+    public static readonly Color SurfaceOverlay = new Color(0.09f, 0.13f, 0.22f, 0.6f);
 
     // ── Text ─────────────────────────────────────────────────────────
-    public static readonly Color TextPrimary    = Hex("#F8FAFC"); // crisp slate-50 white
-    public static readonly Color TextSecondary  = Hex("#94A3B8"); // silver-gray slate-400
-    public static readonly Color TextMuted      = Hex("#64748B"); // muted slate-500
-    public static readonly Color TextOnAccent   = Hex("#090D1A"); // dark text on light accents
+    public static readonly Color TextPrimary    = Hex("#1C2333"); // slate dark text
+    public static readonly Color TextSecondary  = Hex("#4B5563"); // slate gray text
+    public static readonly Color TextMuted      = Hex("#9CA3AF"); // light gray text
+    public static readonly Color TextOnAccent   = Hex("#1C2333"); // dark text on light accents
 
     // ── Status ───────────────────────────────────────────────────────
     public static readonly Color StatusSuccess  = Hex("#10B981"); // vibrant emerald green
@@ -36,38 +36,38 @@ public static class GameDesignConstants
     public static readonly Color StatusCritical = Hex("#F43F5E"); // rose red
 
     // ── Department identity ──────────────────────────────────────────
-    public static readonly Color DeptEngineering = Hex("#0984E3");
-    public static readonly Color DeptResearch    = Hex("#6C5CE7");
-    public static readonly Color DeptData        = Hex("#FDCB6E");
-    public static readonly Color DeptSafety      = Hex("#D63031");
-    public static readonly Color DeptSales       = Hex("#00B894");
-    public static readonly Color DeptInfra       = Hex("#636E72");
-    public static readonly Color DeptPR          = Hex("#E17055");
-    public static readonly Color DeptBoard       = Hex("#2D3436");
+    public static readonly Color DeptEngineering = Hex("#0EA5E9");
+    public static readonly Color DeptResearch    = Hex("#8B5CF6");
+    public static readonly Color DeptData        = Hex("#F59E0B");
+    public static readonly Color DeptSafety      = Hex("#EF4444");
+    public static readonly Color DeptSales       = Hex("#10B981");
+    public static readonly Color DeptInfra       = Hex("#6B7280");
+    public static readonly Color DeptPR          = Hex("#F97316");
+    public static readonly Color DeptBoard       = Hex("#1C2333");
 
     // ── Resource bar colors ──────────────────────────────────────────
-    public static readonly Color ResourceCash       = Hex("#00B894");
-    public static readonly Color ResourceReputation = Hex("#A29BFE");
-    public static readonly Color ResourceQuality    = Hex("#74B9FF");
-    public static readonly Color ResourceTeam       = Hex("#FDCB6E");
-    public static readonly Color ResourceBarBg      = new Color(0.1f, 0.1f, 0.15f, 0.7f);
+    public static readonly Color ResourceCash       = Hex("#10B981");
+    public static readonly Color ResourceReputation = Hex("#F59E0B");
+    public static readonly Color ResourceQuality    = Hex("#0D9488");
+    public static readonly Color ResourceTeam       = Hex("#3B82F6");
+    public static readonly Color ResourceBarBg      = Hex("#E5E7EB");
 
     // ── Employee status ──────────────────────────────────────────────
-    public static readonly Color EmployeeIdle        = Hex("#636E72");
-    public static readonly Color EmployeeWalking     = Hex("#74B9FF");
-    public static readonly Color EmployeeWorking     = Hex("#00B894");
-    public static readonly Color EmployeeCelebrating = Hex("#FDCB6E");
-    public static readonly Color EmployeePanicking   = Hex("#E17055");
+    public static readonly Color EmployeeIdle        = Hex("#6B7280");
+    public static readonly Color EmployeeWalking     = Hex("#3B82F6");
+    public static readonly Color EmployeeWorking     = Hex("#10B981");
+    public static readonly Color EmployeeCelebrating = Hex("#F59E0B");
+    public static readonly Color EmployeePanicking   = Hex("#EF4444");
 
     // ── Button variants ──────────────────────────────────────────────
-    public static readonly Color ButtonPrimary       = Hex("#8B5CF6"); // Electric violet
-    public static readonly Color ButtonPrimaryHover   = Hex("#A78BFA"); // Light violet on hover
-    public static readonly Color ButtonPrimaryPress   = Hex("#7C3AED"); // Deep violet on press
-    public static readonly Color ButtonSecondary      = new Color(1f, 1f, 1f, 0.06f); // Glass border/surface
-    public static readonly Color ButtonSecondaryHover = new Color(1f, 1f, 1f, 0.12f);
-    public static readonly Color ButtonDanger         = Hex("#EF4444"); // Electric red
-    public static readonly Color ButtonDangerHover    = Hex("#F87171"); // Lighter red
-    public static readonly Color ButtonDisabled       = new Color(0.15f, 0.17f, 0.25f, 0.4f);
+    public static readonly Color ButtonPrimary       = Hex("#0D9488"); // Teal
+    public static readonly Color ButtonPrimaryHover   = Hex("#14B8A6"); // Light teal
+    public static readonly Color ButtonPrimaryPress   = Hex("#0F766E"); // Dark teal
+    public static readonly Color ButtonSecondary      = new Color(1f, 1f, 1f, 0.8f); // White with alpha
+    public static readonly Color ButtonSecondaryHover = new Color(0.9f, 0.95f, 0.95f, 1f);
+    public static readonly Color ButtonDanger         = Hex("#EF4444");
+    public static readonly Color ButtonDangerHover    = Hex("#F87171");
+    public static readonly Color ButtonDisabled       = Hex("#E5E7EB");
 
     // ── Animation timing (seconds) ──────────────────────────────────
     public const float AnimFast     = 0.12f;

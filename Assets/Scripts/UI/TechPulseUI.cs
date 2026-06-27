@@ -164,8 +164,9 @@ public sealed class TechPulseUI : MonoBehaviour
         string handle = "@" + compName.Replace(" ", "").ToLower();
         
         if (profileCompanyNameText != null) profileCompanyNameText.text = compName;
+        CompanyIdentityCatalog.ApplyToCompanyText(profileCompanyNameText, GameManager.Instance.CompanyFontKey, GameManager.Instance.CompanyColor);
         if (profileCompanyHandleText != null) profileCompanyHandleText.text = handle;
-        if (profileCompanyBioText != null) profileCompanyBioText.text = "Pioneering the frontiers of deep learning & artificial intelligence models. Running on Model Foundry OS. ▲";
+        if (profileCompanyBioText != null) profileCompanyBioText.text = LocalizationManager.T("techpulse.bio");
         
         // Use the actual Followers and Following fields from GameManager
         int followersVal = GameManager.Instance.Followers;
@@ -232,7 +233,19 @@ public sealed class TechPulseUI : MonoBehaviour
             var avatarImage = postAvatarObj.GetComponent<Image>();
             
             // Check if this post is from a rival with a custom logo
-            if (rivalLogos.TryGetValue(post.AuthorName, out Sprite logoSprite) && logoSprite != null)
+            var gm = GameManager.Instance;
+            string playerCompName = gm != null ? gm.CompanyName : "Model Foundry";
+            var playerSprite = post.AuthorName == playerCompName && gm != null
+                ? CompanyIdentityCatalog.LoadCompanyIcon(gm.CompanyIconKey)
+                : null;
+
+            if (playerSprite != null)
+            {
+                avatarImage.sprite = playerSprite;
+                avatarImage.color = Color.white;
+                if (avatarSymbolObj != null) avatarSymbolObj.gameObject.SetActive(false);
+            }
+            else if (rivalLogos.TryGetValue(post.AuthorName, out Sprite logoSprite) && logoSprite != null)
             {
                 avatarImage.sprite = logoSprite;
                 avatarImage.color = Color.white; // Ensure it shows in full color
@@ -249,13 +262,10 @@ public sealed class TechPulseUI : MonoBehaviour
                     var symbolText = avatarSymbolObj.GetComponent<TextMeshProUGUI>();
                     if (symbolText != null)
                     {
-                        var gm = GameManager.Instance;
-                        string playerCompName = gm != null ? gm.CompanyName : "Model Foundry";
-
                         if (post.AuthorName == playerCompName)
                         {
-                            symbolText.text = "▲";
-                            symbolText.color = GameDesignConstants.BrandPrimary;
+                            symbolText.text = !string.IsNullOrEmpty(playerCompName) ? playerCompName.Substring(0, 1).ToUpper() : "▲";
+                            symbolText.color = gm != null ? gm.CompanyColor : GameDesignConstants.BrandPrimary;
                         }
                         else
                         {

@@ -44,6 +44,9 @@ public sealed class SaveLoadManager : MonoBehaviour
         var data = new SaveData
         {
             companyName = gm.CompanyName,
+            companyFontKey = gm.CompanyFontKey,
+            companyColorHex = CompanyIdentityCatalog.ColorToHex(gm.CompanyColor),
+            companyIconKey = gm.CompanyIconKey,
             cash = gm.Cash,
             reputation = gm.Reputation,
             modelQuality = gm.ModelQuality,
@@ -198,7 +201,10 @@ public sealed class SaveLoadManager : MonoBehaviour
                 string.IsNullOrEmpty(data.activeBoardGoalType) ? "None" : data.activeBoardGoalType,
                 data.boardGoalTarget,
                 data.boardGoalRemainingMonths,
-                data.isGameOver
+                data.isGameOver,
+                string.IsNullOrEmpty(data.companyFontKey) ? CompanyIdentityCatalog.DefaultFontKey : data.companyFontKey,
+                string.IsNullOrEmpty(data.companyColorHex) ? CompanyIdentityCatalog.ColorToHex(CompanyIdentityCatalog.DefaultColor) : data.companyColorHex,
+                string.IsNullOrEmpty(data.companyIconKey) ? CompanyIdentityCatalog.DefaultIconKey : data.companyIconKey
             );
 
             // Restore Analytics history
@@ -266,6 +272,9 @@ public sealed class SaveLoadManager : MonoBehaviour
     private class SaveData
     {
         public string companyName;
+        public string companyFontKey;
+        public string companyColorHex;
+        public string companyIconKey;
         public float cash;
         public float reputation;
         public float modelQuality;

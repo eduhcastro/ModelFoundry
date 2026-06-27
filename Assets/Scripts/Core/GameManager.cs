@@ -11,6 +11,9 @@ public sealed class GameManager : MonoBehaviour
 
     [Header("Company")]
     [SerializeField] private string companyName = "Model Foundry";
+    [SerializeField] private string companyFontKey = "default";
+    [SerializeField] private Color companyColor = default;
+    [SerializeField] private string companyIconKey = "pixflow";
 
     [Header("Starting Values")]
     [SerializeField] private float startingCash       = 25000f;
@@ -19,6 +22,9 @@ public sealed class GameManager : MonoBehaviour
 
     // ── Public state ─────────────────────────────────────────────────
     public string CompanyName    => companyName;
+    public string CompanyFontKey => string.IsNullOrEmpty(companyFontKey) ? CompanyIdentityCatalog.DefaultFontKey : companyFontKey;
+    public Color  CompanyColor   => companyColor == default ? CompanyIdentityCatalog.DefaultColor : companyColor;
+    public string CompanyIconKey => string.IsNullOrEmpty(companyIconKey) ? CompanyIdentityCatalog.DefaultIconKey : companyIconKey;
     public float  Cash           { get; private set; }
     public float  Reputation     { get; private set; }
     public float  ModelQuality   { get; private set; }
@@ -136,6 +142,9 @@ public sealed class GameManager : MonoBehaviour
 
     private void Start()
     {
+        StartupSimulationManager.EnsureExists();
+        TeamSimulationManager.EnsureExists();
+
         if (!IsGameRunning)
         {
             StartNewGame("Model Foundry (Editor)");
@@ -147,7 +156,15 @@ public sealed class GameManager : MonoBehaviour
     /// </summary>
     public void StartNewGame(string playerCompanyName)
     {
+        StartNewGame(playerCompanyName, CompanyIdentityCatalog.DefaultFontKey, CompanyIdentityCatalog.DefaultColor, CompanyIdentityCatalog.DefaultIconKey);
+    }
+
+    public void StartNewGame(string playerCompanyName, string playerCompanyFontKey, Color playerCompanyColor, string playerCompanyIconKey)
+    {
         companyName    = string.IsNullOrWhiteSpace(playerCompanyName) ? "Model Foundry" : playerCompanyName;
+        companyFontKey = string.IsNullOrEmpty(playerCompanyFontKey) ? CompanyIdentityCatalog.DefaultFontKey : playerCompanyFontKey;
+        companyColor   = playerCompanyColor == default ? CompanyIdentityCatalog.DefaultColor : playerCompanyColor;
+        companyIconKey = string.IsNullOrEmpty(playerCompanyIconKey) ? CompanyIdentityCatalog.DefaultIconKey : playerCompanyIconKey;
         Cash           = startingCash;
         Reputation     = startingReputation;
         ModelQuality   = 0f;
@@ -205,7 +222,15 @@ public sealed class GameManager : MonoBehaviour
         IsGameOver = false;
 
         BroadcastAll();
-        OnNotification?.Invoke($"Welcome to {companyName}! Your AI journey begins.");
+        OnNotification?.Invoke($"Welcome to {companyName}. Build carefully: research, product, infrastructure and trust all matter.");
+    }
+
+    public void SetCompanyIdentity(string fontKey, Color color, string iconKey)
+    {
+        companyFontKey = string.IsNullOrEmpty(fontKey) ? CompanyIdentityCatalog.DefaultFontKey : fontKey;
+        companyColor = color == default ? CompanyIdentityCatalog.DefaultColor : color;
+        companyIconKey = string.IsNullOrEmpty(iconKey) ? CompanyIdentityCatalog.DefaultIconKey : iconKey;
+        OnGameStateChanged?.Invoke();
     }
 
     /// <summary>
@@ -230,7 +255,7 @@ public sealed class GameManager : MonoBehaviour
     {
         if (Cash < amount)
         {
-            OnNotification?.Invoke("Not enough cash!");
+            OnNotification?.Invoke("Not enough cash.");
             return false;
         }
 
@@ -250,14 +275,14 @@ public sealed class GameManager : MonoBehaviour
 
         var net = MonthlyRevenue - MonthlyBurn;
         var sign = net >= 0 ? "+" : "";
-        OnNotification?.Invoke($"Monthly: {sign}${net:N0} (Revenue ${MonthlyRevenue:N0} − Burn ${MonthlyBurn:N0})");
+        OnNotification?.Invoke($"Monthly: {sign}${net:N0} (Revenue ${MonthlyRevenue:N0} - Burn ${MonthlyBurn:N0})");
 
         OnCashChanged?.Invoke(Cash);
         OnGameStateChanged?.Invoke();
 
         if (Cash <= 0f)
         {
-            OnNotification?.Invoke("WARNING: You are out of cash! Find revenue fast.");
+            OnNotification?.Invoke("Warning: cash is depleted. Cut burn or find revenue.");
         }
 
         // Phase 8 Board Goals evaluation
@@ -444,9 +469,15 @@ public sealed class GameManager : MonoBehaviour
         string activeBoardGoalType = "None",
         float boardGoalTarget = 0f,
         int boardGoalRemainingMonths = 0,
-        bool isGameOver = false)
+        bool isGameOver = false,
+        string companyFontKey = "default",
+        string companyColorHex = "#0EA5E9",
+        string companyIconKey = "pixflow")
     {
         this.companyName = companyName;
+        this.companyFontKey = string.IsNullOrEmpty(companyFontKey) ? CompanyIdentityCatalog.DefaultFontKey : companyFontKey;
+        this.companyColor = CompanyIdentityCatalog.ParseColor(companyColorHex, CompanyIdentityCatalog.DefaultColor);
+        this.companyIconKey = string.IsNullOrEmpty(companyIconKey) ? CompanyIdentityCatalog.DefaultIconKey : companyIconKey;
         Cash = cash;
         Reputation = reputation;
         ModelQuality = modelQuality;
